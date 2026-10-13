@@ -6,8 +6,8 @@ One JSON file per field. `kit/build.mjs` checks it and lists every error before 
 
 | Field | Required | Meaning |
 |---|---|---|
-| `title` | yes | Field name, e.g. "Beer" |
-| `prompt` | yes | What the reader asked, e.g. "I want to brew beer" |
+| `title` | yes | Field name, e.g. "Bread" |
+| `prompt` | yes | What the reader asked, e.g. "I want to bake bread" |
 | `summary` | yes | The professional's mental model in 3–5 plain sentences |
 | `root` | yes | `id` of the product node |
 | `nodes` | yes | Array of nodes |
@@ -28,7 +28,7 @@ One JSON file per field. `kit/build.mjs` checks it and lists every error before 
 | `trouble` | no | How you notice it has gone wrong |
 | `children` | no | `id`s of the parts it splits into. A node has at most one parent |
 | `at` | no | `[x, y, z]` in the parent's `look` coordinates: where this part sits when assembled. The explode starts there |
-| `links` | no | `[{ "to": id, "rel": "..." }]` cross-links outside the tree. `rel`: `raises`, `lowers`, `made from`, `made by`, `measured by`, `controls`, `see also`. Read each link as a sentence, this node first: on Bitterness, `{ "to": "ibu", "rel": "measured by" }` reads "Bitterness is measured by IBU". The viewer shows the reverse on the target ("Measures: Bitterness") |
+| `links` | no | `[{ "to": id, "rel": "..." }]` cross-links outside the tree. `rel`: `raises`, `lowers`, `made from`, `made by`, `measured by`, `controls`, `see also`. Read each link as a sentence, this node first: on Dough temperature, `{ "to": "probe-thermometer", "rel": "measured by" }` reads "Dough temperature is measured by a probe thermometer". The viewer shows the reverse on the target ("Measures: Dough temperature") |
 | `pattern` | no | `id` of a pattern node this is an instance of |
 | `look` / `feel` / `loop` / `plot` | at least one | The visual (below) |
 | `variants` | no | Catalogues (below) |
@@ -42,7 +42,7 @@ Kinds:
 - **part**: a component of the thing, physical or functional.
 - **process**: a step that makes or changes parts.
 - **knob**: a setting the maker chooses: a temperature, a time, a cost.
-- **measure**: how practitioners check something: a gravity reading, time-to-kill.
+- **measure**: how practitioners check something: a dough temperature reading, time-to-kill.
 - **loop**: a feedback loop. Needs `loop`.
 - **pattern**: a structure that repeats across fields, e.g. a boosting engine. Patterns sit outside the tree; other nodes point to them with `pattern`.
 - **concept**: an idea you think with, but do not set or measure.
@@ -74,18 +74,18 @@ Every node except a pattern must be reachable from `root` through `children`.
 | `slot` | A name, so a catalogue item can replace, recolour or repaint this part |
 | `motion` | Non-particle parts: `spin` or `bob` |
 
-Example, a nonic pint of pale ale:
+Example, a sourdough starter in a jar, risen past the band that marked its level at feeding:
 
 ```json
 "look": { "parts": [
-  { "slot": "vessel", "shape": "lathe", "material": "glass", "color": "#ffffff", "opacity": 0.22,
-    "profile": [[0, 0], [0.30, 0], [0.36, 0.80], [0.41, 0.88], [0.38, 1.0]] },
-  { "slot": "beer", "shape": "lathe", "material": "liquid", "color": "#d9932b",
-    "profile": [[0, 0.03], [0.28, 0.03], [0.345, 0.80], [0, 0.80]] },
-  { "slot": "head", "shape": "lathe", "material": "foam", "color": "#f4ead2",
-    "profile": [[0, 0.80], [0.345, 0.80], [0.385, 0.87], [0.37, 0.93], [0, 0.95]] },
-  { "slot": "bubbles", "shape": "particles", "count": 120, "box": [0.45, 0.72, 0.45],
-    "pos": [0, 0.42, 0], "size": 0.012, "color": "#fff4d0", "motion": "rise" }
+  { "slot": "jar", "shape": "lathe", "material": "glass", "color": "#ffffff", "opacity": 0.22,
+    "profile": [[0, 0], [0.30, 0], [0.32, 0.03], [0.32, 0.84], [0.29, 0.90], [0.29, 1.0]] },
+  { "slot": "starter", "shape": "lathe", "material": "foam", "color": "#d9c393",
+    "profile": [[0, 0.02], [0.305, 0.02], [0.305, 0.60], [0.29, 0.645], [0.24, 0.68], [0.14, 0.70], [0, 0.705]] },
+  { "slot": "band", "shape": "torus", "radius": 0.335, "tube": 0.012, "color": "#c8432f",
+    "pos": [0, 0.36, 0], "rot": [90, 0, 0] },
+  { "slot": "bubbles", "shape": "particles", "count": 60, "box": [0.44, 0.14, 0.44],
+    "pos": [0, 0.76, 0], "size": 0.016, "color": "#f4e7c8", "motion": "rise" }
 ] }
 ```
 
@@ -94,13 +94,13 @@ Example, a nonic pint of pale ale:
 Cover the label: the reader should still name the part. Check this in the `check.mjs` screenshots.
 
 - A plain sphere fits only round things: a yeast cell, a bubble, a planet.
-- A substance (water, sugar, alcohol, a dye) is a sample of it: a droplet, a small glass, a test tube, a sack of grain.
+- A substance (water, sugar, salt, a dye) is a sample of it: a droplet, a small glass, a test tube, a bag of flour.
 - A property is two or three samples that differ: colour is a row of swatches from pale to dark; clarity is a clear glass beside a hazy one.
-- A process is its equipment, with particles for what happens inside: a kettle with rising steam, a fermenter with drifting yeast.
-- A knob is the tool you set it with, showing a typical setting: a thermometer filled to mash temperature, a timer at 60 minutes, a gas regulator dial.
-- A measure is the instrument or scale you read it on: a hydrometer floating in a test jar, a pH meter showing 5.4, a colour scale with a marker.
+- A process is its equipment, with particles for what happens inside: an oven with rising steam, a dough tub with rising bubbles.
+- A knob is the tool you set it with, showing a typical setting: a thermometer at dough temperature, a timer at 45 minutes, an oven dial.
+- A measure is the instrument or scale you read it on: a probe thermometer in a loaf, a pH meter showing 4.0, a colour scale with a marker.
 - A flat artefact (a stat card, a table, a HUD, a chart, a label) is a `plane` with an `svg`. Set `font-family` on SVG text; the default is a serif. Keep text inside the `viewBox`. Leave the plane facing the front (+z): the idle camera sways only about 17° each side, so a card turned sideways reads edge-on.
-- A parent is the sum of its children. Each child's `at` is the spot in the parent's look where that child lives (the screen, the controls, the head of foam), so the explode reads as parts leaving the whole. Never add parts only to mark an `at`.
+- A parent is the sum of its children. Each child's `at` is the spot in the parent's look where that child lives (the screen, the controls, the crust), so the explode reads as parts leaving the whole. Never add parts only to mark an `at`.
 - Use 2–8 parts and the thing's real colours.
 
 Lathe profiles to start from (scale, move and recolour them):
@@ -130,7 +130,7 @@ Give the idea a body whose character matches it. All numbers are 0–1 unless st
 
 ### `loop`: feedback loops and cycles
 
-`{ "type": "reinforcing" | "balancing" | "s-curve" | "cycle", "through": [id, ...] }`. `through` lists the chain of nodes the loop passes through, in order. Reinforcing renders as a widening spiral, balancing as a ring that settles, s-curve (a reinforcing loop meeting a brake) as growth that levels off. Cycle renders as a ring with one stop per step, clockwise from the top, and a bead that goes round at a steady pace. Use cycle for a sequence that repeats without growing or settling by itself: a play loop, a turn, a brew day, a design iteration. If the steps are also the loop's `children`, their leader lines start at their stops.
+`{ "type": "reinforcing" | "balancing" | "s-curve" | "cycle", "through": [id, ...] }`. `through` lists the chain of nodes the loop passes through, in order. Reinforcing renders as a widening spiral, balancing as a ring that settles, s-curve (a reinforcing loop meeting a brake) as growth that levels off. Cycle renders as a ring with one stop per step, clockwise from the top, and a bead that goes round at a steady pace. Use cycle for a sequence that repeats without growing or settling by itself: a play loop, a turn, a bake day, a design iteration. If the steps are also the loop's `children`, their leader lines start at their stops.
 
 ### `plot`: catalogues of numbers
 
@@ -148,7 +148,7 @@ Put surface features here: vessel, device, style, genre. Swapping one shows what
 
 ## Assembly (flatpack)
 
-`[{ "title": "Mash", "text": "...", "adds": [id, ...], "makes": id }]`. `adds` are the parts that come together in this step; `makes` is the node they form (default: `root`). The last step makes the root.
+`[{ "title": "Mix", "text": "...", "adds": [id, ...], "makes": id }]`. `adds` are the parts that come together in this step; `makes` is the node they form (default: `root`). The last step makes the root.
 
 ## Source
 
