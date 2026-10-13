@@ -1,6 +1,6 @@
 ---
 name: exploded-view
-description: Builds a professional's mental model of a whole field as an interactive 3D exploded view. It starts from the finished product as people meet it, splits it into named parts, knobs, loops and catalogues, and lets the reader open any part to the next level down. Use when someone starts something new ("I want to make a game", "I want to brew beer"), asks how a kind of thing works or is made, or wants a field's vocabulary and building blocks. For a scoped problem with existing context, use prior-art.
+description: Builds a professional's mental model of a whole field as an interactive 3D exploded view. It starts from the finished product as people meet it, splits it into named parts, knobs, loops and catalogues, and lets the reader open any part to the next level down. Use when someone starts something new ("I want to make a game", "I want to write a novel"), asks how a kind of thing works or is made, or wants a field's vocabulary and building blocks. For a scoped problem with existing context, use prior-art.
 ---
 
 # Exploded view
