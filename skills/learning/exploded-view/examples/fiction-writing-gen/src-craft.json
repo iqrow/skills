@@ -1,0 +1,1075 @@
+{
+  "nodes": [
+    {
+      "id": "characters",
+      "facts": [
+        "Sanderson describes characters as “the people who do the stuff in the stories”; their actions make setting, magic, and action matter emotionally to readers [Brandon Sanderson, Lecture #9: Characters]."
+      ],
+      "sources": [
+        {
+          "label": "Brandon Sanderson, Lecture #9: Characters",
+          "url": "https://www.youtube.com/watch?v=1NCiuI6F5O0",
+          "kind": "practitioner",
+          "page": "lecture transcript",
+          "flag": "manual subtitles"
+        }
+      ]
+    },
+    {
+      "id": "protagonist",
+      "facts": [
+        "Truby’s hero has a basic action: the many things the hero does can be reduced to one primary action that determines the story’s middle and acts as its spine [John Truby, Blockbuster User’s Manual].",
+        "Truby’s character worksheet asks for a single, specific desire line extending through the story and a clear test of whether the goal is achieved [John Truby, Blockbuster User’s Manual]."
+      ],
+      "sources": [
+        {
+          "label": "John Truby, Blockbuster User’s Manual",
+          "url": "https://truby.com/software/bb6_manual.pdf",
+          "kind": "practitioner",
+          "page": "pp. 16, 22",
+          "flag": "official software manual"
+        }
+      ]
+    },
+    {
+      "id": "want-need",
+      "facts": [
+        "Weiland’s model makes the Lie a damaging misconception, the Want its external/perceived cure, the Need the Truth or personalized antidote, and the Ghost the past event or wound that causes belief in the Lie [K.M. Weiland, Creating Stunning Character Arcs, Pt. 3; Pt. 4].",
+        "The Want usually supplies the surface plot goal, while the Need is usually an inner realization that changes the character’s perspective; Want and Need may conflict [K.M. Weiland, Creating Stunning Character Arcs, Pt. 3]."
+      ],
+      "sources": [
+        {
+          "label": "K.M. Weiland, Creating Stunning Character Arcs, Pt. 3: Want vs. Need",
+          "url": "https://www.helpingwritersbecomeauthors.com/character-arcs-3/",
+          "kind": "practitioner",
+          "page": "sections “What Your Character Wants” and “What Your Character Needs”"
+        },
+        {
+          "label": "K.M. Weiland, Creating Stunning Character Arcs, Pt. 4: Your Character’s Ghost",
+          "url": "https://www.helpingwritersbecomeauthors.com/character-arcs-4/",
+          "kind": "practitioner",
+          "page": "section “Your Character’s Ghost”"
+        }
+      ]
+    },
+    {
+      "id": "character-sliders",
+      "facts": [
+        "Sanderson’s three character sliders are likability, proactivity, and competence: likability establishes empathy, proactivity concerns motivation and action toward it, and competence concerns how skilled or capable the character is [Brandon Sanderson, Lecture #9: Characters].",
+        "A character can move on any slider; progress may be upward or downward, and an iconic hero changes little on the sliders [Brandon Sanderson, Lecture #9: Characters]."
+      ],
+      "sources": [
+        {
+          "label": "Brandon Sanderson, Lecture #9: Characters",
+          "url": "https://www.youtube.com/watch?v=1NCiuI6F5O0",
+          "kind": "practitioner",
+          "page": "lecture transcript",
+          "flag": "manual subtitles"
+        }
+      ]
+    },
+    {
+      "id": "antagonist",
+      "facts": [
+        "Truby’s online class asks the writer to describe how the main opponent attacks the hero’s great weakness [John Truby, Great Screenwriting Online Class].",
+        "Truby’s manual describes the hero and opponent’s desires as competing for the same goal; the central conflict is their punch-and-counterpunch over that goal [John Truby, Blockbuster User’s Manual]."
+      ],
+      "sources": [
+        {
+          "label": "John Truby, Great Screenwriting Online Class",
+          "url": "https://truby.com/great-screenwriting-online-class-product-page/",
+          "kind": "practitioner",
+          "page": "Lesson 2"
+        },
+        {
+          "label": "John Truby, Blockbuster User’s Manual",
+          "url": "https://truby.com/software/bb6_manual.pdf",
+          "kind": "practitioner",
+          "page": "p. 41",
+          "flag": "official software manual"
+        }
+      ]
+    },
+    {
+      "id": "character-web",
+      "facts": [
+        "Truby’s Character Web compares every character with the hero and with one another, making differences clear and detailing how each character affects the hero [John Truby, Blockbuster User’s Manual]."
+      ],
+      "sources": [
+        {
+          "label": "John Truby, Blockbuster User’s Manual",
+          "url": "https://truby.com/software/bb6_manual.pdf",
+          "kind": "practitioner",
+          "page": "p. 23",
+          "flag": "official software manual"
+        }
+      ]
+    },
+    {
+      "id": "character-arc",
+      "facts": [
+        "Weiland groups five primary arcs into two Truth-driven/heroic arcs—Positive-Change and Flat—and three Lie-driven/negative arcs—Disillusionment, Fall, and Corruption [K.M. Weiland, Learn 5 Types of Character Arc at a Glance].",
+        "All five arcs share foundational ingredients including Thematic Truth, Lie, Want, Need, Ghost, and Normal World [K.M. Weiland, Learn 5 Types of Character Arc at a Glance]."
+      ],
+      "sources": [
+        {
+          "label": "K.M. Weiland, Learn 5 Types of Character Arc at a Glance",
+          "url": "https://www.helpingwritersbecomeauthors.com/learn-5-types-of-character-arc-at-a-glance/",
+          "kind": "practitioner",
+          "page": "overview and “6 Foundational Ingredients”"
+        },
+        {
+          "label": "K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs",
+          "url": "https://www.helpingwritersbecomeauthors.com/learn-5-types-of-character-arc-at-a-glance-the-3-negative-arcs-part-2-of-2/",
+          "kind": "practitioner",
+          "page": "overview"
+        }
+      ]
+    },
+    {
+      "id": "character-arc/arc-positive",
+      "facts": [
+        "Weiland summarizes the Positive-Change Arc as: “Character Believes Lie > Overcomes Lie > New Truth Is Liberating” [K.M. Weiland, Learn 5 Types of Character Arc at a Glance].",
+        "In the Positive-Change Arc, the protagonist ultimately uses the Truth to gain the Need and ends in a Truth-empowered Normal World [K.M. Weiland, Learn 5 Types of Character Arc at a Glance]."
+      ],
+      "sources": [
+        {
+          "label": "K.M. Weiland, Learn 5 Types of Character Arc at a Glance",
+          "url": "https://www.helpingwritersbecomeauthors.com/learn-5-types-of-character-arc-at-a-glance/",
+          "kind": "practitioner",
+          "page": "“The Positive-Change Arc”"
+        }
+      ]
+    },
+    {
+      "id": "character-arc/arc-flat",
+      "facts": [
+        "Weiland summarizes the Flat Arc as: “Character Believes Truth > Maintains Truth > Uses Truth to Overcome World’s Lie” [K.M. Weiland, Learn 5 Types of Character Arc at a Glance].",
+        "The Flat protagonist starts with the Truth while the surrounding Normal World accepts a Lie; the protagonist’s actions change the world rather than requiring a fundamental inner change [K.M. Weiland, Learn 5 Types of Character Arc at a Glance]."
+      ],
+      "sources": [
+        {
+          "label": "K.M. Weiland, Learn 5 Types of Character Arc at a Glance",
+          "url": "https://www.helpingwritersbecomeauthors.com/learn-5-types-of-character-arc-at-a-glance/",
+          "kind": "practitioner",
+          "page": "“The Flat Arc”"
+        }
+      ]
+    },
+    {
+      "id": "character-arc/arc-disillusionment",
+      "facts": [
+        "Weiland summarizes the Disillusionment Arc as: “Character Believes Lie > Overcomes Lie > New Truth Is Tragic” [K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs].",
+        "The protagonist ends disillusioned with the dark Truth after accepting that the comforting Lie is false [K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs]."
+      ],
+      "sources": [
+        {
+          "label": "K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs",
+          "url": "https://www.helpingwritersbecomeauthors.com/learn-5-types-of-character-arc-at-a-glance-the-3-negative-arcs-part-2-of-2/",
+          "kind": "practitioner",
+          "page": "“The Disillusionment Arc”"
+        }
+      ]
+    },
+    {
+      "id": "character-arc/arc-fall",
+      "facts": [
+        "Weiland summarizes the Fall Arc as: “Character Believes Lie > Clings to Lie > Rejects New Truth > Believes Worse Lie” [K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs].",
+        "In the Fall Arc, the protagonist chooses a worse Lie at the midpoint, gains destructive effectiveness from it, and ends in personal destruction or its aftermath [K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs]."
+      ],
+      "sources": [
+        {
+          "label": "K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs",
+          "url": "https://www.helpingwritersbecomeauthors.com/learn-5-types-of-character-arc-at-a-glance-the-3-negative-arcs-part-2-of-2/",
+          "kind": "practitioner",
+          "page": "“The Fall Arc”"
+        }
+      ]
+    },
+    {
+      "id": "character-arc/arc-corruption",
+      "facts": [
+        "Weiland summarizes the Corruption Arc as: “Character Sees Truth > Rejects Truth > Embraces Lie” [K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs].",
+        "The Corruption protagonist begins understanding the Truth, is tempted by the Lie, and ultimately rejects the Truth and embraces the Lie for the Want [K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs]."
+      ],
+      "sources": [
+        {
+          "label": "K.M. Weiland, Learn 5 Types of Character Arc at a Glance: The 3 Negative Arcs",
+          "url": "https://www.helpingwritersbecomeauthors.com/learn-5-types-of-character-arc-at-a-glance-the-3-negative-arcs-part-2-of-2/",
+          "kind": "practitioner",
+          "page": "“The Corruption Arc”"
+        }
+      ]
+    },
+    {
+      "id": "characterization",
+      "facts": [
+        "Burroway identifies five basic methods of character presentation: indirect authorial interpretation plus four direct methods—appearance, speech, action, and thought [Janet Burroway, Writing Fiction].",
+        "Using varied methods, and allowing conflicts among them, can create a fuller, three-dimensional character [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/127",
+          "kind": "book",
+          "page": "p. 107",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "characterization/method-appearance",
+      "facts": [
+        "Appearance is one of Burroway’s direct presentation methods; clothing, objects, features, and physical style can surface inner values and social or intellectual identity [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/129",
+          "kind": "book",
+          "page": "p. 109",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "characterization/method-action",
+      "facts": [
+        "For Burroway, physical movement is not necessarily dramatic action; meaningful action involves a character pursuing a goal, making decisions, and being changed [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/157",
+          "kind": "book",
+          "page": "action chapter, p. 136",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "characterization/method-speech",
+      "facts": [
+        "Speech is a direct characterization method: what a character says, how it is phrased, and what it avoids can reveal personality, values, and relationships [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/155",
+          "kind": "book",
+          "page": "speech chapter, p. 128",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "characterization/method-thought",
+      "facts": [
+        "Thought is a direct method that gives access to a character’s private perceptions, judgments, motives, and emotional response [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/138",
+          "kind": "book",
+          "page": "thought chapter, p. 139",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "characterization/method-direct",
+      "facts": [
+        "Burroway’s terminology is exact: appearance, speech, action, and thought are the four direct methods; authorial interpretation is the indirect method [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/127",
+          "kind": "book",
+          "page": "p. 107",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "setting",
+      "facts": [
+        "Burroway treats setting as more than backdrop: setting can harmonize or conflict with character, establish atmosphere, and influence what happens and how characters feel [Janet Burroway, Writing Fiction].",
+        "Atmosphere can be created through place, weather, time, objects, tone, and the emotional relation between foreground characters and background [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/186",
+          "kind": "book",
+          "page": "setting chapter",
+          "flag": "hosted scan"
+        },
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/187",
+          "kind": "book",
+          "page": "setting and atmosphere sections",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "place-and-time",
+      "facts": [
+        "Fictional events necessarily occur in space and time; Burroway’s setting chapter treats boundaries in space and time as a narrative choice and setting as contextual background that can affect characters and readers [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/186",
+          "kind": "book",
+          "page": "setting chapter",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "world-rules",
+      "facts": [
+        "Sanderson’s First Law: “An author’s ability to solve conflict with magic is DIRECTLY PROPORTIONAL to how well the reader understands said magic” [Brandon Sanderson, What Are Sanderson’s Laws of Magic?].",
+        "Sanderson’s Second Law is “Limitations > Powers” [Brandon Sanderson, What Are Sanderson’s Laws of Magic?].",
+        "Sanderson’s Third Law is “Expand what you already have before you add something new” [Brandon Sanderson, What Are Sanderson’s Laws of Magic?]."
+      ],
+      "sources": [
+        {
+          "label": "Brandon Sanderson, What Are Sanderson’s Laws of Magic?",
+          "url": "https://faq.brandonsanderson.com/knowledge-base/what-are-sandersons-laws-of-magic/",
+          "kind": "maker",
+          "page": "First, Second, and Third Law sections"
+        }
+      ]
+    },
+    {
+      "id": "exposition",
+      "facts": [
+        "Jo Walton distinguishes the simple infodump from “incluing”: “scattering pieces of information seamlessly through the text to add up to a big picture”; the reader connects the clues [Jo Walton, SF Reading Protocols].",
+        "Hemingway’s Chapter 16 image says, “The dignity of movement of an ice-berg is due to only one-eighth of it being above water”; the visible text should imply deeper unstated knowledge [Ernest Hemingway, Death in the Afternoon]."
+      ],
+      "sources": [
+        {
+          "label": "Jo Walton, SF Reading Protocols",
+          "url": "https://reactormag.com/sf-reading-protocols/",
+          "kind": "practitioner",
+          "page": "section on infodump and incluing"
+        },
+        {
+          "label": "Ernest Hemingway, Death in the Afternoon",
+          "url": "https://www.la.utexas.edu/users/bump/images/Hemingway/death_in_the_afternoon.pdf",
+          "kind": "book",
+          "page": "ch. 16",
+          "flag": "quote identified in search result; PDF extraction did not expose the sentence"
+        }
+      ],
+      "unverified": "The opened PDF’s extracted text did not expose the one-eighth sentence, although the opened search result attributes the exact quotation to Chapter 16."
+    },
+    {
+      "id": "narration",
+      "facts": [
+        "Burroway frames point of view through three questions: who speaks, who sees/knows, and how much information is available; the choice controls perspective, distance, and reader alignment [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/223",
+          "kind": "book",
+          "page": "POV chapter, p. 183",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "pov-person",
+      "facts": [
+        "Burroway distinguishes first-, second-, and third-person narration, then subdivides third person by information access (objective, limited omniscient, editorial omniscient) [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/223",
+          "kind": "book",
+          "page": "POV chapter, p. 183",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "pov-person/person-first",
+      "facts": [
+        "First person makes a character the narrator, using “I”; the narrator may be central to the action or peripheral while recounting someone else’s story [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/230",
+          "kind": "book",
+          "page": "first-person section, p. 190",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "pov-person/person-second",
+      "facts": [
+        "Second person addresses a character or reader as “you”; Burroway calls it unusual and potentially intimate, while noting it assigns the reader specific characteristics and reactions [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/226",
+          "kind": "book",
+          "page": "second-person section, p. 186",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "pov-person/person-third-limited",
+      "facts": [
+        "Third-person limited/limited omniscient lets the author report externally while accessing the thoughts of one character; Burroway calls it a common form and contrasts it with omniscience [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/227",
+          "kind": "book",
+          "page": "limited omniscient section, p. 187",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "pov-person/person-third-omniscient",
+      "facts": [
+        "Third-person omniscient can move freely across time and space, report multiple characters’ thoughts, and offer judgments or information unavailable to the characters [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/225",
+          "kind": "book",
+          "page": "omniscient section, p. 185",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "pov-character",
+      "facts": [
+        "DeFreitas defines head-hopping as multiple POVs within one scene without a line or chapter break; it can jar readers by making whose mind they occupy unclear [Susan DeFreitas, How Big of a Problem Is “Head Hopping”?].",
+        "She recommends a real reason for a switch, a clearly signaled handoff, and naming the new POV character at the new paragraph’s start [Susan DeFreitas, How Big of a Problem Is “Head Hopping”?]."
+      ],
+      "sources": [
+        {
+          "label": "Susan DeFreitas, How Big of a Problem Is “Head Hopping”?",
+          "url": "https://janefriedman.com/how-big-of-a-problem-is-head-hopping/",
+          "kind": "practitioner",
+          "page": "sections “Head hopping” and “How can omniscient POV be done well?”"
+        }
+      ]
+    },
+    {
+      "id": "tense",
+      "facts": [
+        "Le Guin’s formulation is that the fictional “past tense” is not past and the fictional “present tense” is not present; both are constructions on the page [Ursula K. Le Guin, Steering the Craft]."
+      ],
+      "sources": [
+        {
+          "label": "Myfanwy Collins, quoting Ursula K. Le Guin, Steering the Craft",
+          "url": "https://myfanwycollins.com/2006/08/29/the-only-real-present-time-is-the-readers/",
+          "kind": "neighbour",
+          "page": "chapter 6 quotation",
+          "flag": "secondary: quotes the book"
+        }
+      ]
+    },
+    {
+      "id": "tense/tense-past",
+      "facts": [
+        "Past tense can provide temporal range for narration, including retrospect, summary, and movement among earlier and later events; Le Guin stresses that its apparent pastness is fictional [Ursula K. Le Guin, Steering the Craft]."
+      ],
+      "sources": [
+        {
+          "label": "Myfanwy Collins, quoting Ursula K. Le Guin, Steering the Craft",
+          "url": "https://myfanwycollins.com/2006/08/29/the-only-real-present-time-is-the-readers/",
+          "kind": "neighbour",
+          "page": "chapter 6 quotation",
+          "flag": "secondary: quotes the book"
+        },
+        {
+          "label": "Philip Pullman, Philip Pullman Calls Time on the Present Tense",
+          "url": "https://www.theguardian.com/global/2010/sep/18/philip-pullman-author-present-tense",
+          "kind": "practitioner",
+          "page": "article"
+        }
+      ]
+    },
+    {
+      "id": "tense/tense-present",
+      "facts": [
+        "Pullman argues that present-tense narration has a limited expressive range when used continuously, because it removes contrast with past, future, habitual, and conditional tenses [Philip Pullman, Philip Pullman Calls Time on the Present Tense].",
+        "Pullman also notes that a present-tense passage can gain force when contrasted with surrounding past-tense narration [Philip Pullman, Philip Pullman Calls Time on the Present Tense]."
+      ],
+      "sources": [
+        {
+          "label": "Philip Pullman, Philip Pullman Calls Time on the Present Tense",
+          "url": "https://www.theguardian.com/global/2010/sep/18/philip-pullman-author-present-tense",
+          "kind": "practitioner",
+          "page": "article"
+        }
+      ]
+    },
+    {
+      "id": "psychic-distance",
+      "facts": [
+        "Gardner’s five examples move from detached historical narration toward immediate bodily sensation; psychic distance is the felt distance between reader and events [John Gardner, The Art of Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "John Gardner, The Art of Fiction",
+          "url": "https://books.google.com/books?id=i5Sah1JtY4C",
+          "kind": "book",
+          "page": "p. 111",
+          "flag": "Google Books preview"
+        },
+        {
+          "label": "University of Nevada, Reno Writing Center, Psychic Distance in Creative Writing",
+          "url": "https://www.unr.edu/writing-speaking-center/writing-resources/psychic-distance-in-creative-writing",
+          "kind": "reference",
+          "page": "psychic-distance guide"
+        }
+      ]
+    },
+    {
+      "id": "psychic-distance/distance-1",
+      "facts": [
+        "Gardner’s farthest example is: “It was winter of the year 1853. A large man stepped out of a doorway.” [John Gardner, The Art of Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "John Gardner, The Art of Fiction",
+          "url": "https://books.google.com/books?id=i5Sah1JtY4C",
+          "kind": "book",
+          "page": "p. 111",
+          "flag": "Google Books preview"
+        }
+      ]
+    },
+    {
+      "id": "psychic-distance/distance-2",
+      "facts": [
+        "Gardner’s second level names Henry J. Warburton and reports that he had never much cared for snowstorms: “Henry J. Warburton had never much cared for snowstorms.” [John Gardner, The Art of Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "John Gardner, The Art of Fiction",
+          "url": "https://books.google.com/books?id=i5Sah1JtY4C",
+          "kind": "book",
+          "page": "p. 111",
+          "flag": "Google Books preview"
+        }
+      ]
+    },
+    {
+      "id": "psychic-distance/distance-3",
+      "facts": [
+        "Gardner’s third level states the character’s feeling directly: “Henry hated snowstorms.” [John Gardner, The Art of Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "John Gardner, The Art of Fiction",
+          "url": "https://books.google.com/books?id=i5Sah1JtY4C",
+          "kind": "book",
+          "page": "p. 111",
+          "flag": "Google Books preview"
+        }
+      ]
+    },
+    {
+      "id": "psychic-distance/distance-4",
+      "facts": [
+        "Gardner’s fourth level enters emotionally charged interior language: “God how he hated these damn snowstorms.” [John Gardner, The Art of Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "John Gardner, The Art of Fiction",
+          "url": "https://books.google.com/books?id=i5Sah1JtY4C",
+          "kind": "book",
+          "page": "p. 111",
+          "flag": "Google Books preview"
+        }
+      ]
+    },
+    {
+      "id": "psychic-distance/distance-5",
+      "facts": [
+        "Gardner’s closest level is immediate sensation: “Snow. Under your collar, down inside your shoes, freezing and plugging up your miserable soul . . .” [John Gardner, The Art of Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "John Gardner, The Art of Fiction",
+          "url": "https://books.google.com/books?id=i5Sah1JtY4C",
+          "kind": "book",
+          "page": "p. 111",
+          "flag": "Google Books preview"
+        }
+      ]
+    },
+    {
+      "id": "narrative-voice",
+      "facts": [
+        "Narrative voice is made from the narrator’s word choice, rhythm/syntax, attitude, perspective, and level of commentary; it is distinct from the author’s personal voice [OpenStax Writing Guide]."
+      ],
+      "sources": [
+        {
+          "label": "OpenStax, Writing Guide",
+          "url": "https://openstax.org/books/writing-guide/pages/4-5-writing-process-making-the-personal-public",
+          "kind": "reference",
+          "page": "§4.5"
+        }
+      ]
+    },
+    {
+      "id": "prose",
+      "facts": [
+        "Lee Child says prose should “trip forward”: suspense can operate at word, sentence, paragraph, page, and chapter scale through pacing, timing, and language [Lee Child, Writing Popular Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Lee Child, Writing Popular Fiction",
+          "url": "https://assets.cdn.bbcmaestro.com/lee-child-writing-popular-fiction-course-notes.pdf",
+          "kind": "practitioner",
+          "page": "pp. 106–109",
+          "flag": "course notes PDF"
+        }
+      ]
+    },
+    {
+      "id": "show-and-tell",
+      "facts": [
+        "Burroway’s scene (“showing”) and summary (“telling”) are two ways fiction manages time: scene slows events into moment-by-moment presentation, while summary compresses a longer period [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/175",
+          "kind": "book",
+          "page": "scene and summary chapter",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "show-and-tell/mode-scene",
+      "facts": [
+        "Scene provides immediacy and drama by presenting events as they occur, including concrete action, dialogue, and reaction [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/180",
+          "kind": "book",
+          "page": "scene example",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "show-and-tell/mode-summary",
+      "facts": [
+        "Summary compresses time and is useful for background, unimportant periods, repeated events, or moving the story forward quickly [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/175",
+          "kind": "book",
+          "page": "scene and summary chapter",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "significant-detail",
+      "facts": [
+        "Burroway defines a concrete detail as one that appeals to a sense; it is significant when it also conveys an idea or judgment [Janet Burroway, Significant Detail].",
+        "Burroway argues that sensory details that matter let readers infer abstractions and judgments instead of receiving an authorial explanation [Janet Burroway, Significant Detail]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Significant Detail",
+          "url": "https://wrt101fall2018spencer.wordpress.com/wp-content/uploads/2018/09/significant-detail.pdf",
+          "kind": "book",
+          "page": "pp. 1–2 of handout; excerpt from Writing Fiction",
+          "flag": "secondary classroom handout"
+        }
+      ]
+    },
+    {
+      "id": "dialogue",
+      "facts": [
+        "Burroway treats dialogue as direct speech, indirect dialogue, and summary dialogue; dialogue should reveal character, convey information, create conflict or desire, and move the story forward [Janet Burroway, Writing Fiction].",
+        "Dialogue becomes dramatic action when it carries the possibility of change; talk by itself is not action [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/155",
+          "kind": "book",
+          "page": "dialogue chapter",
+          "flag": "hosted scan"
+        },
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/157",
+          "kind": "book",
+          "page": "action and dialogue section",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "dialogue-tags",
+      "facts": [
+        "A dialogue tag identifies the speaker; Burroway says it usually needs to do nothing more, and that “said” is adequate [Janet Burroway, Writing Fiction].",
+        "Leonard’s rules are: “Never use a verb other than ‘said’ to carry dialogue” and “Never use an adverb to modify the verb ‘said’” [Elmore Leonard, Easy on the Adverbs, Exclamation Points and Especially Hooptedoodle]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/155",
+          "kind": "book",
+          "page": "dialogue chapter",
+          "flag": "hosted scan"
+        },
+        {
+          "label": "Elmore Leonard, Easy on the Adverbs, Exclamation Points and Especially Hooptedoodle",
+          "url": "https://www.theguardian.com/books/2010/feb/24/elmore-leonard-rules-for-writers",
+          "kind": "practitioner",
+          "page": "rules 3–4"
+        }
+      ]
+    },
+    {
+      "id": "dialogue-tags/tag-said",
+      "facts": [
+        "“Said” is a neutral, sufficient tag whose main job is to identify the speaker [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/155",
+          "kind": "book",
+          "page": "dialogue chapter",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "dialogue-tags/tag-beat",
+      "facts": [
+        "An action beat is a short piece of physical action attached to or surrounding dialogue; Browne and King recommend it when the action adds meaning or identifies the speaker [Renni Browne and Dave King, Self-Editing for Fiction Writers]."
+      ],
+      "sources": [
+        {
+          "label": "Renni Browne and Dave King, Self-Editing for Fiction Writers",
+          "url": "https://archive.mith.edu/digitalstorytelling/wp-content/uploads/Browne-and-King-Week-2.pdf",
+          "kind": "book",
+          "page": "action beats excerpt",
+          "flag": "excerpt PDF"
+        }
+      ]
+    },
+    {
+      "id": "dialogue-tags/tag-none",
+      "facts": [
+        "No tag is needed when the speaker is already clear from the surrounding prose or when an action beat identifies the speaker [Janet Burroway, Writing Fiction; Renni Browne and Dave King, Self-Editing for Fiction Writers]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/155",
+          "kind": "book",
+          "page": "dialogue chapter",
+          "flag": "hosted scan"
+        },
+        {
+          "label": "Renni Browne and Dave King, Self-Editing for Fiction Writers",
+          "url": "https://archive.mith.edu/digitalstorytelling/wp-content/uploads/Browne-and-King-Week-2.pdf",
+          "kind": "book",
+          "page": "action beats excerpt",
+          "flag": "excerpt PDF"
+        }
+      ]
+    },
+    {
+      "id": "dialogue-tags/tag-adverb",
+      "facts": [
+        "Leonard’s Rule 4 says never use an adverb to modify “said”; he prefers dialogue whose wording and action carry the emotion [Elmore Leonard, Easy on the Adverbs, Exclamation Points and Especially Hooptedoodle]."
+      ],
+      "sources": [
+        {
+          "label": "Elmore Leonard, Easy on the Adverbs, Exclamation Points and Especially Hooptedoodle",
+          "url": "https://www.theguardian.com/books/2010/feb/24/elmore-leonard-rules-for-writers",
+          "kind": "practitioner",
+          "page": "rule 4"
+        }
+      ]
+    },
+    {
+      "id": "sentence-rhythm",
+      "facts": [
+        "Provost’s famous rhythm exercise begins, “This sentence has five words. Here are five more words”; it warns that repeated same-length sentences create monotony and recommends varying sentence length and rhythm [Gary Provost, 100 Ways to Improve Your Writing]."
+      ],
+      "sources": [
+        {
+          "label": "San José State University Writing Center, Sentence Variety and Rhythm",
+          "url": "https://www.sjsu.edu/writingcenter/docs/handouts/Sentence%20Variety%20and%20Rhythm.pdf",
+          "kind": "reference",
+          "page": "p. 1",
+          "flag": "quotes Provost"
+        }
+      ]
+    },
+    {
+      "id": "theme",
+      "facts": [
+        "Burroway presents theme as emerging through the interaction of setting, tone, action, thought, and recurring details rather than as an abstract statement pasted onto a story [Janet Burroway, Writing Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Janet Burroway, Writing Fiction: A Guide to Narrative Craft, 3e",
+          "url": "https://pdfroom.com/books/writing-fiction-a-guide-to-narrative-craft-3e/jndOKRo8dRq/read/190",
+          "kind": "book",
+          "page": "theme section",
+          "flag": "hosted scan"
+        }
+      ]
+    },
+    {
+      "id": "controlling-idea",
+      "facts": [
+        "McKee defines a controlling idea as value plus cause: the story’s final value charge and the primary cause producing that change, expressed in one sentence [Robert McKee, Story]."
+      ],
+      "sources": [
+        {
+          "label": "How Writers Read, Controlling Value",
+          "url": "https://howwritersread.weebly.com/controlling-value.html",
+          "kind": "neighbour",
+          "page": "McKee discussion; cites Story, pp. 115–116",
+          "flag": "secondary: summarizes McKee"
+        }
+      ]
+    },
+    {
+      "id": "motif",
+      "facts": [
+        "A motif is a recurring element—image, object, action, word, sound, setting, or symbol—that gains significance through repetition and helps develop a work’s themes or meaning [Oregon State University, What Is a Motif?]."
+      ],
+      "sources": [
+        {
+          "label": "Oregon State University, What Is a Motif?",
+          "url": "https://liberalarts.oregonstate.edu/wlf/what-motif",
+          "kind": "reference",
+          "page": "What Is a Motif?"
+        }
+      ]
+    },
+    {
+      "id": "reader-experience",
+      "facts": [
+        "Maass says micro-tension is not explosions or shouting but unease in the reader’s mind; when tension exists, the reader relieves it by reading the next thing on the page [Donald Maass interview].",
+        "Maass’s practical rule is to generate this tension constantly, on every page, so readers read every word [Donald Maass interview]."
+      ],
+      "sources": [
+        {
+          "label": "Donald Maass, interview with Michael A. Ventrella",
+          "url": "https://michaelaventrella.com/2012/12/13/interview-with-agent-and-author-donald-maass/",
+          "kind": "practitioner",
+          "page": "micro-tension interview exchange",
+          "flag": "interview"
+        }
+      ]
+    },
+    {
+      "id": "information-gap",
+      "facts": [
+        "Information gaps create reader engagement by withholding or delaying knowledge; the gap may be a question, a hidden threat, an unknown cause, or a fact known to readers but not characters [Lee Child, Writing Popular Fiction; Alfred Hitchcock interview discussion]."
+      ],
+      "sources": [
+        {
+          "label": "Lee Child, Writing Popular Fiction",
+          "url": "https://assets.cdn.bbcmaestro.com/lee-child-writing-popular-fiction-course-notes.pdf",
+          "kind": "practitioner",
+          "page": "pp. 106–109",
+          "flag": "course notes PDF"
+        },
+        {
+          "label": "Sven Lütticken, Suspense and... Surprise",
+          "url": "https://research.vu.nl/ws/portalfiles/portal/2238507/196501.pdf",
+          "kind": "research",
+          "page": "discussion quoting Truffaut, p. 73",
+          "flag": "secondary: quotes the interview"
+        }
+      ]
+    },
+    {
+      "id": "information-gap/gap-suspense",
+      "facts": [
+        "Hitchcock’s bomb-under-the-table distinction is that showing the audience the bomb before it explodes creates sustained suspense, whereas withholding it until the explosion creates only brief surprise [François Truffaut, Hitchcock, as quoted in Sven Lütticken].",
+        "The commonly quoted contrast is “fifteen seconds of surprise” versus “fifteen minutes of suspense” [François Truffaut, Hitchcock, as quoted in Sven Lütticken]."
+      ],
+      "sources": [
+        {
+          "label": "Sven Lütticken, Suspense and... Surprise",
+          "url": "https://research.vu.nl/ws/portalfiles/portal/2238507/196501.pdf",
+          "kind": "research",
+          "page": "discussion quoting Truffaut, p. 73",
+          "flag": "secondary: quotes the interview"
+        }
+      ]
+    },
+    {
+      "id": "information-gap/gap-mystery",
+      "facts": [
+        "A mystery gap withholds a fact the reader wants to discover—who, what, or why—and can power a novel while the answer is delayed [Lee Child, Writing Popular Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Lee Child, Writing Popular Fiction",
+          "url": "https://assets.cdn.bbcmaestro.com/lee-child-writing-popular-fiction-course-notes.pdf",
+          "kind": "practitioner",
+          "page": "pp. 106–109",
+          "flag": "course notes PDF"
+        }
+      ]
+    },
+    {
+      "id": "information-gap/gap-surprise",
+      "facts": [
+        "Surprise is the short shock produced when the audience does not know the event in advance; Hitchcock contrasts it with suspense, where the audience knows the danger [François Truffaut, Hitchcock, as quoted in Sven Lütticken]."
+      ],
+      "sources": [
+        {
+          "label": "Sven Lütticken, Suspense and... Surprise",
+          "url": "https://research.vu.nl/ws/portalfiles/portal/2238507/196501.pdf",
+          "kind": "research",
+          "page": "discussion quoting Truffaut, p. 73",
+          "flag": "secondary: quotes the interview"
+        }
+      ]
+    },
+    {
+      "id": "information-gap/gap-dramatic-irony",
+      "facts": [
+        "Dramatic irony occurs when the audience knows information that the characters do not, creating tension, humor, or tragedy [Magedah Shabo, What Is Dramatic Irony?]."
+      ],
+      "sources": [
+        {
+          "label": "Magedah Shabo, What Is Dramatic Irony?",
+          "url": "https://www.scribbr.com/rhetoric/dramatic-irony/",
+          "kind": "reference",
+          "page": "definition section",
+          "flag": "secondary educational reference"
+        }
+      ]
+    },
+    {
+      "id": "question-loop",
+      "facts": [
+        "Lee Child’s suspense method is to ask or imply a question and delay the answer; he applies the same loop at novel, chapter, page, and sentence scale [Lee Child, Writing Popular Fiction].",
+        "His compact rule is: “Ask a question, and delay the answer until the very end” [Lee Child, Writing Popular Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Lee Child, Writing Popular Fiction",
+          "url": "https://assets.cdn.bbcmaestro.com/lee-child-writing-popular-fiction-course-notes.pdf",
+          "kind": "practitioner",
+          "page": "pp. 106–109",
+          "flag": "course notes PDF"
+        },
+        {
+          "label": "Lee Child, Q&A with Top Thriller Writer Lee Child",
+          "url": "https://www.newwriting.net/2013/02/q-a-with-top-thriller-writer-lee-child/",
+          "kind": "practitioner",
+          "page": "interview exchange on questions and answers",
+          "flag": "interview"
+        }
+      ]
+    },
+    {
+      "id": "hooks",
+      "facts": [
+        "Lee Child says a first line should greet the reader with a promise, intrigue without desperation, and deliver the reader to the next line, paragraph, and page [Lee Child, Writing Popular Fiction].",
+        "A good chapter ending satisfies without satiating and usually uses a twist or revelation as a cliff-hanger to compel the next chapter [Lee Child, Writing Popular Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Lee Child, Writing Popular Fiction",
+          "url": "https://assets.cdn.bbcmaestro.com/lee-child-writing-popular-fiction-course-notes.pdf",
+          "kind": "practitioner",
+          "page": "pp. 115–117 and 123–127",
+          "flag": "course notes PDF"
+        }
+      ]
+    },
+    {
+      "id": "pacing",
+      "facts": [
+        "Lee Child’s motto is “Write the slow stuff fast and the fast stuff slow”: compress routine transitions, but expand major action and give its details full value [Lee Child, Writing Popular Fiction]."
+      ],
+      "sources": [
+        {
+          "label": "Lee Child, Writing Popular Fiction",
+          "url": "https://assets.cdn.bbcmaestro.com/lee-child-writing-popular-fiction-course-notes.pdf",
+          "kind": "practitioner",
+          "page": "pp. 110–114",
+          "flag": "course notes PDF"
+        }
+      ]
+    },
+    {
+      "id": "tension-release",
+      "facts": [
+        "Ingermanson’s Scene pattern is Goal–Conflict–Disaster; its Sequel pattern is Reaction–Dilemma–Decision [Randy Ingermanson, Writing the Perfect Scene].",
+        "A Scene’s disaster requires emotional recovery and a decision before the next goal-driven Scene, creating an alternating tension-and-release cycle [Randy Ingermanson, Writing the Perfect Scene]."
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, Writing the Perfect Scene",
+          "url": "https://www.advancedfictionwriting.com/articles/writing-the-perfect-scene/",
+          "kind": "practitioner",
+          "page": "sections “Scene” and “Sequel”"
+        }
+      ]
+    },
+    {
+      "id": "immersion",
+      "facts": [
+        "Gardner calls successful fiction a “vivid and continuous dream”; head-hopping, confusing exposition, and unexplained point-of-view shifts can break that illusion [John Gardner, The Art of Fiction; Susan DeFreitas].",
+        "DeFreitas describes head-hopping as reader “whiplash” that forces rereading and destroys the illusion of living inside the POV character’s mind [Susan DeFreitas, How Big of a Problem Is “Head Hopping”?]."
+      ],
+      "sources": [
+        {
+          "label": "John Gardner, The Art of Fiction",
+          "url": "https://books.google.com/books?id=i5Sah1JtY4C",
+          "kind": "book",
+          "page": "psychic-distance/reader illusion discussion",
+          "flag": "Google Books preview"
+        },
+        {
+          "label": "Susan DeFreitas, How Big of a Problem Is “Head Hopping”?",
+          "url": "https://janefriedman.com/how-big-of-a-problem-is-head-hopping/",
+          "kind": "practitioner",
+          "page": "head-hopping section"
+        }
+      ]
+    }
+  ]
+}

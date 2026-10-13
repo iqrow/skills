@@ -1,0 +1,763 @@
+{
+  "nodes": [
+    {
+      "id": "premise",
+      "facts": [
+        "A story premise is “a character in a setting with a problem.” [Story Grid, “How to Write a Novel”]",
+        "A premise can be phrased as a “what if” question; the article illustrates this with a person stranded on Mars. [Story Grid, “How to Write a Novel”]",
+        "Egri says a well-constructed premise contains character, conflict, and conclusion. [Lajos Egri, The Art of Dramatic Writing]"
+      ],
+      "sources": [
+        {
+          "label": "Story Grid, “How to Write a Novel”",
+          "url": "https://storygrid.com/articles/how-to-write-a-novel",
+          "kind": "practitioner",
+          "page": "Your Story Idea; The story premise"
+        },
+        {
+          "label": "Lajos Egri, The Art of Dramatic Writing",
+          "url": "https://thestickingplace.com/assets/Art-of-Dramatic-Writing-Lajos-Egri.pdf",
+          "kind": "book",
+          "page": "Premise, pp. 1–4 (extract PDF)",
+          "flag": "excerpt; close-to-primary hosted extract"
+        }
+      ]
+    },
+    {
+      "id": "logline",
+      "facts": [
+        "Snowflake Step 1 asks for a one-sentence novel summary, preferably fewer than 15 words. [Randy Ingermanson, “The Snowflake Method For Designing A Novel”]",
+        "Ingermanson advises omitting character names and stating who has most to lose and what they want to win. [Randy Ingermanson, “The Snowflake Method For Designing A Novel”]"
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, “The Snowflake Method For Designing A Novel”",
+          "url": "https://www.advancedfictionwriting.com/articles/snowflake-method/",
+          "kind": "practitioner",
+          "page": "Step 1"
+        }
+      ]
+    },
+    {
+      "id": "dramatic-question",
+      "facts": [
+        "Lee Child advises asking or implying a question at the story’s beginning and delaying its answer. [Lee Child, “A Simple Way to Create Suspense”]",
+        "The crisis creates a binary choice/question, and the climax is the active answer to the question raised by that crisis. [Story Grid, “The Five Commandments of Storytelling”]"
+      ],
+      "sources": [
+        {
+          "label": "Lee Child, “A Simple Way to Create Suspense”",
+          "url": "https://sissonenglish.weebly.com/uploads/8/6/0/5/86054768/a_simple_way_to_create_suspense.pdf",
+          "kind": "practitioner",
+          "page": "pp. 1–3",
+          "flag": "mirror PDF; not NYT host"
+        },
+        {
+          "label": "Story Grid, “The Five Commandments of Storytelling”",
+          "url": "https://storygrid.com/articles/five-commandments-of-storytelling",
+          "kind": "practitioner",
+          "page": "Five Commandments"
+        }
+      ]
+    },
+    {
+      "id": "stakes",
+      "facts": [
+        "Maass’s personal-stakes exercise repeatedly asks what would make the protagonist’s problem matter more—ultimately “more than life itself.” [Donald Maass, “Exercise: Defining Personal Stakes”]",
+        "His public-stakes exercise starts with the overt, outward conflict, then escalates what would make it worse and imagines failure. [Donald Maass, “Exercise: Raising Public Stakes”]",
+        "Bell groups stakes under physical, professional, and psychological death. [James Scott Bell, “High Stakes? Death. Always Death” interview]"
+      ],
+      "sources": [
+        {
+          "label": "Donald Maass, “Exercise: Defining Personal Stakes”",
+          "url": "https://www.writersdigest.com/beat-writers-block/defining-personal-stakes",
+          "kind": "practitioner",
+          "page": "Steps 1–5"
+        },
+        {
+          "label": "Donald Maass, “Exercise: Raising Public Stakes”",
+          "url": "https://www.writersdigest.com/beat-writers-block/exercise-raising-public-stakes",
+          "kind": "practitioner",
+          "page": "Steps 1–5"
+        },
+        {
+          "label": "James Scott Bell, “High Stakes? Death. Always Death” interview",
+          "url": "https://www.blogger.com/feeds/3136420115688099157/posts/default/7638284076664514142",
+          "kind": "practitioner",
+          "page": "Question 2",
+          "flag": "interview reposted via Blogger Atom feed"
+        }
+      ]
+    },
+    {
+      "id": "stakes/death-physical",
+      "facts": [
+        "Physical death stakes mean that one or many people will die if the antagonistic forces prevail; Bell cites the thriller and The Hunger Games. [James Scott Bell, “High Stakes? Death. Always Death” interview]"
+      ],
+      "sources": [
+        {
+          "label": "James Scott Bell, “High Stakes? Death. Always Death” interview",
+          "url": "https://www.blogger.com/feeds/3136420115688099157/posts/default/7638284076664514142",
+          "kind": "practitioner",
+          "page": "Question 2",
+          "flag": "interview reposted via Blogger Atom feed"
+        }
+      ]
+    },
+    {
+      "id": "stakes/death-professional",
+      "facts": [
+        "Professional death puts a character’s job or vocation on the line; failure can end or seriously damage that part of life. [James Scott Bell, “High Stakes? Death. Always Death” interview]"
+      ],
+      "sources": [
+        {
+          "label": "James Scott Bell, “High Stakes? Death. Always Death” interview",
+          "url": "https://www.blogger.com/feeds/3136420115688099157/posts/default/7638284076664514142",
+          "kind": "practitioner",
+          "page": "Question 2",
+          "flag": "interview reposted via Blogger Atom feed"
+        }
+      ]
+    },
+    {
+      "id": "stakes/death-psychological",
+      "facts": [
+        "Psychological death concerns an inner transformation: if the character cannot meet the challenge, they “die inside.” [James Scott Bell, “High Stakes? Death. Always Death” interview]"
+      ],
+      "sources": [
+        {
+          "label": "James Scott Bell, “High Stakes? Death. Always Death” interview",
+          "url": "https://www.blogger.com/feeds/3136420115688099157/posts/default/7638284076664514142",
+          "kind": "practitioner",
+          "page": "Question 2",
+          "flag": "interview reposted via Blogger Atom feed"
+        }
+      ]
+    },
+    {
+      "id": "promise-payoff",
+      "facts": [
+        "Sanderson’s plot framework has Promise, Progress, and Payoff: promise creates expectations, progress gives meaningful advancement, and payoff gives a surprising but fulfilling answer. [Brandon Sanderson, “2025 Guide to Plot (Lecture #2)”]",
+        "Chekhov’s letter cautions against placing a loaded gun onstage unless someone intends to fire it, a classic setup/payoff rule. [Anton Chekhov, Letter to A. S. Lazarev-Gruzinsky]"
+      ],
+      "sources": [
+        {
+          "label": "Brandon Sanderson, “2025 Guide to Plot (Lecture #2)”",
+          "url": "https://www.brandonsanderson.com/blogs/blog/brandon-sandersons-2025-guide-to-plot-lecture-2",
+          "kind": "practitioner",
+          "page": "The Plot Framework: Promise, Progress, and Payoff"
+        },
+        {
+          "label": "Anton Chekhov, Letter to A. S. Lazarev-Gruzinsky",
+          "url": "https://ru.wikisource.org/wiki/%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%B0._%28%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%8C_1888_-_%D0%B4%D0%B5%D0%BA%D0%B0%D0%B1%D1%80%D1%8C_1889%29_%28%D0%A7%D0%B5%D1%85%D0%BE%D0%B2%29",
+          "kind": "book",
+          "page": "Letter 707, 1 Nov 1889",
+          "flag": "Russian primary text; translated fact"
+        }
+      ]
+    },
+    {
+      "id": "causality",
+      "facts": [
+        "Forster distinguishes story from plot by causality: “the king died and then the queen died” is story, while the queen dying of grief is plot; story asks “and then?” and plot asks “why?” [E. M. Forster, Aspects of the Novel]",
+        "Stone and Parker advise putting “therefore” or “but,” not “and then,” between beats so the beats carry causation. [Matt Stone and Trey Parker, NYU writing-advice clip]"
+      ],
+      "sources": [
+        {
+          "label": "E. M. Forster, Aspects of the Novel",
+          "url": "https://www.gutenberg.org/cache/epub/70492/pg70492-images.html",
+          "kind": "book",
+          "page": "ch. V, The Plot, pp. 129–130"
+        },
+        {
+          "label": "Matt Stone and Trey Parker, NYU writing-advice clip",
+          "url": "https://www.youtube.com/watch?v=vGUNqq3jVLg",
+          "kind": "practitioner",
+          "page": "video transcript",
+          "flag": "auto-generated captions; uploaded by third-party channel"
+        }
+      ]
+    },
+    {
+      "id": "structure-models",
+      "facts": [
+        "Story-structure models expose different levels of pattern: Brody uses timed beats, Vogler uses journey stages, and Reagan et al. identify emotional-arc shapes. [Jessica Brody, Save the Cat! Writes a Novel Starter Kit] [Christopher Vogler, “A Practical Guide to Joseph Campbell’s The Hero with a Thousand Faces”] [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]"
+      ],
+      "sources": [
+        {
+          "label": "Jessica Brody, Save the Cat! Writes a Novel Starter Kit",
+          "url": "https://www.jessicabrody.com/wp-content/uploads/2020/01/Save_the_Cat_Writes_a_Novel_Starter_Kit_v6.pdf",
+          "kind": "practitioner",
+          "page": "pp. 2–3, Introduction to the 15 Beats"
+        },
+        {
+          "label": "Christopher Vogler, “A Practical Guide to Joseph Campbell’s The Hero with a Thousand Faces”",
+          "url": "https://www.ilchiefs.org/vogler-7-page-memo",
+          "kind": "practitioner",
+          "page": "1985 memo; The Stages of the Hero’s Journey",
+          "flag": "memo transcription hosted by Illinois Association of Chiefs of Police"
+        },
+        {
+          "label": "Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”",
+          "url": "https://cdanfort.w3.uvm.edu/research/2016-reagan-epj.pdf",
+          "kind": "research",
+          "page": "pp. 1–5, 10"
+        }
+      ]
+    },
+    {
+      "id": "structure-models/model-three-act",
+      "facts": [
+        "Weiland’s three-act timing guide places Act I in the first 25%, Act II from about 25% to 75% with a midpoint near 50%, and Act III from about 75% to the end. [K.M. Weiland, “Quick Guide to Timing Plot Points Within Your Story’s Structure”]",
+        "Weiland notes novel timing is flexible: a midpoint may land a couple dozen pages on either side of 50%. [K.M. Weiland, “Quick Guide to Timing Plot Points Within Your Story’s Structure”]"
+      ],
+      "sources": [
+        {
+          "label": "K.M. Weiland, “Quick Guide to Timing Plot Points Within Your Story’s Structure”",
+          "url": "https://www.helpingwritersbecomeauthors.com/matter-timing-positioning-major-plot-points-within-story/",
+          "kind": "practitioner",
+          "page": "Timing Plot Points 101"
+        }
+      ]
+    },
+    {
+      "id": "structure-models/model-save-the-cat",
+      "facts": [
+        "Brody’s first-half beats are Opening Image (0–1%), Theme Stated (5%), Setup (1–10%), Catalyst (10%), Debate (10–20%), Break into Two (20%), and B Story (22%). [Jessica Brody, Save the Cat! Writes a Novel Starter Kit]",
+        "The back half is Fun and Games (20–50%), Midpoint (50%), Bad Guys Close In (50–75%), All Is Lost (75%), Dark Night of the Soul (75–80%), Break into Three (80%), Finale (80–99%), and Final Image (99–100%). [Jessica Brody, Save the Cat! Writes a Novel Starter Kit]"
+      ],
+      "sources": [
+        {
+          "label": "Jessica Brody, Save the Cat! Writes a Novel Starter Kit",
+          "url": "https://www.jessicabrody.com/wp-content/uploads/2020/01/Save_the_Cat_Writes_a_Novel_Starter_Kit_v6.pdf",
+          "kind": "practitioner",
+          "page": "pp. 2–3, Introduction to the 15 Beats"
+        }
+      ]
+    },
+    {
+      "id": "structure-models/model-heros-journey",
+      "facts": [
+        "Vogler’s memo lists twelve stages: Ordinary World; Call to Adventure; Refusal; Mentor; Crossing the Threshold; Tests, Allies, Enemies; Approach to the Inmost Cave; Supreme Ordeal; Reward; Road Back; Resurrection; Return with the Elixir. [Christopher Vogler, “A Practical Guide to Joseph Campbell’s The Hero with a Thousand Faces”]",
+        "Vogler says the stages may be deleted, added, or reshuffled; the journey is a flexible skeleton rather than a rigid formula. [Christopher Vogler, “A Practical Guide to Joseph Campbell’s The Hero with a Thousand Faces”]"
+      ],
+      "sources": [
+        {
+          "label": "Christopher Vogler, “A Practical Guide to Joseph Campbell’s The Hero with a Thousand Faces”",
+          "url": "https://www.ilchiefs.org/vogler-7-page-memo",
+          "kind": "practitioner",
+          "page": "1985 memo; The Stages of the Hero’s Journey",
+          "flag": "memo transcription hosted by Illinois Association of Chiefs of Police"
+        }
+      ]
+    },
+    {
+      "id": "structure-models/model-seven-point",
+      "facts": [
+        "Wells’s seven points are Hook, Plot Turn I, Pinch I, Midpoint, Pinch II, Plot Turn II, and Resolution. [Dan Wells, “Seven-Point Story Structure” (Writing Excuses 7.41)]",
+        "The midpoint changes the characters from reaction to action, Plot Turn II supplies the last information needed, and Wells recommends planning backward from the resolution. [Dan Wells, “Seven-Point Story Structure” (Writing Excuses 7.41)]"
+      ],
+      "sources": [
+        {
+          "label": "Dan Wells, “Seven-Point Story Structure” (Writing Excuses 7.41)",
+          "url": "https://writingexcuses.com/writing-excuses-7-41-seven-point-story-structure/",
+          "kind": "practitioner",
+          "page": "transcript"
+        }
+      ]
+    },
+    {
+      "id": "structure-models/model-freytag",
+      "facts": [
+        "Freytag’s pyramid has five parts: introduction, rise, climax, return or fall, and catastrophe. [Gustav Freytag, Technique of the Drama, trans. Elias J. MacEwan]",
+        "It marks three crises: the exciting force, the tragic force, and the force of last suspense. [Gustav Freytag, Technique of the Drama, trans. Elias J. MacEwan]"
+      ],
+      "sources": [
+        {
+          "label": "Gustav Freytag, Technique of the Drama, trans. Elias J. MacEwan",
+          "url": "https://www.briantriber.com/WritingSamples/Freytag_Drama/Freytag_11_Ch2_P2.html",
+          "kind": "book",
+          "page": "ch. II, part 2, Five Parts and Three Crises",
+          "flag": "public-domain transcription; host editor notes duplication"
+        }
+      ]
+    },
+    {
+      "id": "structure-models/model-kishotenketsu",
+      "facts": [
+        "Kishōtenketsu names four parts: ki (introduction), shō (development), ten (twist), and ketsu (conclusion). [Shinsuke Tsuchiya, “From Acting Out Stories to Telling Stories”]",
+        "Tsuchiya’s table describes ki as orientation, shō as the core narrative, ten as an unexpected development or final key event, and ketsu as interpretation or coda. [Shinsuke Tsuchiya, “From Acting Out Stories to Telling Stories”]"
+      ],
+      "sources": [
+        {
+          "label": "Shinsuke Tsuchiya, “From Acting Out Stories to Telling Stories”",
+          "url": "https://jll.pitt.edu/ojs/JLL/article/download/238/610/2284",
+          "kind": "research",
+          "page": "pp. 357, 361–365 (kishōtenketsu)"
+        }
+      ]
+    },
+    {
+      "id": "turning-points",
+      "facts": [
+        "A progressive complication follows the inciting incident: habitual tactics fail, each failure raises stakes, and the protagonist must try the next tactic. [Story Grid, “Turning Point Progressive Complication”]",
+        "A turning point pushes the protagonist beyond habitual responses into new territory, sets the crisis, and can be active or revelatory. [Story Grid, “Turning Point Progressive Complication”]"
+      ],
+      "sources": [
+        {
+          "label": "Story Grid, “Turning Point Progressive Complication”",
+          "url": "https://storygrid.com/articles/turning-point-progressive-complication",
+          "kind": "practitioner",
+          "page": "What is a Turning Point?"
+        }
+      ]
+    },
+    {
+      "id": "inciting-incident",
+      "facts": [
+        "McKee defines the Inciting Incident as the first major event and primary cause of the following story; it radically upsets the balance of forces in the protagonist’s life. [Robert McKee, Story]",
+        "Placement guides differ: Weiland puts the inciting event around 12%, while Brody’s Catalyst is at 10%. [K.M. Weiland, “Quick Guide to Timing Plot Points Within Your Story’s Structure”] [Jessica Brody, Save the Cat! Writes a Novel Starter Kit]"
+      ],
+      "sources": [
+        {
+          "label": "Robert McKee, Story",
+          "url": "https://www.rwwny.org/wp-content/uploads/2016/07/robert-mckee-story-part3.pdf",
+          "kind": "book",
+          "page": "ch. 8, The Inciting Incident, pp. 181, 189–193",
+          "flag": "scan/PDF excerpt"
+        },
+        {
+          "label": "K.M. Weiland, “Quick Guide to Timing Plot Points Within Your Story’s Structure”",
+          "url": "https://www.helpingwritersbecomeauthors.com/matter-timing-positioning-major-plot-points-within-story/",
+          "kind": "practitioner",
+          "page": "Timing Plot Points 101"
+        },
+        {
+          "label": "Jessica Brody, Save the Cat! Writes a Novel Starter Kit",
+          "url": "https://www.jessicabrody.com/wp-content/uploads/2020/01/Save_the_Cat_Writes_a_Novel_Starter_Kit_v6.pdf",
+          "kind": "practitioner",
+          "page": "pp. 2–3, Introduction to the 15 Beats"
+        }
+      ]
+    },
+    {
+      "id": "climax",
+      "facts": [
+        "The climax is the active answer to the question raised by the crisis; it reveals the truth of who the protagonist is under pressure, and the resolution shows the result of that choice. [Story Grid, “The Five Commandments of Storytelling”]",
+        "Weiland’s timing guide places the beginning of the climax around 90% of a novel. [K.M. Weiland, “Quick Guide to Timing Plot Points Within Your Story’s Structure”]"
+      ],
+      "sources": [
+        {
+          "label": "Story Grid, “The Five Commandments of Storytelling”",
+          "url": "https://storygrid.com/articles/five-commandments-of-storytelling",
+          "kind": "practitioner",
+          "page": "Five Commandments"
+        },
+        {
+          "label": "K.M. Weiland, “Quick Guide to Timing Plot Points Within Your Story’s Structure”",
+          "url": "https://www.helpingwritersbecomeauthors.com/matter-timing-positioning-major-plot-points-within-story/",
+          "kind": "practitioner",
+          "page": "Timing Plot Points 101"
+        }
+      ]
+    },
+    {
+      "id": "story-shape",
+      "facts": [
+        "Reagan et al. analyzed 1,327 Project Gutenberg fiction stories and found six core emotional-arc shapes; an emotional arc measures reader-perceived emotional content, not plot directly. [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]",
+        "The six labels are Rags to riches, Tragedy (Riches to rags), Man in a hole, Icarus, Cinderella, and Oedipus. [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]"
+      ],
+      "sources": [
+        {
+          "label": "Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”",
+          "url": "https://cdanfort.w3.uvm.edu/research/2016-reagan-epj.pdf",
+          "kind": "research",
+          "page": "pp. 1–5, 10"
+        }
+      ]
+    },
+    {
+      "id": "story-shape/rags-to-riches",
+      "facts": [
+        "“Rags to riches” is the upward emotional arc: a rise in fortune or sentiment. [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]"
+      ],
+      "sources": [
+        {
+          "label": "Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”",
+          "url": "https://cdanfort.w3.uvm.edu/research/2016-reagan-epj.pdf",
+          "kind": "research",
+          "page": "p. 5"
+        }
+      ]
+    },
+    {
+      "id": "story-shape/tragedy",
+      "facts": [
+        "“Tragedy,” also called “Riches to rags,” is the downward emotional arc. [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]"
+      ],
+      "sources": [
+        {
+          "label": "Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”",
+          "url": "https://cdanfort.w3.uvm.edu/research/2016-reagan-epj.pdf",
+          "kind": "research",
+          "page": "p. 5"
+        }
+      ]
+    },
+    {
+      "id": "story-shape/man-in-a-hole",
+      "facts": [
+        "“Man in a hole” is a fall followed by a rise: the character gets into trouble and then gets out. [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]"
+      ],
+      "sources": [
+        {
+          "label": "Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”",
+          "url": "https://cdanfort.w3.uvm.edu/research/2016-reagan-epj.pdf",
+          "kind": "research",
+          "page": "p. 5"
+        }
+      ]
+    },
+    {
+      "id": "story-shape/icarus",
+      "facts": [
+        "“Icarus” is a rise followed by a fall. [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]"
+      ],
+      "sources": [
+        {
+          "label": "Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”",
+          "url": "https://cdanfort.w3.uvm.edu/research/2016-reagan-epj.pdf",
+          "kind": "research",
+          "page": "p. 5"
+        }
+      ]
+    },
+    {
+      "id": "story-shape/cinderella",
+      "facts": [
+        "“Cinderella” is a rise, fall, and rise again. [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]"
+      ],
+      "sources": [
+        {
+          "label": "Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”",
+          "url": "https://cdanfort.w3.uvm.edu/research/2016-reagan-epj.pdf",
+          "kind": "research",
+          "page": "p. 5"
+        }
+      ]
+    },
+    {
+      "id": "story-shape/oedipus",
+      "facts": [
+        "“Oedipus” is a fall, rise, and final fall. [Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”]"
+      ],
+      "sources": [
+        {
+          "label": "Andrew J. Reagan et al., “The Emotional Arcs of Stories Are Dominated by Six Basic Shapes”",
+          "url": "https://cdanfort.w3.uvm.edu/research/2016-reagan-epj.pdf",
+          "kind": "research",
+          "page": "p. 5"
+        }
+      ]
+    },
+    {
+      "id": "subplots",
+      "facts": [
+        "In Brody’s Save the Cat model, the B Story starts at 22% and introduces character(s) who help the hero learn the theme, such as a love interest, mentor, friend, or family member. [Jessica Brody, Save the Cat! Writes a Novel Starter Kit]"
+      ],
+      "sources": [
+        {
+          "label": "Jessica Brody, Save the Cat! Writes a Novel Starter Kit",
+          "url": "https://www.jessicabrody.com/wp-content/uploads/2020/01/Save_the_Cat_Writes_a_Novel_Starter_Kit_v6.pdf",
+          "kind": "practitioner",
+          "page": "pp. 2–3, Introduction to the 15 Beats"
+        }
+      ]
+    },
+    {
+      "id": "mice-threads",
+      "facts": [
+        "MICE is an organizational tool for Milieu, Inquiry, Character, and Event story threads. [Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”]",
+        "Stories can contain multiple MICE threads nested like Matryoshka dolls, with each thread opening and closing. [Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”] [Mary Robinette Kowal et al., “Nesting Threads in the M.I.C.E. Quotient”]"
+      ],
+      "sources": [
+        {
+          "label": "Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”",
+          "url": "https://writingexcuses.com/16-35-what-is-the-m-i-c-e-quotient/",
+          "kind": "practitioner",
+          "page": "transcript"
+        },
+        {
+          "label": "Mary Robinette Kowal et al., “Nesting Threads in the M.I.C.E. Quotient”",
+          "url": "https://writingexcuses.com/16-40-nesting-threads-in-the-m-i-c-e-quotient/",
+          "kind": "practitioner",
+          "page": "transcript"
+        }
+      ]
+    },
+    {
+      "id": "mice-threads/milieu",
+      "facts": [
+        "A Milieu story is driven by a place: it begins when the character enters that place and ends when the character leaves; conflicts delay departure. [Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”]"
+      ],
+      "sources": [
+        {
+          "label": "Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”",
+          "url": "https://writingexcuses.com/16-35-what-is-the-m-i-c-e-quotient/",
+          "kind": "practitioner",
+          "page": "transcript"
+        }
+      ]
+    },
+    {
+      "id": "mice-threads/inquiry",
+      "facts": [
+        "An Inquiry story begins when a question arises and ends when it is answered; conflicts prevent the protagonist from getting the answer. [Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”]"
+      ],
+      "sources": [
+        {
+          "label": "Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”",
+          "url": "https://writingexcuses.com/16-35-what-is-the-m-i-c-e-quotient/",
+          "kind": "practitioner",
+          "page": "transcript"
+        }
+      ]
+    },
+    {
+      "id": "mice-threads/character",
+      "facts": [
+        "A Character story starts with dissatisfaction or the question “Who am I?” and ends with recognition or self-definition; conflict blocks the character’s change. [Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”]"
+      ],
+      "sources": [
+        {
+          "label": "Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”",
+          "url": "https://writingexcuses.com/16-35-what-is-the-m-i-c-e-quotient/",
+          "kind": "practitioner",
+          "page": "transcript"
+        }
+      ]
+    },
+    {
+      "id": "mice-threads/event",
+      "facts": [
+        "An Event story begins when the status quo is disrupted and ends when the old or a new status quo is established; conflict blocks restoration. [Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”]"
+      ],
+      "sources": [
+        {
+          "label": "Mary Robinette Kowal et al., “What Is the M.I.C.E. Quotient?”",
+          "url": "https://writingexcuses.com/16-35-what-is-the-m-i-c-e-quotient/",
+          "kind": "practitioner",
+          "page": "transcript"
+        }
+      ]
+    },
+    {
+      "id": "try-fail-loop",
+      "facts": [
+        "A try-fail cycle begins when a character tries to solve a problem and fails; the failure creates the next conflict. [Mary Robinette Kowal et al., “Middles and Conflicts with M.I.C.E. Structure”]",
+        "The “yes-but” pattern gives a success followed by a complication, while “no-and” gives a failure followed by a worsened situation. [Mary Robinette Kowal et al., “Middles and Conflicts with M.I.C.E. Structure”]"
+      ],
+      "sources": [
+        {
+          "label": "Mary Robinette Kowal et al., “Middles and Conflicts with M.I.C.E. Structure”",
+          "url": "https://writingexcuses.com/16-41-middles-and-conflicts/",
+          "kind": "practitioner",
+          "page": "transcript"
+        }
+      ]
+    },
+    {
+      "id": "scenes",
+      "facts": [
+        "Scenes are story building blocks that dramatize definable value shifts; their incremental shifts build the global arc of change. [Story Grid, “Units of Story: Beats, Tropes, Scenes, Sequences, and Quadrants”]"
+      ],
+      "sources": [
+        {
+          "label": "Story Grid, “Units of Story: Beats, Tropes, Scenes, Sequences, and Quadrants”",
+          "url": "https://storygrid.com/articles/units-of-story",
+          "kind": "practitioner",
+          "page": "What are Units of Story?; Scenes"
+        }
+      ]
+    },
+    {
+      "id": "scenes/scene-sequel-cycle",
+      "facts": [
+        "Ingermanson’s scene pattern is Goal, Conflict, Disaster; its sequel pattern is Reaction, Dilemma, Decision. [Randy Ingermanson, “Writing The Perfect Scene”]",
+        "A disaster is followed by emotional reaction, a dilemma, and a decision that makes the character proactive again and supplies a new scene goal. [Randy Ingermanson, “Writing The Perfect Scene”]"
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, “Writing The Perfect Scene”",
+          "url": "https://www.advancedfictionwriting.com/articles/writing-the-perfect-scene/?output=1",
+          "kind": "practitioner",
+          "page": "Large-Scale Structure of a Scene; Motivation-Reaction Units"
+        }
+      ]
+    },
+    {
+      "id": "scenes/scene-sequel-cycle/scene-goal",
+      "facts": [
+        "A scene goal should be specific and clearly definable rather than a vague wish. [Randy Ingermanson, “Writing The Perfect Scene”]"
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, “Writing The Perfect Scene”",
+          "url": "https://www.advancedfictionwriting.com/articles/writing-the-perfect-scene/?output=1",
+          "kind": "practitioner",
+          "page": "Large-Scale Structure of a Scene; Motivation-Reaction Units"
+        }
+      ]
+    },
+    {
+      "id": "scenes/scene-sequel-cycle/scene-conflict",
+      "facts": [
+        "Scene conflict is the series of obstacles that blocks the viewpoint character from reaching the goal. [Randy Ingermanson, “Writing The Perfect Scene”]"
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, “Writing The Perfect Scene”",
+          "url": "https://www.advancedfictionwriting.com/articles/writing-the-perfect-scene/?output=1",
+          "kind": "practitioner",
+          "page": "Large-Scale Structure of a Scene; Motivation-Reaction Units"
+        }
+      ]
+    },
+    {
+      "id": "scenes/scene-sequel-cycle/scene-disaster",
+      "facts": [
+        "The scene disaster is failure to reach the goal; Ingermanson warns that simply granting the goal ends the tension and removes a reason to turn the page. [Randy Ingermanson, “Writing The Perfect Scene”]"
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, “Writing The Perfect Scene”",
+          "url": "https://www.advancedfictionwriting.com/articles/writing-the-perfect-scene/?output=1",
+          "kind": "practitioner",
+          "page": "Large-Scale Structure of a Scene; Motivation-Reaction Units"
+        }
+      ]
+    },
+    {
+      "id": "scenes/scene-sequel-cycle/sequel-reaction",
+      "facts": [
+        "The sequel’s reaction is the character’s emotional follow-through after the scene disaster. [Randy Ingermanson, “Writing The Perfect Scene”]"
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, “Writing The Perfect Scene”",
+          "url": "https://www.advancedfictionwriting.com/articles/writing-the-perfect-scene/?output=1",
+          "kind": "practitioner",
+          "page": "Large-Scale Structure of a Scene; Motivation-Reaction Units"
+        }
+      ]
+    },
+    {
+      "id": "scenes/scene-sequel-cycle/sequel-dilemma",
+      "facts": [
+        "The sequel’s dilemma presents a situation with no good options, forcing the character to weigh possible responses. [Randy Ingermanson, “Writing The Perfect Scene”]"
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, “Writing The Perfect Scene”",
+          "url": "https://www.advancedfictionwriting.com/articles/writing-the-perfect-scene/?output=1",
+          "kind": "practitioner",
+          "page": "Large-Scale Structure of a Scene; Motivation-Reaction Units"
+        }
+      ]
+    },
+    {
+      "id": "scenes/scene-sequel-cycle/sequel-decision",
+      "facts": [
+        "The sequel’s decision is the character’s choice of action, restoring a proactive character and establishing the next goal. [Randy Ingermanson, “Writing The Perfect Scene”]"
+      ],
+      "sources": [
+        {
+          "label": "Randy Ingermanson, “Writing The Perfect Scene”",
+          "url": "https://www.advancedfictionwriting.com/articles/writing-the-perfect-scene/?output=1",
+          "kind": "practitioner",
+          "page": "Large-Scale Structure of a Scene; Motivation-Reaction Units"
+        }
+      ]
+    },
+    {
+      "id": "value-shift",
+      "facts": [
+        "McKee defines a scene as conflict-driven action that changes a character’s value-charged life condition with perceptible significance. [Robert McKee, “Do Your Scenes Turn?”]",
+        "If a scene begins and ends with the same value condition, McKee calls it a nonevent; ideally every scene turns positive to negative or negative to positive. [Robert McKee, “Do Your Scenes Turn?”]"
+      ],
+      "sources": [
+        {
+          "label": "Robert McKee, “Do Your Scenes Turn?”",
+          "url": "https://mckeestory.com/do-your-scenes-turn/",
+          "kind": "practitioner",
+          "page": "official site; scene value shift"
+        }
+      ]
+    },
+    {
+      "id": "pattern-setup-payoff",
+      "facts": [
+        "Chekhov’s letter says not to put a loaded gun onstage unless someone intends to fire it, a compact setup/payoff rule. [Anton Chekhov, Letter to A. S. Lazarev-Gruzinsky]",
+        "Sanderson frames plot as Promise, Progress, and Payoff: the payoff should be surprising but fulfilling and should honor the core promise. [Brandon Sanderson, “2025 Guide to Plot (Lecture #2)”]"
+      ],
+      "sources": [
+        {
+          "label": "Anton Chekhov, Letter to A. S. Lazarev-Gruzinsky",
+          "url": "https://ru.wikisource.org/wiki/%D0%9F%D0%B8%D1%81%D1%8C%D0%BC%D0%B0._%28%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%8C_1888_-_%D0%B4%D0%B5%D0%BA%D0%B0%D0%B1%D1%80%D1%8C_1889%29_%28%D0%A7%D0%B5%D1%85%D0%BE%D0%B2%29",
+          "kind": "book",
+          "page": "Letter 707, 1 Nov 1889",
+          "flag": "Russian primary text; translated fact"
+        },
+        {
+          "label": "Brandon Sanderson, “2025 Guide to Plot (Lecture #2)”",
+          "url": "https://www.brandonsanderson.com/blogs/blog/brandon-sandersons-2025-guide-to-plot-lecture-2",
+          "kind": "practitioner",
+          "page": "The Plot Framework: Promise, Progress, and Payoff"
+        }
+      ]
+    },
+    {
+      "id": "pattern-nested-units",
+      "facts": [
+        "Story Grid describes nested units from beats (smallest unit) and tropes, through scenes, sequences, and quadrants, into a global whole. [Story Grid, “Units of Story: Beats, Tropes, Scenes, Sequences, and Quadrants”]",
+        "Each unit is meant to embody the Five Commandments of Storytelling, so local changes accumulate into the global story. [Story Grid, “Units of Story: Beats, Tropes, Scenes, Sequences, and Quadrants”]"
+      ],
+      "sources": [
+        {
+          "label": "Story Grid, “Units of Story: Beats, Tropes, Scenes, Sequences, and Quadrants”",
+          "url": "https://storygrid.com/articles/units-of-story",
+          "kind": "practitioner",
+          "page": "What are Units of Story?; Beats–Quadrants"
+        }
+      ]
+    },
+    {
+      "id": "pattern-boosting-engine",
+      "facts": [
+        "A reinforcing feedback loop is amplifying and self-propagating: it enhances whatever direction of change is imposed and can form a virtuous or vicious circle. [UK Government Office for Science, “An introductory systems thinking toolkit for civil servants”]"
+      ],
+      "sources": [
+        {
+          "label": "UK Government Office for Science, “An introductory systems thinking toolkit for civil servants”",
+          "url": "https://www.gov.uk/government/publications/systems-thinking-for-civil-servants/toolkit",
+          "kind": "reference",
+          "page": "Tool 9, feedback loops"
+        }
+      ]
+    },
+    {
+      "id": "pattern-braking-engine",
+      "facts": [
+        "A balancing feedback loop is stabilising, regulating, and stability-seeking: it opposes whatever direction of change is imposed on the system. [UK Government Office for Science, “An introductory systems thinking toolkit for civil servants”]"
+      ],
+      "sources": [
+        {
+          "label": "UK Government Office for Science, “An introductory systems thinking toolkit for civil servants”",
+          "url": "https://www.gov.uk/government/publications/systems-thinking-for-civil-servants/toolkit",
+          "kind": "reference",
+          "page": "Tool 9, feedback loops"
+        }
+      ]
+    }
+  ]
+}

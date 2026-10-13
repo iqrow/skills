@@ -1,0 +1,20 @@
+{
+  "name": "iqrow-skills",
+  "description": "iqrow's agent skills. exploded-view maps a whole field as an interactive 3D exploded view: parts, knobs, loops and catalogues, each part opening to the next level down.",
+  "author": {
+    "name": "iqrow",
+    "url": "https://github.com/iqrow"
+  },
+  "homepage": "https://github.com/iqrow/skills",
+  "repository": "https://github.com/iqrow/skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "learning",
+    "mental-models",
+    "exploded-view"
+  ],
+  "skills": [
+    "./skills/learning/exploded-view"
+  ]
+}

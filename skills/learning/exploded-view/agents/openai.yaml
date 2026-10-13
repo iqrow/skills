@@ -1,0 +1,3 @@
+interface:
+  display_name: "Exploded view"
+  short_description: "Map a whole field as a 3D exploded view"

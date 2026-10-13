@@ -1,0 +1,12 @@
+{
+  "name": "exploded-view-viewer",
+  "private": true,
+  "description": "Rebuilds kit/viewer.js after you edit viewer.src.js. Using the skill does not need these packages.",
+  "scripts": {
+    "bundle": "node bundle.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "three": "0.172.0"
+  }
+}
