@@ -1,13 +1,15 @@
 #!/usr/bin/env node
-// Validates an exploded-view JSON file, then writes one self-contained HTML file.
-// Usage: node build.mjs field.json [out.html]            (default out: field.html next to the JSON)
-//        node build.mjs --public field.json [out.html]   (page for the web; default out: field.public.html)
-//        node build.mjs --check field.json               (validate only)
-// A local page puts the JSON's path in its "Go deeper" prompt. A --public page has no path and links to the skill instead.
+// Validates a teardown field, then writes one self-contained HTML file.
+// The field is a folder (see SCHEMA.md) or a compiled JSON file.
+// Usage: node build.mjs <field> [out.html]            (default out: <field>.html next to the folder or JSON)
+//        node build.mjs --public <field> [out.html]   (page for the web; default out: <field>.public.html)
+//        node build.mjs --check <field>               (validate only)
+// A local page puts the field's path in its "Go deeper" prompt. A --public page has no path and links to the skill instead.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join, basename, extname, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { loadField } from './field.mjs'
 
 const KIT = dirname(fileURLToPath(import.meta.url))
 const argv = process.argv.slice(2)
@@ -15,19 +17,18 @@ const flags = new Set(argv.filter((a) => a.startsWith('--')))
 const args = argv.filter((a) => !a.startsWith('--'))
 const checkOnly = flags.delete('--check')
 const publicPage = flags.delete('--public')
-const input = args[0]
+const input = args[0]?.replace(/(.)\/+$/, '$1')
 if (!input || flags.size) {
-  console.error('Usage: node build.mjs [--check | --public] field.json [out.html]')
+  console.error('Usage: node build.mjs [--check | --public] <field folder or .json> [out.html]')
   process.exit(2)
 }
 
-let field
-try {
-  field = JSON.parse(readFileSync(input, 'utf8'))
-} catch (e) {
-  console.error(`${input}: ${e.message}`)
+const loaded = loadField(input)
+if (!loaded.field || loaded.errors.length) {
+  console.error(`${loaded.errors.length} error(s) in ${input}'s files; fix these first:\n- ${loaded.errors.join('\n- ')}`)
   process.exit(1)
 }
+const field = loaded.field
 
 const KINDS = ['product', 'part', 'process', 'knob', 'measure', 'loop', 'pattern', 'concept']
 const RELS = ['raises', 'lowers', 'made from', 'made by', 'measured by', 'controls', 'see also']
@@ -38,6 +39,8 @@ const PART_MOTION = ['spin', 'bob']
 const FEEL_MOTION = ['pulse', 'spin', 'drift', 'rise', 'settle', 'jitter', 'orbit']
 const LOOP_TYPES = ['reinforcing', 'balancing', 's-curve', 'cycle']
 const SOURCE_KINDS = ['book', 'practitioner', 'maker', 'reference', 'standard', 'research', 'forum', 'neighbour']
+const LIST_KINDS = ['practitioner', 'course', 'community', 'bibliography', 'award', 'conference', 'publisher']
+const CHANNELS = ['talk', 'video', 'blog', 'newsletter', 'podcast', 'social', 'site']
 
 const errors = []
 const err = (where, msg) => errors.push(`${where}: ${msg}`)
@@ -46,6 +49,14 @@ const isNum = (v) => typeof v === 'number' && Number.isFinite(v)
 const isVec = (v, n = 3) => Array.isArray(v) && v.length === n && v.every(isNum)
 const isColor = (v) => typeof v === 'string' && /^#[0-9a-fA-F]{6}$/.test(v)
 const in01 = (v) => isNum(v) && v >= 0 && v <= 1
+const isbnDigits = (v) => v.replace(/[^0-9X]/gi, '').toUpperCase()
+function isIsbn(v) {
+  if (typeof v !== 'string' || /[^0-9Xx\s-]/.test(v)) return false
+  const d = isbnDigits(v)
+  if (/^\d{9}[\dX]$/.test(d)) return [...d].reduce((s, c, i) => s + (c === 'X' ? 10 : +c) * (10 - i), 0) % 11 === 0
+  if (/^97[89]\d{10}$/.test(d)) return [...d].reduce((s, c, i) => s + +c * (i % 2 ? 3 : 1), 0) % 10 === 0
+  return false
+}
 
 for (const k of ['title', 'prompt', 'summary', 'root']) if (!isStr(field[k])) err('file', `"${k}" is required`)
 if (!Array.isArray(field.nodes) || field.nodes.length === 0) err('file', '"nodes" must be a non-empty array')
@@ -67,12 +78,18 @@ function checkSources(where, sources, unverified) {
   }
   if (!Array.isArray(sources)) return err(where, '"sources" must be an array')
   if (sources.length === 0 && !isStr(unverified)) err(where, 'empty "sources" needs "unverified"')
-  for (const [i, s] of sources.entries()) {
-    const w = `${where} sources[${i}]`
-    if (!isStr(s?.label)) err(w, 'missing "label"')
-    if (!isStr(s?.url) || !/^https?:\/\//.test(s.url)) err(w, '"url" must be http(s)')
-    if (!SOURCE_KINDS.includes(s?.kind)) err(w, `"kind" must be one of ${SOURCE_KINDS.join(', ')}`)
+  for (const [i, s] of sources.entries()) checkSource(`${where} sources[${i}]`, s)
+}
+function checkSource(w, s) {
+  if (!isStr(s?.label)) err(w, 'missing "label"')
+  if (!isStr(s?.url) || !/^https?:\/\//.test(s.url)) err(w, '"url" must be http(s)')
+  if (!SOURCE_KINDS.includes(s?.kind)) err(w, `"kind" must be one of ${SOURCE_KINDS.join(', ')}`)
+  if (s?.isbn !== undefined) {
+    if (s.kind !== 'book') err(w, '"isbn" is for books only')
+    else if (!isIsbn(s.isbn)) err(w, `"isbn" "${s.isbn}" is not a valid ISBN-10 or ISBN-13`)
   }
+  if (s?.quote !== undefined && (!isStr(s.quote) || s.quote.length > 400)) err(w, '"quote" must be the words you read, 400 characters or fewer')
+  if (s?.copy !== undefined && (s.copy !== true || s.kind !== 'book' || !isStr(s.page) || !isStr(s.quote))) err(w, '"copy": true is for a book read in a copy, and needs "page" and "quote"')
 }
 
 function checkPart(where, p) {
@@ -232,6 +249,36 @@ for (const [i, s] of (field.assembly ?? []).entries()) {
 const last = field.assembly?.at?.(-1)
 if (last && last.makes !== undefined && last.makes !== field.root) err('assembly', 'the last step must make the root')
 
+const survey = field.survey
+if (survey !== undefined) {
+  const isUrl = (v) => isStr(v) && /^https?:\/\//.test(v)
+  const listIds = new Set()
+  for (const [i, l] of (survey.lists ?? []).entries()) {
+    const w = `survey.lists[${i}]`
+    if (!isStr(l?.id) || !isStr(l?.label) || !isUrl(l?.url)) err(w, 'needs "id", "label" and an http(s) "url"')
+    if (!LIST_KINDS.includes(l?.kind)) err(w, `"kind" must be one of ${LIST_KINDS.join(', ')}`)
+    if (listIds.has(l?.id)) err(w, `duplicate id "${l?.id}"`)
+    listIds.add(l?.id)
+  }
+  for (const [i, c] of (survey.canon ?? []).entries()) {
+    const w = `survey.canon[${i}]`
+    checkSource(w, c)
+    if (!isStr(c?.why)) err(w, 'needs "why"')
+    if (c?.specialism !== undefined && !isStr(c.specialism)) err(w, '"specialism" must be a name')
+    if (!Array.isArray(c?.named) || new Set(c.named).size < 2) err(w, '"named" needs the ids of 2+ lists that name it')
+    else for (const id of c.named) if (!listIds.has(id)) err(w, `named "${id}" is not in survey.lists`)
+  }
+  for (const [i, v] of (survey.voices ?? []).entries()) {
+    const w = `survey.voices[${i}]`
+    if (!isStr(v?.name) || !isStr(v?.known)) err(w, 'needs "name" and "known"')
+    if (!Array.isArray(v?.links) || !v.links.length) err(w, 'needs "links"')
+    else for (const [j, l] of v.links.entries()) {
+      if (!isStr(l?.label) || !isUrl(l?.url)) err(`${w} links[${j}]`, 'needs "label" and an http(s) "url"')
+      if (!CHANNELS.includes(l?.kind)) err(`${w} links[${j}]`, `"kind" must be one of ${CHANNELS.join(', ')}`)
+    }
+  }
+}
+
 if (errors.length) {
   console.error(`${errors.length} error(s) in ${input}:\n- ${errors.join('\n- ')}`)
   process.exit(1)
@@ -242,13 +289,24 @@ const count = {}
 for (const n of nodes) count[n.kind] = (count[n.kind] ?? 0) + 1
 const depthOf = (id) => { let d = 0; while (parentOf.has(id)) { id = parentOf.get(id); d++ } return d }
 const maxDepth = Math.max(...nodes.map((n) => depthOf(n.id)))
-const urls = new Set()
-for (const n of nodes) for (const s of n.sources ?? []) urls.add(s.url)
+const cited = nodes.flatMap((n) => [...(n.sources ?? []), ...(n.variants ?? []).flatMap((c) => c.items.flatMap((it) => it.sources ?? []))])
+const works = new Map()
+const workKey = (s) => (s.isbn ? `isbn ${isbnDigits(s.isbn)}` : `${s.kind} ${s.label}`)
+for (const s of cited) works.set(workKey(s), s)
+const books = [...works.values()].filter((s) => s.kind === 'book')
 const unverified = nodes.filter((n) => isStr(n.unverified)).map((n) => n.id)
 const catalogues = nodes.flatMap((n) => (n.variants ?? []).map((c) => `${n.id}:${c.label}(${c.items.length})`))
-console.log(`${input}: OK. ${nodes.length} nodes (${Object.entries(count).map(([k, v]) => `${v} ${k}`).join(', ')}), depth ${maxDepth}, ${urls.size} distinct source URLs, ${field.assembly.length} assembly steps.`)
+console.log(`${input}: OK. ${nodes.length} nodes (${Object.entries(count).map(([k, v]) => `${v} ${k}`).join(', ')}), depth ${maxDepth}, ${works.size} cited works (${books.length} books), ${field.assembly.length} assembly steps.`)
 console.log(`catalogues: ${catalogues.join(', ') || 'none'}`)
+const noIsbn = books.filter((s) => !s.isbn).map((s) => s.label)
+if (noIsbn.length) console.log(`books without isbn: ${noIsbn.join('; ')}`)
 if (unverified.length) console.log(`unverified: ${unverified.join(', ')}`)
+if (survey) {
+  const channels = new Set((survey.voices ?? []).flatMap((v) => v.links.map((l) => l.kind)))
+  console.log(`survey: ${survey.lists?.length ?? 0} lists, ${survey.canon?.length ?? 0} canon works, ${survey.voices?.length ?? 0} voices (${[...channels].join(', ') || 'no channels'})`)
+  const uncited = (survey.canon ?? []).filter((c) => !works.has(workKey(c))).map((c) => c.label)
+  if (uncited.length) console.log(`canon not cited on any node: ${uncited.join('; ')}`)
+} else console.log('survey: none')
 if (checkOnly) process.exit(0)
 
 const viewerJs = join(KIT, 'viewer.js')
@@ -268,7 +326,7 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(field.title)} · exploded view</title>
+<title>${esc(field.title)} · teardown</title>
 <style>${readFileSync(viewerCss, 'utf8')}</style>
 </head>
 <body>

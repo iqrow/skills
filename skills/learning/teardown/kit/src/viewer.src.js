@@ -1,10 +1,11 @@
-// Exploded-view viewer. Reads <script type="application/json" id="field"> and renders it with three.js.
+// Teardown viewer. Reads <script type="application/json" id="field"> and renders it as a three.js exploded view.
 // Bundled into kit/viewer.js by kit/src/bundle.mjs; build.mjs inlines that bundle into each page.
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
+import { searchEntries, search, snippet } from '../search.mjs'
 
 const fieldEl = document.getElementById('field')
 const field = JSON.parse(fieldEl.textContent)
@@ -88,20 +89,21 @@ function link(id, attrs, open, ...kids) {
 const crumbsEl = h('nav', { class: 'ev-crumbs', 'aria-label': 'Path' })
 const btnExplode = h('button', { type: 'button', onclick: () => toggleExplode() }, 'Explode')
 const btnFlat = h('button', { type: 'button', 'aria-pressed': 'false', onclick: () => (mode === 'flatpack' ? leaveFlatpack() : enterFlatpack()) }, 'Flatpack')
-const btnIndex = h('button', { type: 'button', 'aria-pressed': 'false', onclick: () => toggleIndex() }, 'Index')
+const btnIndex = h('button', { type: 'button', 'aria-pressed': 'false', onclick: () => toggleOverlay('index') }, 'Index')
+const btnSources = h('button', { type: 'button', 'aria-pressed': 'false', onclick: () => toggleOverlay('sources') }, 'Sources')
 const canvas = h('canvas', { 'aria-label': `${field.title}: 3D exploded view` })
 const labelsEl = h('div', { class: 'ev-labels' })
 const hintEl = h('div', { class: 'ev-hint' })
 const panelEl = h('aside', { class: 'ev-panel', 'aria-live': 'polite' })
 const stripEl = h('footer', { class: 'ev-strip' })
-const indexEl = h('div', { class: 'ev-index', hidden: true })
-const stageEl = h('main', { class: 'ev-stage' }, canvas, labelsEl, hintEl, indexEl)
+const overlayEl = h('div', { class: 'ev-overlay', hidden: true })
+const stageEl = h('main', { class: 'ev-stage' }, canvas, labelsEl, hintEl, overlayEl)
 document.body.append(
   h('div', { class: 'ev' },
     h('header', { class: 'ev-bar' },
       crumbsEl,
       h('div', { class: 'ev-title' }, h('b', {}, field.title), h('span', {}, `“${field.prompt}”`)),
-      h('div', { class: 'ev-actions' }, btnExplode, btnFlat, btnIndex)),
+      h('div', { class: 'ev-actions' }, btnExplode, btnFlat, btnIndex, btnSources)),
     stageEl, panelEl, stripEl),
 )
 
@@ -756,7 +758,7 @@ function go(id) {
   mode = 'explore'
   path = pathTo(id)
   exploded = (byId.get(id).children ?? []).length > 0
-  closeIndex()
+  closeOverlay()
   layout()
 }
 function pick(id) {
@@ -776,7 +778,7 @@ function toggleExplode() {
   layout()
 }
 function back() {
-  if (!indexEl.hidden) return closeIndex()
+  if (overlay) return closeOverlay()
   if (mode === 'flatpack') return leaveFlatpack()
   if (path.length > 1) { path.pop(); exploded = true }
   else if (exploded) exploded = false
@@ -792,7 +794,7 @@ function showStep(i, play = false) {
   timers.push(setTimeout(() => { phase = 'join'; layout() }, 1500))
   if (play && step < field.assembly.length - 1) timers.push(setTimeout(() => showStep(step + 1, true), 3600))
 }
-function enterFlatpack() { mode = 'flatpack'; closeIndex(); showStep(0, true) }
+function enterFlatpack() { mode = 'flatpack'; closeOverlay(); showStep(0, true) }
 function leaveFlatpack() { clearTimers(); mode = 'explore'; exploded = false; path = [field.root]; layout() }
 
 // ---------- panel ----------
@@ -800,12 +802,17 @@ const chip = (id, extra = '') => {
   const n = byId.get(id)
   return link(id, { class: 'ev-chip', style: `--k:${KIND[n.kind].color}`, title: n.plain }, () => go(id), h('span', { class: 'dot' }), n.term, extra)
 }
+// A book with an ISBN links to its Google Books page: a preview to read, and shops and libraries that have it, local to the reader.
+const copyLink = (isbn) => h('a', { class: 'copy', href: `https://books.google.com/books?vid=ISBN${isbn.replace(/[^0-9X]/gi, '')}`, target: '_blank', rel: 'noopener' }, 'Find a copy')
 function sourcesList(sources, unverified) {
   return h('div', { class: 'ev-sources' },
     (sources ?? []).length ? h('ol', {}, sources.map((s) => h('li', {},
       h('span', { class: 'kind' }, s.kind), ' ',
       h('a', { href: s.url, target: '_blank', rel: 'noopener' }, s.label),
       s.page ? h('span', { class: 'page' }, ` ${s.page}`) : null,
+      s.copy ? h('span', { class: 'page' }, ' · read in the book') : null,
+      s.isbn ? [' · ', copyLink(s.isbn)] : null,
+      s.quote ? h('q', { class: 'quote' }, s.quote) : null,
       s.flag ? h('div', { class: 'flag' }, s.flag) : null))) : null,
     unverified ? h('p', { class: 'unverified' }, 'Unverified: ', unverified) : null)
 }
@@ -868,11 +875,11 @@ function nodePanel(id) {
   if (n.kind === 'pattern') out.push(section('Seen here in', h('div', { class: 'ev-chips' }, (patternUsers.get(id) ?? []).map((t) => chip(t)))))
   out.push(section('Sources', sourcesList(n.sources, n.unverified)))
   if (!n.children?.length && n.kind !== 'pattern') {
-    const ask = fieldFile && `exploded-view: go deeper on "${n.term}" (${n.id}) in ${fieldFile}`
+    const ask = fieldFile && `teardown: go deeper on "${n.term}" (${n.id}) in ${fieldFile}`
     out.push(section('Go deeper', n.deeper ? h('p', {}, n.deeper) : null,
       ask
         ? h('p', { class: 'ev-ask' }, h('code', {}, ask), ' ', h('button', { type: 'button', class: 'ev-copy', onclick: (e) => { navigator.clipboard?.writeText(ask); e.target.textContent = 'Copied' } }, 'Copy'))
-        : h('p', {}, 'To open the next level, run the ', h('a', { href: SKILL_URL, target: '_blank', rel: 'noopener' }, 'exploded-view skill'), ' in your own coding agent.')))
+        : h('p', {}, 'To open the next level, run the ', h('a', { href: SKILL_URL, target: '_blank', rel: 'noopener' }, 'teardown skill'), ' in your own coding agent.')))
   }
   return out
 }
@@ -941,29 +948,123 @@ function renderHint() {
     : `This is a leaf. Esc goes up a level${n.kind !== 'pattern' ? ', or use Go deeper in the panel' : ''}.`
 }
 
-// ---------- index ----------
-function toggleIndex() { indexEl.hidden ? openIndex() : closeIndex() }
-function openIndex() {
-  const input = h('input', { type: 'search', placeholder: 'Find a term', 'aria-label': 'Find a term' })
-  const list = h('ul')
-  const sorted = [...field.nodes].sort((a, b) => a.term.localeCompare(b.term, 'en-GB'))
-  const draw = () => {
-    const q = input.value.trim().toLowerCase()
-    list.replaceChildren(...sorted.filter((n) => !q || [n.term, n.plain, ...(n.aka ?? [])].join(' ').toLowerCase().includes(q)).map((n) =>
-      h('li', {}, link(n.id, { 'data-id': n.id }, () => go(n.id),
-        h('span', { class: 'term', style: `--k:${KIND[n.kind].color}` }, h('span', { class: 'dot' }), n.term),
-        h('span', { class: 'kind' }, KIND[n.kind].short ?? KIND[n.kind].label),
-        h('span', { class: 'plain' }, n.plain)))))
-  }
+// ---------- overlays: index and sources ----------
+let overlay = null
+function toggleOverlay(which) { overlay === which ? closeOverlay() : openOverlay(which) }
+function openOverlay(which) {
+  overlay = which
+  const v = which === 'index' ? indexView() : sourcesView()
+  const input = h('input', { type: 'search', placeholder: v.find, 'aria-label': v.find })
+  const list = h('ul', { class: v.list })
+  const draw = () => list.replaceChildren(...v.rows(input.value.trim().toLowerCase()))
   input.addEventListener('input', draw)
   draw()
-  indexEl.replaceChildren(h('div', { class: 'ev-index-head' }, h('b', {}, `Index · ${field.nodes.length} terms`), input), list)
-  indexEl.hidden = false
-  indexEl.scrollTop = 0
-  btnIndex.setAttribute('aria-pressed', 'true')
+  overlayEl.replaceChildren(h('div', { class: 'ev-overlay-head' }, h('b', {}, v.title), input), list)
+  overlayEl.hidden = false
+  overlayEl.scrollTop = 0
+  btnIndex.setAttribute('aria-pressed', String(which === 'index'))
+  btnSources.setAttribute('aria-pressed', String(which === 'sources'))
   input.focus()
 }
-function closeIndex() { indexEl.hidden = true; btnIndex.setAttribute('aria-pressed', 'false') }
+function closeOverlay() {
+  overlay = null
+  overlayEl.hidden = true
+  btnIndex.setAttribute('aria-pressed', 'false')
+  btnSources.setAttribute('aria-pressed', 'false')
+}
+
+// With no query, every term A–Z. With a query, every node and catalogue item that holds all its
+// words in any field (search.mjs), best first, with the matching field and the words around the match.
+const entries = searchEntries(field)
+function indexView() {
+  const sorted = [...field.nodes].sort((a, b) => a.term.localeCompare(b.term, 'en-GB'))
+  const row = (n, term, kind, where, text, open) => h('li', {}, link(n.id, { 'data-id': n.id }, open,
+    h('span', { class: 'term', style: `--k:${KIND[n.kind].color}` }, h('span', { class: 'dot' }), term),
+    h('span', { class: 'kind' }, kind),
+    h('span', { class: 'plain' }, where ? h('b', {}, `${where}: `) : null, text)))
+  return {
+    title: `Index · ${field.nodes.length} terms`, find: 'Search every term, note and source', list: 'ev-terms',
+    rows: (q) => q
+      ? (() => {
+        const hits = search(entries, q)
+        const rows = hits.map((r) => {
+          const n = byId.get(r.id)
+          const open = () => { go(r.id); if (r.item) choose(r.id, r.item.ci, r.item.ii) }
+          const where = [r.item && `In ${r.item.of}`, r.field !== 'Term' && r.field].filter(Boolean).join(', ')
+          return row(n, r.term, r.item ? r.item.catalogue : KIND[n.kind].short ?? KIND[n.kind].label, where, r.field === 'Term' ? r.summary : snippet(r.text, q), open)
+        })
+        return hits[0]?.partial ? [h('li', { class: 'ev-note' }, 'Nothing holds every word. Closest matches:'), ...rows] : rows
+      })()
+      : sorted.map((n) => row(n, n.term, KIND[n.kind].short ?? KIND[n.kind].label, null, n.plain, () => go(n.id))),
+  }
+}
+
+// Every citation in the field, node and catalogue item alike, grouped by work. One ISBN is one work;
+// without an ISBN, one kind and label is one work. The survey's canon comes first, most named first,
+// even where no node cites it yet; then the rest by kind, books first, most cited first.
+const SOURCE_GROUPS = { book: 'Books', research: 'Research', practitioner: 'Practitioners', maker: 'Makers', standard: 'Standards', reference: 'Reference', forum: 'Forums', neighbour: 'Neighbouring fields' }
+const SOURCE_ORDER = Object.keys(SOURCE_GROUPS)
+const survey = field.survey ?? {}
+const listById = new Map((survey.lists ?? []).map((l) => [l.id, l]))
+function collectWorks() {
+  const byKey = new Map()
+  const most = (counts) => [...counts].sort((a, b) => b[1] - a[1])[0][0]
+  const work = (s) => {
+    const isbn = s.isbn?.replace(/[^0-9X]/gi, '').toUpperCase()
+    const key = isbn ? `isbn ${isbn}` : `${s.kind} ${s.label}`
+    if (!byKey.has(key)) byKey.set(key, { kind: s.kind, isbn, labels: new Map(), urls: new Map(), cites: new Map() })
+    const w = byKey.get(key)
+    w.labels.set(s.label, (w.labels.get(s.label) ?? 0) + 1)
+    w.urls.set(s.url, (w.urls.get(s.url) ?? 0) + 1)
+    return w
+  }
+  for (const c of survey.canon ?? []) work(c).canon = c
+  const cite = (s, id, item) => work(s).cites.set(JSON.stringify([id, item, s.page, s.url]), { id, item, page: s.page, url: s.url })
+  for (const n of field.nodes) {
+    for (const s of n.sources ?? []) cite(s, n.id)
+    for (const cat of n.variants ?? []) for (const it of cat.items) for (const s of it.sources ?? []) cite(s, n.id, it.name)
+  }
+  return [...byKey.values()]
+    .map((w) => ({ ...w, label: w.canon?.label ?? most(w.labels), url: w.canon?.url ?? most(w.urls), cites: [...w.cites.values()], nodes: new Set([...w.cites.values()].map((c) => c.id)).size }))
+    .sort((a, b) => SOURCE_ORDER.indexOf(a.kind) - SOURCE_ORDER.indexOf(b.kind) || b.nodes - a.nodes || a.label.localeCompare(b.label, 'en-GB'))
+}
+const ext = (href, ...kids) => h('a', { href, target: '_blank', rel: 'noopener' }, ...kids)
+function sourcesView() {
+  const works = collectWorks()
+  const canon = works.filter((w) => w.canon).sort((a, b) => b.canon.named.length - a.canon.named.length || b.nodes - a.nodes)
+  const rest = works.filter((w) => !w.canon)
+  const books = works.filter((w) => w.kind === 'book').length
+  const workRow = (w) => h('li', { class: 'ev-work' },
+    h('div', { class: 'ev-work-head' },
+      ext(w.url, w.label),
+      h('span', { class: 'count' }, w.nodes ? `${w.nodes} ${w.nodes === 1 ? 'node' : 'nodes'}` : 'not cited on a node yet')),
+    w.canon ? h('p', { class: 'ev-work-why' }, w.canon.specialism ? [h('b', {}, w.canon.specialism), ': '] : null, w.canon.why) : null,
+    w.canon ? h('div', { class: 'ev-work-meta' }, `Named by ${w.canon.named.length}: `,
+      w.canon.named.map((id, i) => [i ? ', ' : '', ext(listById.get(id).url, listById.get(id).label)])) : null,
+    w.isbn ? h('div', { class: 'ev-work-meta' }, `ISBN ${w.isbn} · `, copyLink(w.isbn)) : null,
+    w.cites.length ? h('div', { class: 'ev-cites' }, w.cites.map((c) => h('span', { class: 'ev-cite' },
+      chip(c.id, c.item ? ` · ${c.item}` : ''),
+      c.page ? h('a', { class: 'page', href: c.url, target: '_blank', rel: 'noopener' }, c.page)
+      : c.url !== w.url ? h('a', { class: 'page', href: c.url, target: '_blank', rel: 'noopener', title: c.url }, 'page')
+      : null))) : null)
+  const voiceRow = (v) => h('li', { class: 'ev-work' },
+    h('div', { class: 'ev-work-head' }, h('b', {}, v.name)),
+    h('p', { class: 'ev-work-why' }, v.known),
+    h('div', { class: 'ev-work-meta' }, v.links.map((l, i) => [i ? ' · ' : '', ext(l.url, l.label), ` (${l.kind})`])))
+  const listRow = (l) => h('li', { class: 'ev-work' }, h('div', { class: 'ev-work-head' }, ext(l.url, l.label), h('span', { class: 'count' }, l.kind)))
+  const group = (title, items, row) => (items.length ? [h('li', { class: 'ev-group' }, `${title} · ${items.length}`), ...items.map(row)] : [])
+  const has = (q, ...texts) => !q || texts.join(' ').toLowerCase().includes(q)
+  const workText = (w) => [w.label, ...w.labels.keys(), w.kind, w.isbn ?? '', w.canon?.why ?? '', ...w.cites.map((c) => c.page ?? '')]
+  return {
+    title: `Sources · ${works.length} works, ${books} ${books === 1 ? 'book' : 'books'}${survey.voices?.length ? `, ${survey.voices.length} voices` : ''}`, find: 'Find a source', list: 'ev-works',
+    rows: (q) => [
+      ...group('Canon: what practitioners say to read', canon.filter((w) => has(q, ...workText(w))), workRow),
+      ...group('Voices: practitioners who teach in public', (survey.voices ?? []).filter((v) => has(q, v.name, v.known, ...v.links.map((l) => `${l.label} ${l.kind}`))), voiceRow),
+      ...SOURCE_ORDER.flatMap((kind) => group(SOURCE_GROUPS[kind], rest.filter((w) => w.kind === kind && has(q, ...workText(w))), workRow)),
+      ...group('Lists surveyed', (survey.lists ?? []).filter((l) => has(q, l.label, l.kind)), listRow),
+    ],
+  }
+}
 
 // ---------- input ----------
 const raycaster = new THREE.Raycaster()
@@ -1001,10 +1102,10 @@ canvas.addEventListener('pointerup', (e) => {
   downAt = null
 })
 addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT') { if (e.key === 'Escape') closeIndex(); return }
+  if (e.target.tagName === 'INPUT') { if (e.key === 'Escape') closeOverlay(); return }
   if (e.key === 'Escape' || e.key === 'Backspace') { e.preventDefault(); back() }
   else if (e.key === 'Enter' || e.key === ' ') { if (e.target === document.body) { e.preventDefault(); toggleExplode() } }
-  else if (e.key === '/') { e.preventDefault(); openIndex() }
+  else if (e.key === '/') { e.preventDefault(); openOverlay('index') }
 })
 addEventListener('popstate', () => { const id = idFromUrl(); if (mode !== 'explore' || id !== path.at(-1)) go(id) })
 // Idle motion is a slow sway either side of the current view, not a full orbit:

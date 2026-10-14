@@ -41,7 +41,7 @@ npx skills@latest add iqrow/skills
 
 ### Learning
 
-- **[exploded-view](skills/learning/exploded-view/SKILL.md)**: shows a whole field the way a professional sees it, as an interactive 3D exploded view. It starts at the finished product, splits it into named parts, knobs, loops and catalogues, and opens any part to the next level down. Say "I want to bake bread" or "how is a game made?", or ask for the skill by name. Needs Node.js 22 or later, and Chrome to check the page. Example: [fiction book writing](https://fiction-writing.goodcode.company).
+- **[teardown](skills/learning/teardown/SKILL.md)**: takes a whole field apart the way its professionals see it, as an interactive 3D exploded view you browse. It starts at the finished product, splits it into named parts, knobs, loops and catalogues, and opens any part to the next level down, so you find the questions you did not know to ask. Say "I want to bake bread" or "how is a game made?", or ask for the skill by name. Needs Node.js 22 or later, and Chrome to check the page. Examples: [Teardown Atlas](https://teardownatlas.com).
 
 ## License
 

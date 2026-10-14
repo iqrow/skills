@@ -10,6 +10,6 @@ When you add, rename or remove a skill, change these in the same commit:
 
 Leave `version` out of both files in `.claude-plugin/`. Claude Code then uses the commit SHA as the version, so every push reaches installed plugins.
 
-Before you push, run `claude plugin validate .`. Its one expected warning is "No version specified". Also run each changed skill's own checks. For exploded-view, build and check every example as its `SKILL.md` says (`kit/build.mjs`, then `kit/check.mjs`).
+Before you push, run `claude plugin validate .`. Its one expected warning is "No version specified". Also run each changed skill's own checks. For teardown, build, verify and check a field as its `SKILL.md` says (`kit/build.mjs`, `kit/verify.mjs`, then `kit/check.mjs`). The published fields on [Teardown Atlas](https://teardownatlas.com) are the examples; this repo holds no fields.
 
 Write skills short and positive, with one source of truth for each rule.

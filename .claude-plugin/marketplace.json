@@ -9,13 +9,9 @@
     {
       "name": "iqrow-skills",
       "source": "./",
-      "description": "iqrow's agent skills: exploded-view and more.",
+      "description": "iqrow's agent skills: teardown and more.",
       "category": "learning",
-      "keywords": [
-        "skills",
-        "learning",
-        "exploded-view"
-      ]
+      "keywords": ["skills", "learning", "teardown"]
     }
   ]
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Opens a built exploded-view page in headless Chrome, clicks through it with real mouse input,
+// Opens a built teardown page in headless Chrome, clicks through it with real mouse input,
 // and saves screenshots. No npm dependencies: it talks to Chrome over the DevTools protocol.
 // Usage: node check.mjs page.html [out-dir] [--open id,id,...]
 //   default: the standard tour (root, explode, two levels down, catalogues, a loop, plot and feel, flatpack)
@@ -148,7 +148,7 @@ const report = []
 const openViaIndex = async (n) => {
   await clickEl('.ev-actions button', 'Index')
   await sleep(200)
-  await clickEl(`.ev-index a[data-id="${n.id}"]`)
+  await clickEl(`.ev-terms a[data-id="${n.id}"]`)
   await settle()
   await expect(`window.__ev.state().path.at(-1) === ${JSON.stringify(n.id)}`, `index did not open "${n.id}"`)
 }
@@ -188,6 +188,30 @@ async function tour(field, byId) {
     if (!n) continue
     await openViaIndex(n)
     await shot(`${kind}-${n.id}`, `${kind}: "${n.term}"`)
+  }
+
+  await clickEl('.ev-actions button', 'Sources')
+  await sleep(300)
+  await expect('document.querySelectorAll(".ev-works .ev-work").length > 0', 'the Sources view lists no works')
+  await shot('sources', 'Sources view: every cited work, books first')
+  const cited = await js(`decodeURIComponent([...document.querySelectorAll('.ev-works .ev-chip')].map((a) => a.getAttribute('href')).find((h) => h.includes('#')).split('#')[1])`)
+  await clickEl(`.ev-works .ev-chip[href$="#${encodeURIComponent(cited)}"]`)
+  await settle()
+  await expect(`window.__ev.state().path.at(-1) === ${JSON.stringify(cited)} && document.querySelector('.ev-overlay').hidden`, `a Sources chip did not open "${cited}"`)
+
+  // Search reaches past terms: a catalogue item's name finds the item, and the hit opens its node.
+  const owner = field.nodes.find((n) => n.variants?.length)
+  if (owner) {
+    const item = owner.variants[0].items.at(-1)
+    await clickEl('.ev-actions button', 'Index')
+    await sleep(200)
+    await js(`(() => { const i = document.querySelector('.ev-overlay input'); i.value = ${JSON.stringify(item.name)}; i.dispatchEvent(new Event('input')) })()`)
+    await sleep(200)
+    await expect('document.querySelectorAll(".ev-terms li").length > 0', `search for "${item.name}" found nothing`)
+    await shot('search', `Index search: "${item.name}"`)
+    await clickEl(`.ev-terms a[data-id="${owner.id}"]`)
+    await settle()
+    await expect(`window.__ev.state().path.at(-1) === ${JSON.stringify(owner.id)} && document.querySelector('.ev-overlay').hidden`, `the search hit did not open "${owner.id}"`)
   }
 
   await clickEl('.ev-actions button', 'Flatpack')

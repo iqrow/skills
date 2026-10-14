@@ -32,7 +32,7 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-labels { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
 .ev-label { position: absolute; left: 0; top: 0; pointer-events: auto; cursor: pointer; white-space: nowrap; color: inherit; text-decoration: none;
   background: rgba(27, 22, 33, 0.82); border: 1px solid var(--edge); border-radius: 6px; padding: 1px 8px 2px; font-size: 13px; }
-.ev-label .dot, .ev-chip .dot, .ev-index .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; background: var(--k); vertical-align: 1px; }
+.ev-label .dot, .ev-chip .dot, .ev-terms .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; background: var(--k); vertical-align: 1px; }
 .ev-label.focus { font-size: 16px; font-weight: 700; padding: 2px 10px 3px; }
 .ev-label.hover, .ev-label:hover { border-color: var(--pink); color: #fff; }
 .ev-hint { position: absolute; left: 16px; bottom: 12px; right: 16px; color: var(--muted); font-size: 13px; pointer-events: none; }
@@ -62,6 +62,7 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-sources li { margin: 4px 0; }
 .ev-sources .kind { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
 .ev-sources .page { color: var(--muted); }
+.ev-sources .quote { display: block; color: var(--muted); font-style: italic; font-size: 13px; margin-top: 2px; }
 .ev-sources .flag { color: var(--gold); font-size: 12.5px; }
 .unverified { color: var(--red); font-size: 13.5px; }
 .ev-ask { font-size: 13px; }
@@ -82,16 +83,30 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-row button[aria-pressed="true"] { background: var(--card); color: var(--pink); }
 .ev-row button:disabled { color: var(--muted); cursor: default; }
 
-/* index: floats over the canvas, so it draws its own edge */
-.ev-index { position: absolute; inset: 14px; z-index: 2; background: rgba(27, 22, 33, 0.97); border: 1px solid var(--edge); border-radius: 10px; overflow-y: auto; scroll-padding-top: 64px; padding: 0 0 12px; }
-.ev-index-head { position: sticky; top: 0; display: flex; gap: 16px; align-items: center; padding: 12px 16px; background: var(--bg); border-bottom: 1px solid var(--edge); }
-.ev-index input { flex: 1; background: var(--card); border: 1px solid var(--edge); border-radius: 6px; color: var(--ink); font: inherit; padding: 4px 10px; }
-.ev-index ul { list-style: none; margin: 0; padding: 0; }
-.ev-index li a { display: grid; grid-template-columns: 220px 90px 1fr; gap: 12px; width: 100%; color: inherit; text-decoration: none; border-bottom: 1px solid #2c2333; padding: 6px 16px; cursor: pointer; }
-.ev-index li a:hover { background: var(--card); }
-.ev-index .term { font-weight: 600; }
-.ev-index .kind { color: var(--muted); font-size: 12.5px; }
-.ev-index .plain { color: var(--muted); font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* overlays (index, sources): float over the canvas, so they draw their own edge */
+.ev-overlay { position: absolute; inset: 14px; z-index: 2; background: rgba(27, 22, 33, 0.97); border: 1px solid var(--edge); border-radius: 10px; overflow-y: auto; scroll-padding-top: 64px; padding: 0 0 12px; }
+.ev-overlay-head { position: sticky; top: 0; z-index: 1; display: flex; gap: 16px; align-items: center; padding: 12px 16px; background: var(--bg); border-bottom: 1px solid var(--edge); }
+.ev-overlay input { flex: 1; background: var(--card); border: 1px solid var(--edge); border-radius: 6px; color: var(--ink); font: inherit; padding: 4px 10px; }
+.ev-overlay ul { list-style: none; margin: 0; padding: 0; }
+.ev-terms li a { display: grid; grid-template-columns: 220px 90px 1fr; gap: 12px; width: 100%; color: inherit; text-decoration: none; border-bottom: 1px solid #2c2333; padding: 6px 16px; cursor: pointer; }
+.ev-terms li a:hover { background: var(--card); }
+.ev-terms .term { font-weight: 600; }
+.ev-terms .kind { color: var(--muted); font-size: 12.5px; }
+.ev-terms .plain { color: var(--muted); font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ev-terms .plain b { color: var(--gold); font-weight: 600; }
+.ev-terms .ev-note { padding: 8px 16px; color: var(--muted); font-size: 13px; border-bottom: 1px solid #2c2333; }
+.ev-works .ev-group { padding: 18px 16px 6px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); font-weight: 600; border-bottom: 1px solid var(--edge); }
+.ev-work { padding: 10px 16px 12px; border-bottom: 1px solid #2c2333; }
+.ev-work-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.ev-work-head a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.ev-work-head a:hover { color: var(--pink); text-decoration: underline; }
+.ev-work-head .count { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+.ev-work-meta { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.ev-cites { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; }
+.ev-cite { display: inline-flex; align-items: baseline; gap: 6px; }
+.ev-cite .page { color: var(--muted); font-size: 12.5px; }
+.ev-cite .page:hover { color: var(--pink); }
+.ev-work-why { margin: 4px 0 2px; font-size: 13.5px; }
 
 @media (max-width: 900px) {
   .ev { grid-template-columns: 1fr; grid-template-rows: 44px 58vh auto auto; }

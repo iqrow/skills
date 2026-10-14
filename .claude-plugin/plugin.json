@@ -1,20 +1,13 @@
 {
   "name": "iqrow-skills",
-  "description": "iqrow's agent skills. exploded-view maps a whole field as an interactive 3D exploded view: parts, knobs, loops and catalogues, each part opening to the next level down.",
+  "description": "iqrow's agent skills. teardown takes a whole field apart the way its professionals see it, as an interactive 3D exploded view to browse: parts, knobs, loops and catalogues, each part opening to the next level down.",
   "author": {
     "name": "iqrow",
     "url": "https://github.com/iqrow"
   },
-  "homepage": "https://github.com/iqrow/skills",
+  "homepage": "https://teardownatlas.com",
   "repository": "https://github.com/iqrow/skills",
   "license": "MIT",
-  "keywords": [
-    "skills",
-    "learning",
-    "mental-models",
-    "exploded-view"
-  ],
-  "skills": [
-    "./skills/learning/exploded-view"
-  ]
+  "keywords": ["skills", "learning", "mental-models", "teardown", "exploded-view"],
+  "skills": ["./skills/learning/teardown"]
 }

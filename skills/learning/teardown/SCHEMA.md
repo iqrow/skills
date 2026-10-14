@@ -1,8 +1,40 @@
-# Exploded view: JSON schema
+# Teardown: schema
 
-One JSON file per field. `kit/build.mjs` checks it and lists every error before it writes any HTML.
+A field is a folder you edit. `kit/build.mjs` compiles it into one JSON object, the **compiled field**, checks it, lists every error, and only then writes the HTML. A script may write the compiled field as `<field>.json` directly; `kit/split.mjs` turns that file into a folder. The tables below describe the compiled field; [Folder](#folder) says which file holds each part.
 
-## File
+## Folder
+
+```
+<field>/
+  field.md          frontmatter: title, prompt, root, assembly. The body is the summary.
+  survey.md         frontmatter: lists, voices.
+  nodes/<id>.md     frontmatter: one node, without its drawings. The file name is the id.
+  looks/<id>.json   the node's drawings: look, feel, plot, and items: { "<item id>": { look, tint, svg } } for its catalogue items.
+  works/<id>.md     frontmatter: one cited work: label, kind, url, isbn, and canon if the survey made it canon.
+  log.md            what changed and why, newest last. Not compiled.
+  raw/              never committed, not compiled. verify keeps page text in raw/web/; the user's copy of a book is raw/<work id>.txt, .md or .pdf.
+```
+
+Frontmatter is YAML between two `---` lines. Every file but `field.md` has an empty body: one place for each fact. `build` names the file for every file error: an unknown key, a drawing in a node file, a citation of a work that is not in `works/`, a work that nothing cites. `nodes` compile in tree order: the root, depth first, then the nodes outside the tree.
+
+```yaml
+---
+term: Dough temperature
+aka: [how warm the dough is]
+kind: knob
+plain: The dough's own temperature after mixing.
+does: Sets how fast the yeast works.
+ask: What did the dough read when mixing ended?
+links:
+  - {to: probe-thermometer, rel: measured by}
+sources:
+  - work: jeffrey-hamelman-bread-a-bakers-book-of-techniques
+    page: ch. 1, p. 12
+    quote: "…"
+---
+```
+
+## Compiled field
 
 | Field | Required | Meaning |
 |---|---|---|
@@ -12,6 +44,7 @@ One JSON file per field. `kit/build.mjs` checks it and lists every error before 
 | `root` | yes | `id` of the product node |
 | `nodes` | yes | Array of nodes |
 | `assembly` | yes | Flatpack steps, in the order practitioners work |
+| `survey` | no | What practitioners say to read and whom to follow (below) |
 
 ## Node
 
@@ -152,4 +185,22 @@ Put surface features here: vessel, device, style, genre. Swapping one shows what
 
 ## Source
 
-`{ "label": "...", "url": "https://...", "kind": "...", "page": "pp. 236–238", "flag": "..." }`. `kind`: `book`, `practitioner`, `maker`, `reference`, `standard`, `research`, `forum` or `neighbour`. `page` and `flag` are optional. `flag` notes a weakness: anonymous, anecdote, snippet only, not fully read.
+`{ "label": "...", "url": "https://...", "kind": "...", "isbn": "...", "page": "ch. 4, pp. 112–118", "quote": "...", "flag": "..." }`. `kind`: `book`, `practitioner`, `maker`, `reference`, `standard`, `research`, `forum` or `neighbour`. `isbn`, `page`, `quote` and `flag` are optional. `flag` notes a weakness: anonymous, anecdote, snippet only, not fully read.
+
+`quote` is the words on that page that support what the node says, copied exactly, 400 characters or fewer; `…` may skip words. Give every citation one. `verify` opens the page and looks for it, so a citation with a quote can be checked and one without cannot. A quote must support the node's claim, not only mention its topic: a table of contents names a topic, so it is never a quote.
+
+`"copy": true` marks a book read in a print or ebook copy rather than at `url`: the user's own copy, or a library's. It needs `page` and `quote`; `url` is where a reader finds the book (the publisher, Google Books). `verify` checks the quote against `raw/<work id>.txt`, `.md` or `.pdf` when the copy's text is there, and otherwise lists it for a person with the book to check.
+
+`label` names the work, not the passage: `"Jeffrey Hamelman, Bread: A Baker's Book of Techniques and Recipes"`. Put the chapter and pages in `page`. An article or talk by a book's author is its own work with its own title, not the book. Give a book in print its `isbn`, copied from a page you opened (the publisher, Open Library); `build` checks the check digit. The viewer's Sources view lists each work once, grouped by one `isbn`, or else by one `kind` and `label`. A book with an `isbn` gets a "Find a copy" link.
+
+In a folder, a Source is split in two. The work, in `works/<id>.md`, holds `label`, `kind`, `isbn` and `url`: the page a reader starts from. The citation, in the node, holds `work` (the work's file name), `page`, `quote`, `flag` and `copy`, and `url` only when the cited page is not the work's. So every citation of a work has the same label, and you relabel a work in one file.
+
+## Survey
+
+`{ "lists": [List, ...], "canon": [Canon, ...], "voices": [Voice, ...] }`. The Sources view shows the canon first, then the voices, then every other cited work, then the lists.
+
+- **List**: a recommendation you tallied. `{ "id": "...", "label": "A baking school's first-year reading list", "url": "https://...", "kind": "..." }`. `kind`: `practitioner`, `course`, `community`, `bibliography`, `award`, `conference` or `publisher`.
+- **Canon**: a Source (above) plus `why` (what a practitioner gets from it, one sentence), `named` (the `id`s of the lists that name it, 2 or more) and, for a specialism's canon, `specialism` (its name, as practitioners say it). Use the same `label` or `isbn` as the node citations of that work, so the view joins them. In a folder, a canon work is a work file with `canon: { why, named, specialism }`; the compiled canon lists the most-named first.
+- **Voice**: `{ "name": "...", "known": "what they shipped or ran, and why practitioners listen", "links": [{ "label": "Blog", "url": "https://...", "kind": "..." }] }`. `kind`: `talk`, `video`, `blog`, `newsletter`, `podcast`, `social` or `site`.
+
+`build` prints the survey's size and the canon works no node cites yet.
