@@ -9,9 +9,9 @@
     {
       "name": "iqrow-skills",
       "source": "./",
-      "description": "iqrow's agent skills: teardown and more.",
+      "description": "iqrow's agent skills: teardown, prior-art and more.",
       "category": "learning",
-      "keywords": ["skills", "learning", "teardown"]
+      "keywords": ["skills", "learning", "teardown", "prior-art"]
     }
   ]
 }
