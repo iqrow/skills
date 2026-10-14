@@ -90,7 +90,8 @@ async function open(url, attempt = 1) {
     page = /TIMEOUT|TimeoutError|ECONNRESET|EAI_AGAIN/i.test(code) ? { status: 0, unreadable: `no answer (${code}): try again later, or open it yourself` } : { status: 0, error: code }
   }
   if (page.text !== undefined && fold(page.text).trim().split(' ').length < 80) page = { status: page.status, unreadable: 'almost no text: a script-built, scanned or image page' }
-  if (page.status !== 0) writeFileSync(path, JSON.stringify(page))
+  // Keep only pages with text: a refusal, a bot check or an outage today may pass tomorrow.
+  if (page.text !== undefined) writeFileSync(path, JSON.stringify(page))
   return page
 }
 
@@ -122,7 +123,8 @@ const has = (text, phrase) => text.includes(fold(phrase))
 // A quote may skip words with an ellipsis; every piece must be on the page. Spaces are ignored,
 // because PDF text splits words at line breaks ("acti- vate").
 const squash = (s) => fold(s).replace(/ /g, '')
-const quoteOn = (text, quote) => quote.split(/…|\.\.\./).map((q) => q.trim()).filter((q) => q.split(/\s+/).length >= 3).every((q) => text.includes(squash(q)))
+const pieces = (quote) => quote.split(/…|\.\.\./).map((q) => q.trim()).filter((q) => q.split(/\s+/).length >= 3)
+const quoteOn = (text, quote) => pieces(quote).every((q) => text.includes(squash(q)))
 // The short title: "Game Mechanics: Advanced Game Design" -> "game mechanics". Checked on web pages only:
 // an article mislabelled as a book is a web page, and a chapter PDF's running heads often skip the title.
 const shortTitle = (label) => fold((label.includes(', ') ? label.slice(label.indexOf(', ') + 2) : label).split(/[:(!?]/)[0]).trim().split(' ').slice(0, 3).join(' ')
@@ -134,6 +136,8 @@ for (const [i, c] of cites.entries()) {
   const add = (level, what) => found.push({ level, what, where: c.where, label: c.s.label, url: c.s.url, i })
   const note = `${c.s.page ?? ''} ${c.s.flag ?? ''}`
   if (c.s.kind === 'book' && CONTENTS.test(note) && !c.s.quote) add('warning', 'book cited from its contents or blurb: that shows the topic, not the claim')
+  if (c.s.quote && !pieces(c.s.quote).length) { add('error', `quote too short to check (every piece under 3 words): "${c.s.quote}"`); continue }
+  if (c.s.quote && c.s.quote.split(/\s+/).length < 6) add('warning', `quote of under 6 words: a phrase rarely shows support: "${c.s.quote}"`)
   if (c.s.copy) {
     const copy = copies.get(c.s.work)
     if (!copy) add('unchecked', dir ? `read in a copy of the book: put its text in raw/${c.s.work}.txt (or .md, .pdf), or check the quote at its page` : 'read in a copy of the book: check the quote at its page')
