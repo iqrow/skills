@@ -2,12 +2,13 @@
 // Validates a teardown, then writes one self-contained HTML file, or a folder for the web.
 // The teardown is a folder (see SCHEMA.md) or a compiled JSON file.
 // Usage: node build.mjs <slug> [out.html]                  (default out: <slug>.html next to the folder or JSON)
-//        node build.mjs --public=<url> [--legal=<url>] <slug> [out-dir]
+//        node build.mjs --public=<url> [--legal=<url>] [--home=<url>] <slug> [out-dir]
 //                                                           (folder for the web at <url>; default out: <slug>.public/)
 //        node build.mjs --check <slug>                     (validate only)
 // A local page puts the teardown's path in its Copy prompts. A --public folder has one page per node (see public.mjs);
 // its prompts name the teardown by <url>, and it links to the skill for going deeper. --legal links every page of the
-// folder to the site's legal page, beside the note that an AI agent wrote the map.
+// folder to the site's legal page, beside the note that an AI agent wrote the map. --home puts the site's mark at the
+// top left of every page, linked to the site's home page.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join, basename, extname, resolve, sep } from 'node:path'
@@ -17,17 +18,18 @@ import { writePublic } from './public.mjs'
 
 const KIT = dirname(fileURLToPath(import.meta.url))
 const argv = process.argv.slice(2)
-const valued = (a) => a.startsWith('--public=') || a.startsWith('--legal=')
+const valued = (a) => a.startsWith('--public=') || a.startsWith('--legal=') || a.startsWith('--home=')
 const flags = new Set(argv.filter((a) => a.startsWith('--') && !valued(a)))
 const args = argv.filter((a) => !a.startsWith('--'))
 const checkOnly = flags.delete('--check')
 // The folder's public URL, with its final "/": canonical links and link previews need absolute URLs.
 const publicUrl = argv.find((a) => a.startsWith('--public='))?.slice('--public='.length).replace(/\/*$/, '/')
 const legalUrl = argv.find((a) => a.startsWith('--legal='))?.slice('--legal='.length)
+const homeUrl = argv.find((a) => a.startsWith('--home='))?.slice('--home='.length)
 const input = args[0]?.replace(/(.)\/+$/, '$1')
-if (!input || flags.size || (publicUrl !== undefined && !/^https?:\/\/[^/]+\//.test(publicUrl))
-  || (legalUrl !== undefined && (publicUrl === undefined || !/^https?:\/\/[^/]+\//.test(legalUrl)))) {
-  console.error('Usage: node build.mjs [--check | --public=<https://host/folder/> [--legal=<https://host/legal/>]] <slug> | teardown.json [out.html | out-dir]')
+const siteUrl = (u) => u === undefined || (publicUrl !== undefined && /^https?:\/\/[^/]+\//.test(u))
+if (!input || flags.size || (publicUrl !== undefined && !/^https?:\/\/[^/]+\//.test(publicUrl)) || !siteUrl(legalUrl) || !siteUrl(homeUrl)) {
+  console.error('Usage: node build.mjs [--check | --public=<https://host/folder/> [--legal=<https://host/legal/>] [--home=<https://host/>]] <slug> | teardown.json [out.html | out-dir]')
   process.exit(2)
 }
 
@@ -328,7 +330,7 @@ if (!existsSync(viewerJs)) {
 if (publicUrl) {
   const outDir = resolve(args[1] ?? join(dirname(input), basename(input, extname(input)) + '.public'))
   try {
-    const pages = writePublic(teardown, outDir, publicUrl, { viewerJs, viewerCss, legalUrl })
+    const pages = writePublic(teardown, outDir, publicUrl, { viewerJs, viewerCss, legalUrl, homeUrl })
     console.log(`wrote ${outDir}: ${pages} pages for ${publicUrl}${existsSync(join(outDir, 'cover.jpg')) ? '' : '; no cover.jpg yet: run cover.mjs on it'}`)
   } catch (e) {
     console.error(e.message)

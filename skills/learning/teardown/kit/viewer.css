@@ -21,8 +21,14 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-crumbs a:hover { color: var(--ink); }
 .ev-crumbs a[aria-current="page"] { color: var(--ink); font-weight: 700; }
 .ev-crumbs .sep { color: var(--edge); }
-.ev-title { display: flex; align-items: center; gap: 8px; padding: 0 16px; color: var(--muted); white-space: nowrap; min-width: 0; flex: 0 1 auto; }
-.ev-title b { color: var(--ink); flex: none; }
+/* The site's mark leads home, the teardown's title leads to its root: both sit left of the path. */
+.ev-mark { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 48px; color: var(--ink); border-right: 1px solid var(--edge); transition: background 0.15s, color 0.15s; }
+.ev-mark svg { width: 26px; height: 26px; }
+.ev-mark:hover, .ev-mark:focus-visible { color: var(--pink); background: var(--card); }
+.ev-mark:focus-visible, .ev-title > a:focus-visible { outline: 2px solid var(--pink); outline-offset: -2px; }
+.ev-title { display: flex; align-items: center; gap: 8px; padding: 0 16px; color: var(--muted); white-space: nowrap; min-width: 0; flex: 0 1 auto; border-right: 1px solid var(--edge); }
+.ev-title > a { color: var(--ink); flex: none; font-weight: 700; text-decoration: none; }
+.ev-title > a:hover { color: var(--pink); }
 .ev-title span { overflow: hidden; text-overflow: ellipsis; }
 .ev-actions { display: flex; flex: none; }
 .ev-actions button { border: 0; border-left: 1px solid var(--edge); background: none; padding: 0 18px; cursor: pointer; }
@@ -128,8 +134,9 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
   .ev { display: flex; flex-direction: column; height: auto; min-height: 100vh; min-height: 100dvh; }
   .ev-bar { display: contents; }
   .ev-head { order: 0; position: sticky; top: 0; z-index: 3; flex: none; height: 44px; background: var(--bg); border-bottom: 1px solid var(--edge); }
-  .ev-title { order: -1; max-width: 50%; padding: 0 14px 0 16px; border-right: 1px solid var(--edge); }
-  .ev-title b { flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; }
+  .ev-mark { order: -2; flex-basis: 44px; }
+  .ev-title { order: -1; max-width: 50%; padding: 0 14px 0 16px; }
+  .ev-title > a { flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; }
   .ev-title span { display: none; }
   .ev-crumbs { padding: 0 12px 0 10px; }
   .ev-crumbs a { padding: 11px 4px; }

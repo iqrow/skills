@@ -41,8 +41,9 @@ html:not(.js), html:not(.js) body { height: auto; overflow: auto; }
 .tp-static .note { margin-top: 32px; color: var(--muted); font-size: 14px; }`
 
 /** Writes the folder. `url` is the folder's public URL, ending in "/"; `legalUrl`, if given, is the site's legal page,
- *  linked beside the AI note on every page. Returns the number of pages. */
-export function writePublic(teardown, outDir, url, { viewerJs, viewerCss, legalUrl }) {
+ *  linked beside the AI note on every page; `homeUrl`, if given, is the site's home page, linked from the mark at the
+ *  top left. Returns the number of pages. */
+export function writePublic(teardown, outDir, url, { viewerJs, viewerCss, legalUrl, homeUrl }) {
   if (teardown.root !== 'index' && teardown.nodes.some((n) => n.id === 'index')) throw new Error('node "index" would overwrite the root page; rename it')
   if (existsSync(outDir)) {
     const files = readdirSync(outDir)
@@ -129,7 +130,7 @@ export function writePublic(teardown, outDir, url, { viewerJs, viewerCss, legalU
 <article class="tp-static">
 ${article(n)}
 </article>
-<script type="application/json" id="teardown"${legalUrl ? ` data-legal="${esc(legalUrl)}"` : ''}></script>
+<script type="application/json" id="teardown"${legalUrl ? ` data-legal="${esc(legalUrl)}"` : ''}${homeUrl ? ` data-home="${esc(homeUrl)}"` : ''}></script>
 <script>
 // The viewer reads the teardown element when it runs, so it loads after the teardown. If the teardown cannot load, the text stays.
 fetch('teardown.json').then((r) => { if (!r.ok) throw new Error(r.status); return r.text() }).then((text) => {

@@ -20,6 +20,9 @@ const teardown = JSON.parse(teardownEl.textContent)
 const teardownFile = teardownEl.dataset.file
 // The site's legal page, which `build.mjs --legal` names on a public folder: linked beside the AI note.
 const legalUrl = teardownEl.dataset.legal
+// The site's home page, which `build.mjs --home` names on a public folder: the mark at the top left links to it.
+const siteHomeUrl = teardownEl.dataset.home
+const MARK_SVG = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M5 8.5 16 3l11 5.5L16 14 5 8.5Z" fill="currentColor" opacity=".22"/><path d="M5 8.5v15L16 29l11-5.5v-15M5 8.5 16 14l11-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m11 22.5 5-10.5 5 10.5M13 18.5h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 const SKILL_URL = 'https://github.com/iqrow/skills'
 const byId = new Map(teardown.nodes.map((n) => [n.id, n]))
 const parentOf = new Map()
@@ -115,8 +118,9 @@ document.body.append(
   h('div', { class: 'ev' },
     h('header', { class: 'ev-bar' },
       h('div', { class: 'ev-head' },
-        crumbsEl,
-        h('div', { class: 'ev-title' }, h('b', {}, teardown.title), h('span', {}, `“${teardown.prompt}”`))),
+        siteHomeUrl ? h('a', { class: 'ev-mark', href: siteHomeUrl, 'aria-label': 'Home', title: 'Home', html: MARK_SVG }) : null,
+        h('div', { class: 'ev-title' }, link(teardown.root, { title: `${teardown.title}: start` }, () => go(teardown.root), teardown.title), h('span', {}, `“${teardown.prompt}”`)),
+        crumbsEl),
       h('div', { class: 'ev-actions' }, btnExplode, btnFlat, btnIndex, btnSources)),
     stageEl, panelEl, stripEl),
 )
@@ -642,11 +646,13 @@ function nameCard(text, on, anims) {
   const t = new THREE.CanvasTexture(c)
   t.colorSpace = THREE.SRGBColorSpace
   t.anisotropy = 4
-  const m = new THREE.MeshBasicMaterial({ map: t, transparent: true, toneMapped: false, depthWrite: false })
+  // The chosen card draws over everything: a drawing wider than the card's ring (a round loaf) would hide it.
+  // The other cards keep the depth test, so the drawings in front still cover the ones round the back.
+  const m = new THREE.MeshBasicMaterial({ map: t, transparent: true, toneMapped: false, depthWrite: false, depthTest: !on })
   m.userData.base = 1
   const hgt = 0.09
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry((hgt * W) / H, hgt), m)
-  mesh.renderOrder = 2
+  mesh.renderOrder = on ? 3 : 2
   const q = new THREE.Quaternion()
   anims.push(() => { mesh.parent.getWorldQuaternion(q); mesh.quaternion.copy(q.invert().multiply(camera.quaternion)) })
   return mesh
