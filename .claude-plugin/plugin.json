@@ -1,0 +1,13 @@
+{
+  "name": "iqrow-skills",
+  "description": "iqrow's agent skills. teardown takes a whole subject apart the way its professionals see it, as an interactive 3D exploded view to browse. teardown-lookup, teardown-apply and teardown-audit use that map on your own project: find what a problem is called and its prior art, apply one part, or audit the whole project into a strategy. teardown-upload offers a finished map to Teardown Atlas as a pull request.",
+  "author": {
+    "name": "iqrow",
+    "url": "https://github.com/iqrow"
+  },
+  "homepage": "https://teardownatlas.com",
+  "repository": "https://github.com/iqrow/skills",
+  "license": "MIT",
+  "keywords": ["skills", "learning", "mental-models", "teardown", "exploded-view", "prior-art", "strategy", "audit"],
+  "skills": ["./skills/learning/teardown", "./skills/learning/teardown-lookup", "./skills/learning/teardown-apply", "./skills/learning/teardown-audit", "./skills/learning/teardown-upload"]
+}

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Teardown"
+  short_description: "Tear down a whole subject into a 3D exploded view to browse"

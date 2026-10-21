@@ -1,0 +1,21 @@
+---
+name: teardown-audit
+description: Audits a whole project against a whole teardown map and writes a strategy in Richard Rumelt's kernel: a diagnosis of the crux, a guiding policy, and coherent actions. Use when the user asks to audit a project against a teardown, or asks "what is my game/book/product missing?", "where do I stand?" or "what should I work on next?" and a teardown of the subject exists. For one part of a teardown, use teardown-apply.
+---
+
+# Teardown audit
+
+A [teardown](../teardown/SKILL.md) map lists every part the subject's professionals look at. This skill checks the whole project against it, part by part, and turns the findings into a strategy. The strategy follows the kernel in Richard Rumelt's *Good Strategy Bad Strategy*: a **diagnosis** that names the crux, a **guiding policy** for dealing with it, and **coherent actions** that carry out the policy and support each other. A list of every gap is an inventory; the strategy is the choice of the few gaps that matter.
+
+## Steps
+
+1. **Scope.** Name the teardown, the project (code, drafts, design docs, playtest or sales numbers, notes) and the project's goal: who it is for and what success looks like, with any numbers. If no teardown of the subject exists, build one with teardown first. Ask one question only if the goal is missing. Done when the teardown, the project's files and the goal are written down.
+2. **Plan coverage.** Run `node <teardown>/kit/map.mjs <slug>`, with `<teardown>` as the teardown skill's folder and `<slug>` the map's folder, JSON or published URL. Every node needs a mark. For a teardown of more than about 20 nodes, give each top-level part to a subagent that runs [teardown-apply](../teardown-apply/SKILL.md) steps 2–3 on that branch and returns its marks with evidence. Done when every node belongs to you or to a subagent.
+3. **Inventory.** Mark every node **present** (where, with its setting or reading), **implicit** (done without a name), **missing**, or **not applicable** (why), with a file, line, scene or number as evidence. Record each catalogue choice. For each loop, check every link of its chain in the project: a loop with a missing link is open. Place the project on the flatpack: the last assembly step it has completed. Note what the project has that the map lacks. Done when every node has a mark and evidence, and every loop is closed or open.
+4. **Diagnosis.** Name the crux: the one challenge, two at most, that most limits the goal. Explain how it works, using the map's links and loops: which missing or troubled parts cause which symptoms. Say why the other findings matter less now. Open the sources behind each claim; the map's citations are leads. Done when the diagnosis fits in one paragraph, cites inventory evidence, and predicts something you can observe.
+5. **Guiding policy.** State the approach to the crux as a choice: what the project will do, and what it gives up or postpones because of it. Where approaches compete, run [teardown-lookup](../teardown-lookup/SKILL.md) from step 4 (Search outward) with the crux as the category. Done when the policy rules out at least one thing the project could otherwise do.
+6. **Coherent actions.** Write 3–7 actions that carry out the policy, in the order they depend on each other and the flatpack. Each one names its node `id`s, the concrete change, and a check that shows it worked. Each action makes another easier or more effective. Each is achievable with the project's current means. Move every finding that does not serve the policy to **Later**. Done when every action serves the policy and has a check.
+7. **Report.** Write `teardown-audit-<slug>.md` where the project keeps its notes, and give its path. Sections, in order: Diagnosis, Guiding policy, Actions, Later, Coverage (one table row per node: term, mark, evidence), Map gaps (the teardown-level misses from step 3). Lead the chat reply with the diagnosis.
+8. **Grow the map.** Write each map gap back as teardown's [Use the map](../teardown/SKILL.md#use-the-map) section says. Done when every gap is in the map and passes `build` and `verify`, or has a `log.md` line saying why it stays out.
+
+Use the map's practitioner terms throughout, with the user's own word beside each the first time.

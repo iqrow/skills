@@ -1,0 +1,3 @@
+interface:
+  display_name: "Teardown apply"
+  short_description: "Hold one part of a teardown map against your project"

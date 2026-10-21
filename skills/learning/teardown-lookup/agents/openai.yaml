@@ -1,0 +1,3 @@
+interface:
+  display_name: "Teardown lookup"
+  short_description: "Find the prior art: the name and standard approach for a scoped problem"

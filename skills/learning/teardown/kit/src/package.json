@@ -1,0 +1,14 @@
+{
+  "name": "teardown-viewer",
+  "private": true,
+  "description": "Rebuilds kit/viewer.js and kit/yaml.mjs. Using the skill does not need these packages; verify uses pdfjs-dist to read PDFs if it is installed.",
+  "scripts": {
+    "bundle": "node bundle.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "pdfjs-dist": "5.4.296",
+    "three": "0.172.0",
+    "yaml": "2.9.1"
+  }
+}

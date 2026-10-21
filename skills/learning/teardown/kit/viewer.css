@@ -1,0 +1,184 @@
+:root {
+  --bg: #1B1621; --card: #251E2C; --edge: #4D2D49; --pink: #E663B5; --gold: #C9A45C;
+  --ink: #ECE5F1; --muted: #9686A2; --ok: #7FC79A; --blue: #7FA8D9; --red: #E07A6F;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); }
+body { font: 15px/1.5 "Iosevka Aile", "Iosevka", ui-sans-serif, system-ui, sans-serif; overflow: hidden; }
+button { font: inherit; color: inherit; }
+a { color: var(--pink); }
+code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; background: #14101A; padding: 1px 5px; border-radius: 4px; }
+
+.ev { display: grid; grid-template-columns: minmax(0, 1fr) 400px; grid-template-rows: 44px minmax(0, 1fr) auto; height: 100vh; height: 100dvh; }
+
+/* top bar: flush to the window edge, one hairline below. Only the actions keep their width:
+   the path scrolls sideways and the title cuts off, so the bar never widens the page. */
+.ev-bar { grid-column: 1 / -1; display: flex; align-items: stretch; border-bottom: 1px solid var(--edge); min-width: 0; }
+.ev-head { display: flex; align-items: stretch; flex: 1; min-width: 0; }
+.ev-crumbs { display: flex; align-items: center; gap: 4px; padding-left: 16px; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; white-space: nowrap; }
+.ev-crumbs::-webkit-scrollbar { display: none; }
+.ev-crumbs a { color: var(--muted); text-decoration: none; padding: 0 2px; }
+.ev-crumbs a:hover { color: var(--ink); }
+.ev-crumbs a[aria-current="page"] { color: var(--ink); font-weight: 700; }
+.ev-crumbs .sep { color: var(--edge); }
+.ev-title { display: flex; align-items: center; gap: 8px; padding: 0 16px; color: var(--muted); white-space: nowrap; min-width: 0; flex: 0 1 auto; }
+.ev-title b { color: var(--ink); flex: none; }
+.ev-title span { overflow: hidden; text-overflow: ellipsis; }
+.ev-actions { display: flex; flex: none; }
+.ev-actions button { border: 0; border-left: 1px solid var(--edge); background: none; padding: 0 18px; cursor: pointer; }
+.ev-actions button[aria-pressed="true"] { background: var(--card); color: var(--pink); }
+.ev-actions button:disabled { color: var(--muted); cursor: default; }
+
+/* stage */
+.ev-stage { position: relative; overflow: hidden; min-height: 0; }
+.ev-stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.ev-labels { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.ev-label { position: absolute; left: 0; top: 0; pointer-events: auto; cursor: pointer; white-space: nowrap; color: inherit; text-decoration: none;
+  background: rgba(27, 22, 33, 0.82); border: 1px solid var(--edge); border-radius: 6px; padding: 1px 8px 2px; font-size: 13px; }
+.ev-label .dot, .ev-chip .dot, .ev-terms .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; background: var(--k); vertical-align: 1px; }
+.ev-label.focus { font-size: 16px; font-weight: 700; padding: 2px 10px 3px; }
+.ev-label.hover { border-color: var(--pink); color: #fff; }
+.ev-hint { position: absolute; left: 16px; bottom: 12px; right: 16px; color: var(--muted); font-size: 13px; pointer-events: none; }
+
+/* side panel: shares the stage's edge, one hairline */
+.ev-panel { grid-column: 2; grid-row: 2 / 4; border-left: 1px solid var(--edge); overflow-y: auto; padding: 18px 20px 48px; }
+.ev-panel h2 { margin: 2px 0 6px; font-size: 26px; line-height: 1.15; }
+.ev-panel h3 { margin: 20px 0 6px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.ev-panel section > h3 { border-top: 1px solid var(--edge); padding-top: 14px; }
+.ev-kind { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--k); }
+.ev-aka { margin: 0 0 8px; color: var(--muted); font-style: italic; }
+.ev-plain { font-size: 16.5px; margin: 0 0 12px; }
+.ev-panel dl { display: grid; grid-template-columns: 96px 1fr; gap: 6px 12px; margin: 0; }
+.ev-panel dt { color: var(--muted); font-size: 13px; padding-top: 2px; }
+.ev-panel dd { margin: 0; }
+.ev-panel dl.ev-links { grid-template-columns: 110px 1fr; }
+.ev-summary { background: var(--card); margin: -18px -20px 16px; padding: 14px 20px 16px; border-bottom: 1px solid var(--edge); }
+.ev-summary h3 { margin: 0 0 6px; color: var(--gold); }
+.ev-summary p { margin: 0; }
+.ev-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ev-chip { color: inherit; text-decoration: none; border: 1px solid var(--edge); border-radius: 999px; padding: 1px 10px 2px; cursor: pointer; font-size: 13.5px; }
+.ev-panel, .ev-overlay { overflow-wrap: anywhere; }
+.ev-chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ev-chain .arrow { color: var(--muted); }
+.ev-why { color: var(--ink); font-style: italic; }
+.ev-note { margin: 28px 0 0; padding-top: 14px; border-top: 1px solid var(--edge); color: var(--muted); font-size: 13px; }
+.ev-note a { color: inherit; }
+.ev-cues { margin: 0; padding-left: 20px; }
+.ev-cues li { margin: 4px 0; }
+.ev-sources ol { margin: 0; padding-left: 20px; font-size: 13.5px; }
+.ev-sources li { margin: 4px 0; }
+.ev-sources .kind { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.ev-sources .page { color: var(--muted); }
+.ev-sources .quote { display: block; color: var(--muted); font-style: italic; font-size: 13px; margin-top: 2px; }
+.ev-sources .flag { color: var(--gold); font-size: 12.5px; }
+.unverified { color: var(--red); font-size: 13.5px; }
+.ev-ask { font-size: 13px; }
+.ev-copy { background: none; border: 1px solid var(--edge); border-radius: 4px; cursor: pointer; font-size: 12px; padding: 0 6px; }
+.ev-plot { margin: 0; }
+.ev-plot svg { width: 100%; height: auto; display: block; }
+.ev-plot figcaption { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+/* bottom strip: catalogues and flatpack steps; cells share hairlines and wrap instead of hiding off-screen */
+.ev-strip { grid-column: 1; border-top: 1px solid var(--edge); }
+.ev-row { display: flex; align-items: stretch; }
+.ev-row + .ev-row { border-top: 1px solid var(--edge); }
+.ev-rowlabel { display: flex; align-items: center; padding: 0 14px 0 16px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; min-width: 92px; }
+.ev-cells { flex: 1; display: flex; flex-wrap: wrap; row-gap: 1px; }
+/* the top shadow lands on the row's own top edge on the first line, and fills the 1px gap between wrapped lines */
+.ev-row button { border: 0; border-left: 1px solid var(--edge); box-shadow: 0 -1px 0 var(--edge); background: none; min-height: 40px; padding: 0 16px; cursor: pointer; white-space: nowrap; }
+/* hover colours only where there is hover: on a touch screen they stick after a tap and look selected */
+@media (hover: hover) {
+  .ev-actions button:hover:not(:disabled), .ev-row button:hover:not(:disabled), .ev-terms li a:hover { background: var(--card); }
+  .ev-label:hover { border-color: var(--pink); color: #fff; }
+  .ev-chip:hover { border-color: var(--pink); }
+}
+.ev-row button[aria-pressed="true"] { background: var(--card); color: var(--pink); }
+.ev-row button:disabled { color: var(--muted); cursor: default; }
+
+/* overlays (index, sources): float over the canvas, so they draw their own edge */
+.ev-overlay { position: absolute; inset: 14px; z-index: 2; background: rgba(27, 22, 33, 0.97); border: 1px solid var(--edge); border-radius: 10px; overflow-y: auto; scroll-padding-top: 64px; padding: 0 0 12px; }
+.ev-overlay-head { position: sticky; top: 0; z-index: 1; display: flex; gap: 12px 16px; align-items: center; padding: 12px 16px; background: var(--bg); border-bottom: 1px solid var(--edge); }
+.ev-overlay input { flex: 1; min-width: 0; background: var(--card); border: 1px solid var(--edge); border-radius: 6px; color: var(--ink); font: inherit; padding: 4px 10px; }
+.ev-close { background: none; border: 1px solid var(--edge); border-radius: 6px; padding: 3px 12px; cursor: pointer; }
+.ev-overlay ul { list-style: none; margin: 0; padding: 0; }
+.ev-terms li a { display: grid; grid-template-columns: 220px 90px 1fr; gap: 12px; width: 100%; color: inherit; text-decoration: none; border-bottom: 1px solid #2c2333; padding: 6px 16px; cursor: pointer; }
+.ev-terms .term { font-weight: 600; }
+.ev-terms .kind { color: var(--muted); font-size: 12.5px; }
+.ev-terms .plain { color: var(--muted); font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ev-terms .plain b { color: var(--gold); font-weight: 600; }
+.ev-terms .ev-note { padding: 8px 16px; color: var(--muted); font-size: 13px; border-bottom: 1px solid #2c2333; }
+.ev-works .ev-group { padding: 18px 16px 6px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); font-weight: 600; border-bottom: 1px solid var(--edge); }
+.ev-work { padding: 10px 16px 12px; border-bottom: 1px solid #2c2333; }
+.ev-work-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.ev-work-head a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.ev-work-head a:hover { color: var(--pink); text-decoration: underline; }
+.ev-work-head .count { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+.ev-work-meta { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.ev-cites { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; }
+.ev-cite { display: inline-flex; align-items: baseline; gap: 6px; }
+.ev-cite .page { color: var(--muted); font-size: 12.5px; }
+.ev-cite .page:hover { color: var(--pink); }
+.ev-work-why { margin: 4px 0 2px; font-size: 13.5px; }
+
+/* Phone, or tablet upright: one column that scrolls as a page. The path stays at the top;
+   the view, its actions and the catalogues come first, then the panel to read. */
+@media (max-width: 900px) and (orientation: portrait), (max-width: 600px) {
+  html, body { height: auto; }
+  body { overflow: visible; }
+  .ev { display: flex; flex-direction: column; height: auto; min-height: 100vh; min-height: 100dvh; }
+  .ev-bar { display: contents; }
+  .ev-head { order: 0; position: sticky; top: 0; z-index: 3; flex: none; height: 44px; background: var(--bg); border-bottom: 1px solid var(--edge); }
+  .ev-title { order: -1; max-width: 50%; padding: 0 14px 0 16px; border-right: 1px solid var(--edge); }
+  .ev-title b { flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; }
+  .ev-title span { display: none; }
+  .ev-crumbs { padding: 0 12px 0 10px; }
+  .ev-crumbs a { padding: 11px 4px; }
+  .ev-stage { order: 1; flex: none; height: 62vh; height: 62svh; min-height: 300px; }
+  .ev-actions { order: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--edge); }
+  .ev-actions button { min-height: 46px; padding: 0 4px; }
+  .ev-actions button:first-child { border-left: 0; }
+  .ev-strip { order: 3; }
+  .ev-panel { order: 4; border-left: 0; border-top: 1px solid var(--edge); overflow: visible; padding: 18px 16px 48px; }
+  .ev-summary { margin: -18px -16px 16px; padding: 14px 16px 16px; }
+  /* the catalogue's name is the first cell of its row, so its options get the full width to wrap in.
+     Each cell draws its right edge, so a wrapped line starts on the screen's own edge. */
+  .ev-row { flex-wrap: wrap; row-gap: 1px; }
+  .ev-cells { display: contents; }
+  .ev-rowlabel { min-width: 0; min-height: 44px; padding: 0 12px 0 16px; border-right: 1px solid var(--edge); }
+  .ev-row button { min-height: 44px; border-left: 0; border-right: 1px solid var(--edge); }
+  .ev-terms li a { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 9px 16px; }
+  .ev-terms .plain { grid-column: 1 / -1; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .ev-overlay-head { flex-wrap: wrap; }
+  .ev-overlay-head b { flex: 1; min-width: 0; }
+  .ev-overlay input { order: 1; flex-basis: 100%; }
+  .ev-work-head { flex-wrap: wrap; gap: 2px 12px; }
+}
+
+/* Phone on its side: too short to stack, so the panel stays beside the view, narrower;
+   catalogues keep to one line each and scroll sideways. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .ev { grid-template-columns: minmax(0, 1fr) min(340px, 42vw); }
+  .ev-title { display: none; }
+  .ev-actions button { padding: 0 12px; }
+  .ev-panel { padding: 14px 16px 32px; }
+  .ev-summary { margin: -14px -16px 14px; padding: 12px 16px 14px; }
+  .ev-cells { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .ev-cells::-webkit-scrollbar { display: none; }
+  .ev-row button { flex: none; }
+}
+
+/* Small screens: the Index and Sources fill the screen, and typing in them does not zoom the page */
+@media (max-width: 900px) and (orientation: portrait), (max-width: 600px), (orientation: landscape) and (max-height: 500px) {
+  .ev-overlay { position: fixed; inset: 0; z-index: 10; border: 0; border-radius: 0; overscroll-behavior: contain; background: var(--bg); }
+  .ev-overlay input { font-size: 16px; padding: 6px 10px; }
+}
+
+/* Fingers: bigger targets; quick taps on buttons and links do not zoom the page; and a drag or pinch
+   that starts on a label still reaches the view (viewer.js picks the tapped label) */
+@media (pointer: coarse) {
+  .ev button, .ev a { touch-action: manipulation; }
+  .ev-label { pointer-events: none; }
+  .ev-chips, .ev-chain { gap: 8px; }
+  .ev-chip { padding: 5px 12px 6px; }
+  .ev-close { padding: 6px 14px; }
+}

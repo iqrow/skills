@@ -1,0 +1,3 @@
+interface:
+  display_name: "Teardown upload"
+  short_description: "Submit a teardown to iqrow/teardowns"

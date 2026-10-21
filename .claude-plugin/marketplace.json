@@ -1,0 +1,17 @@
+{
+  "name": "iqrow",
+  "owner": {
+    "name": "iqrow",
+    "url": "https://github.com/iqrow"
+  },
+  "description": "iqrow's agent skills, as an installable plugin.",
+  "plugins": [
+    {
+      "name": "iqrow-skills",
+      "source": "./",
+      "description": "iqrow's agent skills: teardown and the teardown-* skills that use its maps.",
+      "category": "learning",
+      "keywords": ["skills", "learning", "teardown", "prior-art"]
+    }
+  ]
+}

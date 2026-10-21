@@ -1,0 +1,5 @@
+# Built pages and check screenshots: rebuild with kit/build.mjs, re-run kit/check.mjs
+*.html
+*-check/
+# Bundler dependencies: install with `npm ci` in kit/src
+kit/src/node_modules/
