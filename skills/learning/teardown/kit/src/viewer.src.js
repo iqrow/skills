@@ -12,6 +12,7 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
 import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { searchEntries, search, snippet } from '../search.mjs'
 import { AI_NOTE, usePrompt, deeperPrompt } from '../prompts.mjs'
+import { stepId, stepOf, stepTitle } from '../flatpack.mjs'
 
 const teardownEl = document.getElementById('teardown')
 const teardown = JSON.parse(teardownEl.textContent)
@@ -81,7 +82,8 @@ function h(tag, attrs = {}, ...kids) {
 // ---------- links ----------
 // Every node has its own URL. Served from a folder URL (https://host/ or https://host/dir/), a node is the path
 // <folder><id>, so the server must answer every path in the folder with this page. Opened as a file, or by a URL
-// ending in .html, a page can change only its fragment, so a node is #<id>.
+// ending in .html, a page can change only its fragment, so a node is #<id>. Each flatpack step has a URL the same
+// way, with the id flatpack.mjs gives it: `flatpack` for the first step, `flatpack-<n>` for step n.
 const usePaths = location.protocol !== 'file:' && !location.pathname.endsWith('.html')
 const home = usePaths ? location.pathname.replace(/[^/]*$/, '') : location.pathname + location.search
 // A public node page arrives with its own title, so the teardown's title comes from the teardown, in build.mjs's format.
@@ -89,19 +91,24 @@ const baseTitle = `${teardown.title} · teardown`
 // How a prompt names the teardown: its path on the author's machine, or the URL of the published page.
 const teardownRef = teardownFile ?? (usePaths ? location.origin + home : null)
 const hrefOf = (id) => (id === teardown.root ? home : (usePaths ? home : '#') + encodeURIComponent(id))
-function idFromUrl() {
+const stepHref = (i) => (usePaths ? home : '#') + stepId(i)
+// What the URL opens: a flatpack step ({ step }), or else a node ({ step: -1, id }), the root when it names no node.
+function viewFromUrl() {
   let id = (usePaths && location.pathname.slice(home.length)) || location.hash.slice(1)
-  try { id = decodeURIComponent(id) } catch { return teardown.root }
-  return byId.has(id) ? id : teardown.root
+  try { id = decodeURIComponent(id) } catch { return { step: -1, id: teardown.root } }
+  const step = stepOf(id, teardown.assembly.length)
+  return step >= 0 ? { step } : { step: -1, id: byId.has(id) ? id : teardown.root }
 }
-// A plain click opens the node in place. A middle or modified click falls through to the browser: new tab, new window.
-function link(id, attrs, open, ...kids) {
-  return h('a', { ...attrs, href: hrefOf(id), onclick: (e) => {
+const viewHref = (v) => (v.step >= 0 ? stepHref(v.step) : hrefOf(v.id))
+// A plain click opens the link's view in place. A middle or modified click falls through to the browser: new tab, new window.
+function anchor(href, attrs, open, ...kids) {
+  return h('a', { ...attrs, href, onclick: (e) => {
     if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
     e.preventDefault()
     open()
   } }, ...kids)
 }
+function link(id, attrs, open, ...kids) { return anchor(hrefOf(id), attrs, open, ...kids) }
 const crumbsEl = h('nav', { class: 'ev-crumbs', 'aria-label': 'Path' })
 const btnExplode = h('button', { type: 'button', onclick: () => toggleExplode() }, 'Explode')
 const btnFlat = h('button', { type: 'button', 'aria-pressed': 'false', onclick: () => (mode === 'flatpack' ? leaveFlatpack() : enterFlatpack()) }, 'Flatpack')
@@ -946,7 +953,7 @@ function startFrom(parentId, childId) {
   return { pos: anchorOf(parentId, childId), scale: byId.get(childId).at ? S_CHILD * 0.3 : 0.15 }
 }
 
-function layout() {
+function layout(replace = false) {
   // An item shows its turntable only while it is the open, whole node; rebuild those where that changes
   // before any part starts from its anchor.
   for (const it of items.values()) if (!it.dying && it.tt !== turntableOn(it.id)) it.build()
@@ -998,14 +1005,15 @@ function layout() {
   btnExplode.textContent = exploded && mode === 'explore' ? 'Assemble' : 'Explode'
   btnExplode.disabled = mode !== 'explore' || !(byId.get(path.at(-1)).children ?? []).length
   btnFlat.setAttribute('aria-pressed', String(mode === 'flatpack'))
-  syncUrl()
+  syncUrl(replace)
 }
-// The address bar follows the open node. Each move to another node adds a history entry, so Back and Forward work.
-function syncUrl() {
-  if (mode !== 'explore') return
+// The address bar follows the open node or flatpack step. Each move to another adds a history entry, so Back and
+// Forward work; `replace` changes the entry instead, for the steps a run of Play moves on to.
+function syncUrl(replace) {
   const id = path.at(-1)
-  document.title = id === teardown.root ? baseTitle : `${byId.get(id).term} · ${baseTitle}`
-  if (idFromUrl() !== id) history.pushState(null, '', hrefOf(id))
+  document.title = mode === 'flatpack' ? stepTitle(teardown, step) : id === teardown.root ? baseTitle : `${byId.get(id).term} · ${baseTitle}`
+  const href = mode === 'flatpack' ? stepHref(step) : hrefOf(id)
+  if (viewHref(viewFromUrl()) !== href) history[replace ? 'replaceState' : 'pushState'](null, '', href)
 }
 
 function pathTo(id) {
@@ -1051,22 +1059,26 @@ function back() {
 function clearTimers() { for (const t of timers) clearTimeout(t); timers = [] }
 // Each step gathers its parts, then joins them. Steps move on only while the reader presses Play,
 // so a reader can stay on a step as long as they like; Pause holds the view as it is, even mid-step.
+// A run of Play adds one history entry for the steps it moves through, so one Back returns to the step it started from.
 let playing = false
-function showStep(i, play = false) {
+function showStep(i, play = false, replace = false) {
   clearTimers()
+  const from = step
   step = Math.max(0, Math.min(teardown.assembly.length - 1, i))
   phase = 'gather'
   playing = play && step < teardown.assembly.length - 1
-  layout()
+  layout(replace)
   timers.push(setTimeout(() => { phase = 'join'; layout() }, 1500))
-  if (playing) timers.push(setTimeout(() => showStep(step + 1, true), 3600))
+  // The run's first move to another step adds its entry; every later move replaces that entry.
+  const runEntry = replace || step !== from
+  if (playing) timers.push(setTimeout(() => showStep(step + 1, true, runEntry), 3600))
 }
 function play() {
   if (phase === 'gather') return showStep(step, true)
   showStep(step === teardown.assembly.length - 1 ? 0 : step + 1, true)
 }
 function pause() { clearTimers(); playing = false; renderStrip() }
-function enterFlatpack() { mode = 'flatpack'; closeOverlay(); showStep(0) }
+function enterFlatpack(i = 0) { mode = 'flatpack'; closeOverlay(); showStep(i) }
 function leaveFlatpack() { clearTimers(); mode = 'explore'; exploded = false; path = [teardown.root]; layout() }
 
 // ---------- panel ----------
@@ -1194,7 +1206,8 @@ function renderStrip() {
       h('span', { class: 'ev-rowlabel' }, 'Flatpack'),
       h('div', { class: 'ev-cells' },
         h('button', { type: 'button', onclick: () => showStep(step - 1), disabled: step === 0 }, '‹ Back'),
-        teardown.assembly.map((s, i) => h('button', { type: 'button', 'aria-pressed': String(i === step), onclick: () => showStep(i) }, `${i + 1}. ${s.title}`)),
+        // Each step is a link to its own URL, so a reader can copy it or open the step in a new tab.
+        teardown.assembly.map((s, i) => anchor(stepHref(i), { 'aria-current': i === step ? 'step' : null }, () => showStep(i), `${i + 1}. ${s.title}`)),
         h('button', { type: 'button', onclick: () => showStep(step + 1), disabled: step === teardown.assembly.length - 1 }, 'Next ›'),
         h('button', { type: 'button', 'aria-pressed': String(playing), onclick: () => (playing ? pause() : play()) }, playing ? 'Pause' : 'Play'))))
   } else {
@@ -1422,7 +1435,11 @@ addEventListener('keydown', (e) => {
   else if (e.key === 'Enter' || e.key === ' ') { if (e.target === document.body) { e.preventDefault(); toggleExplode() } }
   else if (e.key === '/') { e.preventDefault(); openOverlay('index') }
 })
-addEventListener('popstate', () => { const id = idFromUrl(); if (mode !== 'explore' || id !== path.at(-1)) go(id) })
+addEventListener('popstate', () => {
+  const v = viewFromUrl()
+  if (v.step >= 0) { if (mode !== 'flatpack' || v.step !== step) enterFlatpack(v.step) }
+  else if (mode !== 'explore' || v.id !== path.at(-1)) go(v.id)
+})
 // Idle motion is a slow sway either side of the current view, not a full orbit:
 // labels, leaders and flat cards are composed for the front, and an orbit turns cards edge-on.
 const SWAY_AMP = 0.3, SWAY_PERIOD = 36
@@ -1524,13 +1541,16 @@ function frame() {
 }
 
 // ---------- start ----------
-const start = idFromUrl()
-history.replaceState(null, '', hrefOf(start))
-if (start !== teardown.root) {
-  path = pathTo(start)
-  exploded = opensSplit(byId.get(start))
+const start = viewFromUrl()
+history.replaceState(null, '', viewHref(start))
+if (start.step >= 0) enterFlatpack(start.step)
+else {
+  if (start.id !== teardown.root) {
+    path = pathTo(start.id)
+    exploded = opensSplit(byId.get(start.id))
+  }
+  layout()
 }
-layout()
 requestAnimationFrame(frame)
 window.__ev = {
   ready: true,

@@ -5,16 +5,17 @@
 //        node build.mjs --public=<url> [--legal=<url>] [--home=<url>] <slug> [out-dir]
 //                                                           (folder for the web at <url>; default out: <slug>.public/)
 //        node build.mjs --check <slug>                     (validate only)
-// A local page puts the teardown's path in its Copy prompts. A --public folder has one page per node (see public.mjs);
-// its prompts name the teardown by <url>, and it links to the skill for going deeper. --legal links every page of the
-// folder to the site's legal page, beside the note that an AI agent wrote the map. --home puts the site's mark at the
-// top left of every page, linked to the site's home page.
+// A local page puts the teardown's path in its Copy prompts. A --public folder has one page per node and per flatpack
+// step (see public.mjs); its prompts name the teardown by <url>, and it links to the skill for going deeper. --legal
+// links every page of the folder to the site's legal page, beside the note that an AI agent wrote the map. --home puts
+// the site's mark at the top left of every page, linked to the site's home page.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join, basename, extname, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { loadTeardown } from './teardown.mjs'
 import { writePublic } from './public.mjs'
+import { STEP_ID } from './flatpack.mjs'
 
 const KIT = dirname(fileURLToPath(import.meta.url))
 const argv = process.argv.slice(2)
@@ -76,6 +77,7 @@ const byId = new Map()
 for (const [i, n] of nodes.entries()) {
   if (!n || !isStr(n.id)) { err(`nodes[${i}]`, 'missing "id"'); continue }
   if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(n.id)) err(n.id, 'id must be kebab-case')
+  else if (STEP_ID.test(n.id)) err(n.id, 'id is the URL of a flatpack step ("flatpack", "flatpack-<n>"); rename it')
   if (byId.has(n.id)) err(n.id, 'duplicate id')
   byId.set(n.id, n)
 }

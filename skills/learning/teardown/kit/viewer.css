@@ -91,14 +91,16 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-rowlabel { display: flex; align-items: center; padding: 0 14px 0 16px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; min-width: 92px; }
 .ev-cells { flex: 1; display: flex; flex-wrap: wrap; row-gap: 1px; }
 /* the top shadow lands on the row's own top edge on the first line, and fills the 1px gap between wrapped lines */
-.ev-row button { border: 0; border-left: 1px solid var(--edge); box-shadow: 0 -1px 0 var(--edge); background: none; min-height: 40px; padding: 0 16px; cursor: pointer; white-space: nowrap; }
+.ev-row button, .ev-row a { border: 0; border-left: 1px solid var(--edge); box-shadow: 0 -1px 0 var(--edge); background: none; min-height: 40px; padding: 0 16px; cursor: pointer; white-space: nowrap; }
+/* a flatpack step is a link to its own URL, drawn like the buttons beside it */
+.ev-row a { display: flex; align-items: center; color: inherit; text-decoration: none; }
 /* hover colours only where there is hover: on a touch screen they stick after a tap and look selected */
 @media (hover: hover) {
-  .ev-actions button:hover:not(:disabled), .ev-row button:hover:not(:disabled), .ev-terms li a:hover { background: var(--card); }
+  .ev-actions button:hover:not(:disabled), .ev-row button:hover:not(:disabled), .ev-row a:hover, .ev-terms li a:hover { background: var(--card); }
   .ev-label:hover { border-color: var(--pink); color: #fff; }
   .ev-chip:hover { border-color: var(--pink); }
 }
-.ev-row button[aria-pressed="true"] { background: var(--card); color: var(--pink); }
+.ev-row button[aria-pressed="true"], .ev-row a[aria-current="step"] { background: var(--card); color: var(--pink); }
 .ev-row button:disabled { color: var(--muted); cursor: default; }
 
 /* overlays (index, sources): float over the canvas, so they draw their own edge */
@@ -152,7 +154,7 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
   .ev-row { flex-wrap: wrap; row-gap: 1px; }
   .ev-cells { display: contents; }
   .ev-rowlabel { min-width: 0; min-height: 44px; padding: 0 12px 0 16px; border-right: 1px solid var(--edge); }
-  .ev-row button { min-height: 44px; border-left: 0; border-right: 1px solid var(--edge); }
+  .ev-row button, .ev-row a { min-height: 44px; border-left: 0; border-right: 1px solid var(--edge); }
   .ev-terms li a { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 9px 16px; }
   .ev-terms .plain { grid-column: 1 / -1; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
   .ev-overlay-head { flex-wrap: wrap; }
@@ -171,7 +173,7 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
   .ev-summary { margin: -14px -16px 14px; padding: 12px 16px 14px; }
   .ev-cells { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .ev-cells::-webkit-scrollbar { display: none; }
-  .ev-row button { flex: none; }
+  .ev-row button, .ev-row a { flex: none; }
 }
 
 /* Small screens: the Index and Sources fill the screen, and typing in them does not zoom the page */

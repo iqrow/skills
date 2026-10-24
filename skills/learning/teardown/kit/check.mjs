@@ -11,6 +11,7 @@ import { basename, dirname, extname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { setTimeout as sleep } from 'node:timers/promises'
 import { launch } from './chrome.mjs'
+import { stepId } from './flatpack.mjs'
 
 const args = process.argv.slice(2)
 const oi = args.indexOf('--open')
@@ -166,14 +167,28 @@ async function tour(teardown, byId) {
     await expect(`window.__ev.state().path.at(-1) === ${JSON.stringify(owner.id)} && document.querySelector('.ev-overlay').hidden`, `the search hit did not open "${owner.id}"`)
   }
 
+  // The flatpack and each of its steps has its own address; Back, Forward and loading the address all follow it.
+  const onStep = (i) => `window.__ev.state().mode === 'flatpack' && window.__ev.state().step === ${i} && location.hash === ${JSON.stringify(`#${stepId(i)}`)}`
   await clickEl('.ev-actions button', 'Flatpack')
   await sleep(900)
+  await expect(onStep(0), `the flatpack did not open at step 1 with the address #${stepId(0)}`)
   await shot('flatpack-step-1', `flatpack step 1: ${teardown.assembly[0].title}, parts gathering`)
   const last = teardown.assembly.length
-  await clickEl('.ev-strip .ev-row button', `${last}. ${teardown.assembly[last - 1].title}`)
+  await clickEl('.ev-strip .ev-row a', `${last}. ${teardown.assembly[last - 1].title}`)
   await sleep(2600)
   await settle()
+  await expect(onStep(last - 1), `step ${last} did not take the address #${stepId(last - 1)}`)
   await shot(`flatpack-step-${last}`, `flatpack step ${last}: ${teardown.assembly[last - 1].title}, joined`)
+  if (last > 1) {
+    await js('history.back()')
+    await waitFor(onStep(0), 3000).catch(() => { throw new Error('Back from the last flatpack step did not return to step 1') })
+    await js('history.forward()')
+    await waitFor(onStep(last - 1), 3000).catch(() => { throw new Error(`Forward did not return to flatpack step ${last}`) })
+  }
+  await js('window.__beforeReload = true')
+  await S('Page.reload')
+  await waitFor('!window.__beforeReload && window.__ev && window.__ev.ready')
+  await expect(onStep(last - 1), `loading the address #${stepId(last - 1)} did not open flatpack step ${last}`)
 }
 
 try {

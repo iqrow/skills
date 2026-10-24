@@ -1,13 +1,15 @@
-// Writes a teardown as a folder for the web: one HTML page per node, so every node URL has its own title,
-// description, preview image and readable text. The 3D viewer then loads over the text.
+// Writes a teardown as a folder for the web: one HTML page per node and per flatpack step, so every URL the viewer
+// shows has its own title, description, preview image and readable text. The 3D viewer then loads over the text.
 //   index.html            the root           <id>.html   every other node
+//   flatpack.html         the flatpack, open at its first step     flatpack-<n>.html   step n (flatpack.mjs)
 //   teardown.json         the compiled teardown: the pages load it, and `map.mjs <url>` reads it
 //   viewer.js, viewer.css the viewer every page shares
 //   cover.jpg             not written here: cover.mjs makes it from the built folder
-// The server answers <url><id> with <id>.html (Caddy: a rewrite to {path}.html when that file exists).
+// The server answers <url><name> with <name>.html (Caddy: a rewrite to {path}.html when that file exists).
 import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { AI_NOTE, usePrompt } from './prompts.mjs'
+import { stepId, stepTitle } from './flatpack.mjs'
 
 const SKILL_URL = 'https://github.com/iqrow/skills'
 const OWNED = /^(.+\.html|teardown\.json|viewer\.(js|css)|cover\.jpg)$/
@@ -60,6 +62,9 @@ export function writePublic(teardown, outDir, url, { viewerJs, viewerCss, legalU
   const href = (id) => (id === teardown.root ? './' : id)
   const a = (id) => `<a href="${href(id)}">${esc(byId.get(id).term)}</a>`
   const siteTitle = `${teardown.title} · teardown`
+  const note = `<p class="note">${esc(AI_NOTE)}${legalUrl ? ` <a href="${esc(legalUrl)}">About and legal</a>` : ''}</p>`
+  const steps = teardown.assembly
+  const stepList = `<ol>${steps.map((s, i) => `<li><a href="${stepId(i)}">${esc(s.title)}</a></li>`).join('')}</ol>`
 
   // Every node, as a nested list from the root, then the nodes outside the tree: the root page's index.
   const seen = new Set()
@@ -92,17 +97,33 @@ export function writePublic(teardown, outDir, url, { viewerJs, viewerCss, legalU
     if (n.unverified) out.push(`<p>Unverified: ${esc(n.unverified)}</p>`)
     out.push('<h2>Use it on your project</h2>', `<pre>${esc(usePrompt(teardown, n, url))}</pre>`,
       `<p>Paste it into a coding agent that has the <a href="${SKILL_URL}">teardown skills</a>.</p>`)
-    if (n.id === teardown.root) out.push('<h2>Every part</h2>', `<ul>${tree}</ul>`, rest.length ? `<ul>${rest.map((r) => `<li>${a(r.id)}</li>`).join('')}</ul>` : '')
-    out.push(`<p class="note">${esc(AI_NOTE)}${legalUrl ? ` <a href="${esc(legalUrl)}">About and legal</a>` : ''}</p>`)
+    if (n.id === teardown.root) out.push('<h2>Every part</h2>', `<ul>${tree}</ul>`, rest.length ? `<ul>${rest.map((r) => `<li>${a(r.id)}</li>`).join('')}</ul>` : '', '<h2>Flatpack</h2>', stepList)
+    out.push(note)
     return out.join('\n')
   }
 
-  const page = (n) => {
-    const isRoot = n.id === teardown.root
-    const title = isRoot ? siteTitle : `${n.term} · ${siteTitle}`
-    const pageUrl = isRoot ? url : url + n.id
-    const description = lead(isRoot ? teardown.summary : n.plain)
-    return `<!doctype html>
+  // A flatpack step's page holds what the viewer's panel shows for it, and links to the steps either side. The first
+  // step's page is the flatpack's own, so it also lists every step, as the root's page lists every part.
+  const stepArticle = (i) => {
+    const s = steps[i]
+    const near = (j) => `<a href="${stepId(j)}">Step ${j + 1}: ${esc(steps[j].title)}</a>`
+    const out = [`<nav>${a(teardown.root)} › ${i ? '<a href="flatpack">Flatpack</a>' : 'Flatpack'}</nav>`,
+      `<p class="kind">Flatpack: step ${i + 1} of ${steps.length}</p>`, `<h1>${esc(s.title)}</h1>`, `<p>${esc(s.text)}</p>`,
+      '<h2>Brings together</h2>', `<ul>${s.adds.map((x) => `<li>${a(x)}</li>`).join('')}</ul>`,
+      '<h2>Makes</h2>', `<p>${a(s.makes ?? teardown.root)}</p>`]
+    const either = [i > 0 && `‹ ${near(i - 1)}`, i < steps.length - 1 && `${near(i + 1)} ›`].filter(Boolean)
+    if (either.length) out.push(`<p>${either.join(' · ')}</p>`)
+    if (!i) out.push('<h2>Every step</h2>', stepList)
+    out.push(note)
+    return out.join('\n')
+  }
+  // The flatpack's description names its steps, as many as fit in about 300 characters, as lead() does.
+  const naming = (k) => `${teardown.title} in ${steps.length} ${steps.length === 1 ? 'step' : 'steps'}: ${steps.slice(0, k).map((s) => s.title).join(', ')}${k < steps.length ? `, and ${steps.length - k} more` : ''}.`
+  let named = steps.length
+  while (named > 1 && naming(named).length > 300) named--
+  const flatpackLead = naming(named)
+
+  const page = (title, pageUrl, description, body) => `<!doctype html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
@@ -128,7 +149,7 @@ export function writePublic(teardown, outDir, url, { viewerJs, viewerCss, legalU
 </head>
 <body>
 <article class="tp-static">
-${article(n)}
+${body}
 </article>
 <script type="application/json" id="teardown"${legalUrl ? ` data-legal="${esc(legalUrl)}"` : ''}${homeUrl ? ` data-home="${esc(homeUrl)}"` : ''}></script>
 <script>
@@ -141,11 +162,16 @@ fetch('teardown.json').then((r) => { if (!r.ok) throw new Error(r.status); retur
 </body>
 </html>
 `
-  }
 
   writeFileSync(join(outDir, 'teardown.json'), JSON.stringify(teardown))
   writeFileSync(join(outDir, 'viewer.js'), readFileSync(viewerJs))
   writeFileSync(join(outDir, 'viewer.css'), readFileSync(viewerCss))
-  for (const n of teardown.nodes) writeFileSync(join(outDir, n.id === teardown.root ? 'index.html' : `${n.id}.html`), page(n))
-  return teardown.nodes.length
+  for (const n of teardown.nodes) {
+    const isRoot = n.id === teardown.root
+    writeFileSync(join(outDir, isRoot ? 'index.html' : `${n.id}.html`),
+      page(isRoot ? siteTitle : `${n.term} · ${siteTitle}`, isRoot ? url : url + n.id, lead(isRoot ? teardown.summary : n.plain), article(n)))
+  }
+  for (const i of steps.keys())
+    writeFileSync(join(outDir, `${stepId(i)}.html`), page(stepTitle(teardown, i), url + stepId(i), i ? lead(steps[i].text) : flatpackLead, stepArticle(i)))
+  return teardown.nodes.length + steps.length
 }
