@@ -17,7 +17,7 @@ if (!process.argv[2] || !existsSync(join(dir, 'teardown.json'))) {
 }
 const OUT_W = 1200, OUT_H = 630
 
-// The folder at /: a file by its name, a node page by its id (<id>.html), anything else the root page.
+// The folder at /: a file by its name, a node or flatpack step page by its name without .html, anything else the root page.
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.jpg': 'image/jpeg' }
 const server = createServer((req, res) => {
   const name = decodeURIComponent(new URL(req.url, 'http://x').pathname).slice(1)

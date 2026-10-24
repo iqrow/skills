@@ -50,7 +50,7 @@ sources:
 
 | Field | Required | Meaning |
 |---|---|---|
-| `id` | yes | kebab-case, unique, stable across rebuilds |
+| `id` | yes | kebab-case, unique, stable across rebuilds: it is the node's link. Not `flatpack` or `flatpack-<n>`, the links of the flatpack's steps |
 | `term` | yes | The name practitioners search with |
 | `aka` | no | Array: the newcomer's own words for it |
 | `kind` | yes | `product`, `part`, `process`, `knob`, `measure`, `loop`, `pattern` or `concept` |
@@ -185,6 +185,8 @@ Put surface features here: vessel, device, style, genre. Swapping one shows what
 ## Assembly (flatpack)
 
 `[{ "title": "Mix", "text": "...", "adds": [id, ...], "makes": id }]`. `adds` are the parts that come together in this step; `makes` is the node they form (default: `root`). The last step makes the root.
+
+A step's link is its number: `flatpack` for the first step, `flatpack-<n>` for step n. So adding, removing or reordering steps changes which step a shared link opens.
 
 ## Source
 
