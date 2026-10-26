@@ -1,6 +1,6 @@
 ---
 name: teardown-audit
-description: Audits a whole project against a whole teardown map and writes a strategy in Richard Rumelt's kernel: a diagnosis of the crux, a guiding policy, and coherent actions. Use when the user asks to audit a project against a teardown, or asks "what is my game/book/product missing?", "where do I stand?" or "what should I work on next?" and a teardown of the subject exists. For one part of a teardown, use teardown-apply.
+description: Audits a whole project against a whole teardown map and writes a strategy in Richard Rumelt's kernel (a diagnosis of the crux, a guiding policy, and coherent actions). Use when the user asks to audit a project against a teardown, or asks "what is my game/book/product missing?", "where do I stand?" or "what should I work on next?" and a teardown of the subject exists. For one part of a teardown, use teardown-apply.
 ---
 
 # Teardown audit
