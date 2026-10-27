@@ -86,8 +86,8 @@ async function open(url, attempt = 1) {
     else page = { status: res.status, unreadable: `a ${type || 'file'} the checker cannot read` }
   } catch (e) {
     const code = e.cause?.code ?? e.name
-    if (/TIMEOUT|TimeoutError|ECONNRESET/i.test(code) && attempt < 2) return open(url, attempt + 1)
-    page = /TIMEOUT|TimeoutError|ECONNRESET|EAI_AGAIN/i.test(code) ? { status: 0, unreadable: `no answer (${code}): try again later, or open it yourself` } : { status: 0, error: code }
+    if (/TIMEOUT|ETIMEDOUT|TimeoutError|ECONNRESET/i.test(code) && attempt < 2) return open(url, attempt + 1)
+    page = /TIMEOUT|ETIMEDOUT|TimeoutError|ECONNRESET|EAI_AGAIN/i.test(code) ? { status: 0, unreadable: `no answer (${code}): try again later, or open it yourself` } : { status: 0, error: code }
   }
   if (page.text !== undefined && fold(page.text).trim().split(' ').length < 80) page = { status: page.status, unreadable: 'almost no text: a script-built, scanned or image page' }
   // Keep only pages with text: a refusal, a bot check or an outage today may pass tomorrow.
