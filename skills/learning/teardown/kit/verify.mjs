@@ -82,7 +82,9 @@ async function open(url, attempt = 1) {
     else if (/pdf/.test(type) || /\.pdf($|\?)/i.test(url)) {
       const text = await pdfText(await res.arrayBuffer())
       page = text === null ? { status: res.status, unreadable: 'PDF: run `npm ci` in kit/src so verify can read PDFs' } : { status: res.status, text, pdf: true }
-    } else if (/html|xml|text\/plain|json/.test(type)) page = { status: res.status, text: htmlText(await res.text()) }
+    } else if (/html|xml/.test(type)) page = { status: res.status, text: htmlText(await res.text()) }
+    // Plain text and JSON are not markup: a `<` in source code or prose ("ratio < 1") is not a tag.
+    else if (/text\/plain|json/.test(type)) page = { status: res.status, text: await res.text() }
     else page = { status: res.status, unreadable: `a ${type || 'file'} the checker cannot read` }
   } catch (e) {
     const code = e.cause?.code ?? e.name
