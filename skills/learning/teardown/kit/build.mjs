@@ -9,7 +9,7 @@
 // step (see public.mjs); its prompts name the teardown by <url>, and it links to the skill for going deeper. --legal
 // links every page of the folder to the site's legal page, beside the note that an AI agent wrote the map. --home puts
 // the site's mark at the top left of every page, linked to the site's home page.
-import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs'
 import { homedir } from 'node:os'
 import { dirname, join, basename, extname, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -360,5 +360,6 @@ const html = `<!doctype html>
 </body>
 </html>
 `
+mkdirSync(dirname(out), { recursive: true })
 writeFileSync(out, html)
 console.log(`wrote ${out} (${Math.round(html.length / 1024)} KB)`)
