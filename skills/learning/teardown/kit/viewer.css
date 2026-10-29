@@ -64,9 +64,11 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-facts { margin-bottom: 0; }
 .ev-facts dd { margin: 0 0 18px; }
 .ev-facts dd:last-child { margin-bottom: 0; }
-.ev-panel dl.ev-links { display: grid; grid-template-columns: minmax(84px, 120px) 1fr; gap: 10px 14px; margin: 0; }
-.ev-links dt { color: var(--muted); font-size: 14px; padding-top: 3px; }
-.ev-links dd { margin: 0; }
+/* Connections: each relation sits above its chips, like the facts, so the chips get the panel's full width */
+.ev-panel dl.ev-links { margin: 0; }
+.ev-links dt { margin: 0 0 6px; color: var(--muted); font-size: 14px; }
+.ev-links dd { margin: 0 0 14px; }
+.ev-links dd:last-child { margin-bottom: 0; }
 .ev-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .ev-chip { color: inherit; text-decoration: none; border: 1px solid var(--edge); border-radius: 999px; padding: 2px 12px 3px; cursor: pointer; font-size: 14px; }
 .ev-panel, .ev-overlay { overflow-wrap: anywhere; }
@@ -84,8 +86,10 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-sources .quote { display: block; color: var(--muted); font-style: italic; font-size: 13.5px; margin-top: 4px; }
 .ev-sources .flag { color: var(--gold); font-size: 13px; }
 .unverified { color: var(--red); font-size: 14px; }
+/* a prompt to copy: one block of code with its button under it, not a code span broken across lines */
 .ev-ask { font-size: 13px; }
-.ev-copy { background: none; border: 1px solid var(--edge); border-radius: 4px; cursor: pointer; font-size: 12px; padding: 0 6px; }
+.ev-ask code { display: block; padding: 10px 12px; border-radius: 6px; line-height: 1.5; white-space: pre-wrap; }
+.ev-copy { display: inline-block; margin-top: 8px; background: none; border: 1px solid var(--edge); border-radius: 6px; cursor: pointer; font-size: 13px; padding: 3px 12px; }
 .ev-plot { margin: 0; }
 .ev-plot svg { width: 100%; height: auto; display: block; }
 .ev-plot figcaption { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
