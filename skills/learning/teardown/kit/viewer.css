@@ -1,6 +1,9 @@
 :root {
   --bg: #1B1621; --card: #251E2C; --edge: #4D2D49; --pink: #E663B5; --gold: #C9A45C;
   --ink: #ECE5F1; --muted: #9686A2; --ok: #7FC79A; --blue: #7FA8D9; --red: #E07A6F;
+  /* The panel and overlays are read as prose, so they set in a proportional face; the bar, labels and strip keep Iosevka. */
+  --read: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --pad: clamp(24px, 2.8vw, 44px);
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); }
@@ -9,7 +12,8 @@ button { font: inherit; color: inherit; }
 a { color: var(--pink); }
 code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; background: #14101A; padding: 1px 5px; border-radius: 4px; }
 
-.ev { display: grid; grid-template-columns: minmax(0, 1fr) 400px; grid-template-rows: 44px minmax(0, 1fr) auto; height: 100vh; height: 100dvh; }
+/* The panel takes about a third of the window: wide enough that a definition reads as prose, not a column of fragments. */
+.ev { display: grid; grid-template-columns: minmax(0, 1fr) clamp(360px, 34vw, 640px); grid-template-rows: 44px minmax(0, 1fr) auto; height: 100vh; height: 100dvh; }
 
 /* top bar: flush to the window edge, one hairline below. Only the actions keep their width:
    the path scrolls sideways and the title cuts off, so the bar never widens the page. */
@@ -46,38 +50,38 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-label.hover { border-color: var(--pink); color: #fff; }
 .ev-hint { position: absolute; left: 16px; bottom: 12px; right: 16px; color: var(--muted); font-size: 13px; pointer-events: none; }
 
-/* side panel: shares the stage's edge, one hairline */
-.ev-panel { grid-column: 2; grid-row: 2 / 4; border-left: 1px solid var(--edge); overflow-y: auto; padding: 18px 20px 48px; }
-.ev-panel h2 { margin: 2px 0 6px; font-size: 26px; line-height: 1.15; }
-.ev-panel h3 { margin: 20px 0 6px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
-.ev-panel section > h3 { border-top: 1px solid var(--edge); padding-top: 14px; }
-.ev-kind { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--k); }
-.ev-aka { margin: 0 0 8px; color: var(--muted); font-style: italic; }
-.ev-plain { font-size: 16.5px; margin: 0 0 12px; }
-.ev-panel dl { display: grid; grid-template-columns: 96px 1fr; gap: 6px 12px; margin: 0; }
-.ev-panel dt { color: var(--muted); font-size: 13px; padding-top: 2px; }
-.ev-panel dd { margin: 0; }
-.ev-panel dl.ev-links { grid-template-columns: 110px 1fr; }
-.ev-summary { background: var(--card); margin: -18px -20px 16px; padding: 14px 20px 16px; border-bottom: 1px solid var(--edge); }
-.ev-summary h3 { margin: 0 0 6px; color: var(--gold); }
-.ev-summary p { margin: 0; }
+/* side panel: shares the stage's edge, one hairline. One measure, one left edge; sections part with a rule and space. */
+.ev-panel { grid-column: 2; grid-row: 2 / 4; border-left: 1px solid var(--edge); overflow-y: auto; padding: 32px var(--pad) 56px; font: 16px/1.6 var(--read); }
+.ev-panel h2 { margin: 10px 0 10px; font-size: clamp(34px, 3.3vw, 54px); line-height: 1.04; letter-spacing: -0.025em; font-weight: 700; text-wrap: balance; }
+.ev-panel h3, .ev-facts dt { margin: 0 0 8px; font-size: 12px; line-height: 1.4; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.ev-panel section, .ev-facts { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--edge); }
+.ev-panel section p { margin: 0 0 10px; }
+.ev-kind { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--k); font-weight: 600; }
+.ev-aka { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+.ev-plain { max-width: 42ch; margin: 0; font-size: clamp(17px, 1.25vw, 20px); line-height: 1.5; text-wrap: pretty; }
+.ev-facts { margin-bottom: 0; }
+.ev-facts dd { margin: 0 0 18px; }
+.ev-facts dd:last-child { margin-bottom: 0; }
+.ev-panel dl.ev-links { display: grid; grid-template-columns: 120px 1fr; gap: 10px 14px; margin: 0; }
+.ev-links dt { color: var(--muted); font-size: 14px; padding-top: 3px; }
+.ev-links dd { margin: 0; }
 .ev-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.ev-chip { color: inherit; text-decoration: none; border: 1px solid var(--edge); border-radius: 999px; padding: 1px 10px 2px; cursor: pointer; font-size: 13.5px; }
+.ev-chip { color: inherit; text-decoration: none; border: 1px solid var(--edge); border-radius: 999px; padding: 2px 12px 3px; cursor: pointer; font-size: 14px; }
 .ev-panel, .ev-overlay { overflow-wrap: anywhere; }
 .ev-chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .ev-chain .arrow { color: var(--muted); }
 .ev-why { color: var(--ink); font-style: italic; }
-.ev-note { margin: 28px 0 0; padding-top: 14px; border-top: 1px solid var(--edge); color: var(--muted); font-size: 13px; }
+.ev-note { margin: 40px 0 0; padding-top: 18px; border-top: 1px solid var(--edge); color: var(--muted); font-size: 13px; }
 .ev-note a { color: inherit; }
-.ev-cues { margin: 0; padding-left: 20px; }
-.ev-cues li { margin: 4px 0; }
-.ev-sources ol { margin: 0; padding-left: 20px; font-size: 13.5px; }
-.ev-sources li { margin: 4px 0; }
-.ev-sources .kind { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.ev-cues { margin: 0; padding-left: 22px; }
+.ev-cues li { margin: 6px 0; padding-left: 4px; }
+.ev-sources ol { margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.5; }
+.ev-sources li { margin: 0 0 14px; }
+.ev-sources .kind { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 .ev-sources .page { color: var(--muted); }
-.ev-sources .quote { display: block; color: var(--muted); font-style: italic; font-size: 13px; margin-top: 2px; }
-.ev-sources .flag { color: var(--gold); font-size: 12.5px; }
-.unverified { color: var(--red); font-size: 13.5px; }
+.ev-sources .quote { display: block; color: var(--muted); font-style: italic; font-size: 13.5px; margin-top: 4px; }
+.ev-sources .flag { color: var(--gold); font-size: 13px; }
+.unverified { color: var(--red); font-size: 14px; }
 .ev-ask { font-size: 13px; }
 .ev-copy { background: none; border: 1px solid var(--edge); border-radius: 4px; cursor: pointer; font-size: 12px; padding: 0 6px; }
 .ev-plot { margin: 0; }
@@ -104,7 +108,7 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-row button:disabled { color: var(--muted); cursor: default; }
 
 /* overlays (index, sources): float over the canvas, so they draw their own edge */
-.ev-overlay { position: absolute; inset: 14px; z-index: 2; background: rgba(27, 22, 33, 0.97); border: 1px solid var(--edge); border-radius: 10px; overflow-y: auto; scroll-padding-top: 64px; padding: 0 0 12px; }
+.ev-overlay { position: absolute; inset: 14px; z-index: 2; background: rgba(27, 22, 33, 0.97); border: 1px solid var(--edge); border-radius: 10px; overflow-y: auto; scroll-padding-top: 64px; padding: 0 0 12px; font-family: var(--read); }
 .ev-overlay-head { position: sticky; top: 0; z-index: 1; display: flex; gap: 12px 16px; align-items: center; padding: 12px 16px; background: var(--bg); border-bottom: 1px solid var(--edge); }
 .ev-overlay input { flex: 1; min-width: 0; background: var(--card); border: 1px solid var(--edge); border-radius: 6px; color: var(--ink); font: inherit; padding: 4px 10px; }
 .ev-close { background: none; border: 1px solid var(--edge); border-radius: 6px; padding: 3px 12px; cursor: pointer; }
@@ -147,8 +151,7 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
   .ev-actions button { min-height: 46px; padding: 0 4px; }
   .ev-actions button:first-child { border-left: 0; }
   .ev-strip { order: 3; }
-  .ev-panel { order: 4; border-left: 0; border-top: 1px solid var(--edge); overflow: visible; padding: 18px 16px 48px; }
-  .ev-summary { margin: -18px -16px 16px; padding: 14px 16px 16px; }
+  .ev-panel { order: 4; border-left: 0; border-top: 1px solid var(--edge); overflow: visible; padding: 28px 16px 48px; }
   /* the catalogue's name is the first cell of its row, so its options get the full width to wrap in.
      Each cell draws its right edge, so a wrapped line starts on the screen's own edge. */
   .ev-row { flex-wrap: wrap; row-gap: 1px; }
@@ -169,8 +172,9 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
   .ev { grid-template-columns: minmax(0, 1fr) min(340px, 42vw); }
   .ev-title { display: none; }
   .ev-actions button { padding: 0 12px; }
-  .ev-panel { padding: 14px 16px 32px; }
-  .ev-summary { margin: -14px -16px 14px; padding: 12px 16px 14px; }
+  .ev-panel { padding: 16px 16px 32px; }
+  .ev-panel h2 { font-size: 26px; }
+  .ev-plain { font-size: 17px; }
   .ev-cells { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .ev-cells::-webkit-scrollbar { display: none; }
   .ev-row button, .ev-row a { flex: none; }

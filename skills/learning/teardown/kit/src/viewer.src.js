@@ -1131,13 +1131,14 @@ function nodePanel(id) {
   const k = KIND[n.kind]
   const sel = selections.get(id)
   const out = []
-  if (id === teardown.root) out.push(h('div', { class: 'ev-summary' }, h('h3', {}, 'How a professional sees it'), h('p', {}, teardown.summary)))
+  // Name, then the one-line definition as the lede, then everything longer: the root's summary first.
   out.push(h('div', { class: 'ev-kind', style: `--k:${k.color}` }, n.loop?.type === 'cycle' ? 'Cycle: steps that repeat' : k.label))
   out.push(h('h2', {}, n.term))
   if (n.aka?.length) out.push(h('p', { class: 'ev-aka' }, 'You might say: ', n.aka.join(', ')))
   out.push(h('p', { class: 'ev-plain' }, n.plain))
+  if (id === teardown.root) out.push(section('How a professional sees it', h('p', {}, teardown.summary)))
   const rows = [['What it does', n.does], ['Ask', n.ask], ['Typical', n.range], ['Trouble', n.trouble]].filter(([, v]) => v)
-  out.push(h('dl', {}, rows.map(([dt, dd]) => [h('dt', {}, dt), h('dd', {}, dd)])))
+  if (rows.length) out.push(h('dl', { class: 'ev-facts' }, rows.map(([dt, dd]) => [h('dt', {}, dt), h('dd', {}, dd)])))
   if (n.cues?.length) out.push(section('What to look for', h('ol', { class: 'ev-cues' }, n.cues.map((c) => h('li', {}, c)))))
   if (n.variants?.length) {
     for (const [ci, cat] of n.variants.entries()) {
