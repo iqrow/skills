@@ -58,6 +58,19 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 .ev-panel h3, .ev-facts dt { margin: 0 0 8px; font-size: 12px; line-height: 1.4; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .ev-panel section, .ev-facts { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--edge); }
 .ev-panel section p { margin: 0 0 10px; }
+/* A folded section: its whole heading line is the control, a full-height target for a thumb */
+.ev-fold summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; margin: -13px 0 -13px; cursor: pointer; list-style: none; }
+.ev-fold summary::-webkit-details-marker { display: none; }
+.ev-fold summary h3 { margin: 0; }
+.ev-fold summary::after { content: "+"; color: var(--muted); font-size: 20px; line-height: 1; }
+.ev-fold details[open] > summary { margin-bottom: 0; }
+.ev-fold details[open] > summary::after { content: "−"; }
+@media (hover: hover) { .ev-fold summary:hover h3, .ev-fold summary:hover::after { color: var(--ink); } }
+.ev-fold summary:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-radius: 4px; }
+/* A long paragraph in one column: cut to six lines until the reader asks for the rest */
+.ev-clamp:not(.open) { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 6; overflow: hidden; }
+.ev-more { display: inline-flex; align-items: center; min-height: 44px; padding: 0; background: none; border: 0; color: var(--pink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.ev-more[hidden] { display: none; }
 .ev-kind { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--k); font-weight: 600; }
 .ev-aka { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
 .ev-plain { max-width: 42ch; margin: 0; font-size: clamp(17px, 1.25vw, 20px); line-height: 1.5; text-wrap: pretty; }
@@ -114,6 +127,15 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
 }
 .ev-row button[aria-pressed="true"], .ev-row a[aria-current="step"] { background: var(--card); color: var(--pink); }
 .ev-row button:disabled { color: var(--muted); cursor: default; }
+/* Flatpack in one column: the steps scroll sideways on one line, the current one in the middle;
+   Back, Next and Play share the line below in equal thirds. */
+.ev-flatpack { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px 0; }
+.ev-flatpack .ev-rowlabel { display: none; }
+.ev-steps { grid-column: 1 / -1; grid-row: 1; display: flex; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none; }
+.ev-steps::-webkit-scrollbar { display: none; }
+.ev-steps a { flex: none; scroll-snap-align: center; }
+.ev-flatpack > .ev-cells > button { grid-row: 2; justify-content: center; }
+.ev-flatpack > .ev-cells > button:last-child { border-right: 0; }
 
 /* overlays (index, sources): fill the screen on a phone; typing in them does not zoom the page */
 .ev-overlay { position: fixed; inset: 0; z-index: 10; background: var(--bg); overflow-y: auto; overscroll-behavior: contain; scroll-padding-top: 64px; padding: 0 0 12px; font-family: var(--read); }
@@ -170,10 +192,15 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
   .ev-terms li a { grid-template-columns: 220px 90px 1fr; gap: 12px; padding: 6px 16px; }
   .ev-terms .plain { grid-column: auto; display: block; white-space: nowrap; text-overflow: ellipsis; }
   .ev-work-head { flex-wrap: nowrap; gap: 16px; }
+  .ev-clamp:not(.open) { display: block; -webkit-line-clamp: none; overflow: visible; }
+  .ev-flatpack { display: flex; gap: 0; }
+  .ev-flatpack .ev-rowlabel { display: flex; }
+  .ev-steps { display: contents; }
 }
 
 /* Phone on its side: too short for the full panel, so it narrows and its type steps down;
-   catalogues keep to one line each and scroll sideways. */
+   catalogues keep to one line each and scroll sideways. In the flatpack only the steps scroll,
+   between Back and Next, so the controls stay in reach. */
 @media (width > 600px) and (orientation: landscape) and (height <= 500px) {
   .ev { grid-template-columns: minmax(0, 1fr) min(340px, 42vw); }
   .ev-title { display: none; }
@@ -184,6 +211,10 @@ code { font-family: "Iosevka", ui-monospace, monospace; font-size: 13px; backgro
   .ev-cells { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .ev-cells::-webkit-scrollbar { display: none; }
   .ev-row button, .ev-row a { flex: none; }
+  .ev-flatpack .ev-rowlabel { display: none; }
+  .ev-flatpack .ev-cells { overflow: visible; min-width: 0; }
+  .ev-steps { display: flex; flex: 1; min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none; }
+  .ev-flatpack > .ev-cells > button:first-child { border-left: 0; }
 }
 
 /* A screen tall and wide enough: the Index and Sources float over the view and draw their own edge.

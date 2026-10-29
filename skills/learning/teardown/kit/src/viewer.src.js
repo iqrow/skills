@@ -64,6 +64,9 @@ const S_CHILD = 0.72
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
 // Phones and tablets: a finger is the main pointer, so hints say tap and pinch, and the Index does not raise the keyboard on open.
 const touchFirst = matchMedia('(pointer: coarse)')
+// The panel sits beside the view on a wide screen or a phone on its side (viewer.css, "Side by side"); below that the
+// page is one column, so long parts of the panel start folded to keep the view and the next section close.
+const sideBySide = matchMedia('(width > 900px), (width > 600px) and (orientation: landscape)')
 
 // ---------- DOM ----------
 function h(tag, attrs = {}, ...kids) {
@@ -1126,6 +1129,29 @@ function section(title, ...kids) {
   const body = kids.flat().filter(Boolean)
   return body.length ? h('section', {}, h('h3', {}, title), body) : null
 }
+// A section that starts closed in one column and open beside the view; its heading says how many items it holds.
+function fold(title, count, ...kids) {
+  const body = kids.flat().filter(Boolean)
+  return body.length ? h('section', { class: 'ev-fold' }, h('details', { open: sideBySide.matches },
+    h('summary', {}, h('h3', {}, title, count ? h('span', { class: 'count' }, ` · ${count}`) : null)), body)) : null
+}
+// A long paragraph cut to a few lines in one column, with a button to show the rest (fitClamps shows the button only when text is cut).
+function readMore(text) {
+  const p = h('p', { class: 'ev-clamp' }, text)
+  const more = h('button', { type: 'button', class: 'ev-more', hidden: true, 'aria-expanded': 'false', onclick: () => {
+    const open = p.classList.toggle('open')
+    more.textContent = open ? 'Read less' : 'Read more'
+    more.setAttribute('aria-expanded', String(open))
+  } }, 'Read more')
+  return [p, more]
+}
+function fitClamps() {
+  for (const p of panelEl.querySelectorAll('.ev-clamp:not(.open)')) {
+    const more = p.nextElementSibling
+    const cut = p.scrollHeight > p.clientHeight + 1
+    if (more.hidden === cut) more.hidden = !cut
+  }
+}
 function nodePanel(id) {
   const n = byId.get(id)
   const k = KIND[n.kind]
@@ -1136,7 +1162,7 @@ function nodePanel(id) {
   out.push(h('h2', {}, n.term))
   if (n.aka?.length) out.push(h('p', { class: 'ev-aka' }, 'You might say: ', n.aka.join(', ')))
   out.push(h('p', { class: 'ev-plain' }, n.plain))
-  if (id === teardown.root) out.push(section('How a professional sees it', h('p', {}, teardown.summary)))
+  if (id === teardown.root) out.push(section('How a professional sees it', readMore(teardown.summary)))
   const rows = [['What it does', n.does], ['Ask', n.ask], ['Typical', n.range], ['Trouble', n.trouble]].filter(([, v]) => v)
   if (rows.length) out.push(h('dl', { class: 'ev-facts' }, rows.map(([dt, dd]) => [h('dt', {}, dt), h('dd', {}, dd)])))
   if (n.cues?.length) out.push(section('What to look for', h('ol', { class: 'ev-cues' }, n.cues.map((c) => h('li', {}, c)))))
@@ -1159,7 +1185,7 @@ function nodePanel(id) {
   if (loopsThrough.get(id)?.length) out.push(section('In loops', h('div', { class: 'ev-chips' }, loopsThrough.get(id).map((t) => chip(t)))))
   if (n.pattern) out.push(section('Pattern', h('div', { class: 'ev-chips' }, chip(n.pattern))))
   if (n.kind === 'pattern') out.push(section('Seen here in', h('div', { class: 'ev-chips' }, (patternUsers.get(id) ?? []).map((t) => chip(t)))))
-  out.push(section('Sources', sourcesList(n.sources, n.unverified)))
+  out.push(fold('Sources', n.sources?.length, sourcesList(n.sources, n.unverified)))
   if (teardownRef) out.push(section('Use it on your project', copyPrompt(usePrompt(teardown, n, teardownRef)),
     teardownFile ? null : h('p', {}, 'Paste it into a coding agent that has the ', h('a', { href: SKILL_URL, target: '_blank', rel: 'noopener' }, 'teardown skills'), '.')))
   if (!n.children?.length && n.kind !== 'pattern') {
@@ -1188,6 +1214,7 @@ function renderPanel() {
   const note = h('p', { class: 'ev-note' }, AI_NOTE, legalUrl ? [' ', h('a', { href: legalUrl }, 'About and legal')] : null)
   panelEl.replaceChildren(...(mode === 'flatpack' ? stepPanel() : nodePanel(path.at(-1))).filter(Boolean), note)
   panelEl.scrollTop = 0
+  fitClamps()
 }
 function renderCrumbs() {
   const ids = mode === 'flatpack' ? [teardown.root] : path
@@ -1203,12 +1230,14 @@ function renderCrumbs() {
 function renderStrip() {
   const rows = []
   if (mode === 'flatpack') {
-    rows.push(h('div', { class: 'ev-row' },
+    rows.push(h('div', { class: 'ev-row ev-flatpack' },
       h('span', { class: 'ev-rowlabel' }, 'Flatpack'),
       h('div', { class: 'ev-cells' },
         h('button', { type: 'button', onclick: () => showStep(step - 1), disabled: step === 0 }, '‹ Back'),
         // Each step is a link to its own URL, so a reader can copy it or open the step in a new tab.
-        teardown.assembly.map((s, i) => anchor(stepHref(i), { 'aria-current': i === step ? 'step' : null }, () => showStep(i), `${i + 1}. ${s.title}`)),
+        // In one column the steps scroll sideways on one line, with Back, Next and Play below them (viewer.css).
+        h('div', { class: 'ev-steps' },
+          teardown.assembly.map((s, i) => anchor(stepHref(i), { 'aria-current': i === step ? 'step' : null }, () => showStep(i), `${i + 1}. ${s.title}`))),
         h('button', { type: 'button', onclick: () => showStep(step + 1), disabled: step === teardown.assembly.length - 1 }, 'Next ›'),
         h('button', { type: 'button', 'aria-pressed': String(playing), onclick: () => (playing ? pause() : play()) }, playing ? 'Pause' : 'Play'))))
   } else {
@@ -1224,7 +1253,18 @@ function renderStrip() {
   }
   stripEl.replaceChildren(...rows)
   stripEl.hidden = rows.length === 0
+  centreStep()
 }
+// Where the steps scroll sideways, bring the current step to the middle of its line.
+function centreStep() {
+  const cur = stripEl.querySelector('.ev-steps [aria-current="step"]')
+  const line = cur && [cur.parentElement, cur.closest('.ev-cells')].find((el) => el.scrollWidth > el.clientWidth + 1)
+  if (!line) return
+  const c = cur.getBoundingClientRect(), b = line.getBoundingClientRect()
+  line.scrollLeft += c.left + c.width / 2 - (b.left + b.width / 2)
+}
+// A turn of the phone or a resize changes where text is cut and which line scrolls.
+new ResizeObserver(() => { fitClamps(); centreStep() }).observe(panelEl)
 function choose(id, ci, ii) {
   const sel = [...(selections.get(id) ?? [])]
   sel[ci] = ii
