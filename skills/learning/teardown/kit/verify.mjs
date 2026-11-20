@@ -147,7 +147,7 @@ for (const [i, c] of cites.entries()) {
     continue
   }
   if (p.error) { add('error', `could not open: ${p.error}`); continue }
-  if ([401, 403, 429, 503].includes(p.status)) { add('unchecked', `site refused the checker (HTTP ${p.status}): open it yourself`); continue }
+  if ([401, 403, 427, 429, 503].includes(p.status)) { add('unchecked', `site refused the checker (HTTP ${p.status}): open it yourself`); continue }
   if (p.status >= 400) { add('error', `page gone (HTTP ${p.status})`); continue }
   if (p.unreadable) { add('unchecked', p.unreadable); continue }
   const text = fold(p.text)
